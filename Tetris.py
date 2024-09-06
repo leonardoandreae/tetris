@@ -20,43 +20,51 @@ def process_player_inputs():
         if not keys_pressed[pyg.K_UP]:
             y += delta_s            
             
+def draw_grid():
+    for column in range(50, 50+GRID_ELEM_SIZE*15, GRID_ELEM_SIZE):
+        for row in range(50, 50+GRID_ELEM_SIZE*15, GRID_ELEM_SIZE):
+            grid_element = pyg.Rect(row, column, GRID_ELEM_SIZE, GRID_ELEM_SIZE)
+            pyg.draw.rect(game_window, BLACK, grid_element, 1)
+
+            
     
 def update_scene():
     # color background such that older objects do not appear
-    game_window.fill(BLACK)
+    game_window.blit(BACKGROUND, (0, 0))
+    
+    draw_grid()
     
     # draw rectangle
-    pyg.draw.rect(game_window, RED, (x, y, rect_width, rect_height))
+    pyg.draw.rect(game_window, RED, (x, y, GRID_ELEM_SIZE, GRID_ELEM_SIZE))
+    # After calling the drawing functions to make the display Surface object look the way you want, you must call this to make the display Surface actually appear on the user’s monitor.
     pyg.display.update()
     
     
 # define some parameters
-fps = 60
-ms_per_frame =int((1/fps)*1000)
+FPS = 60
 delta_s = 1
 RED = (255, 0, 0)
 BLACK = (0, 0, 0)
+WHITE = (255, 255, 255)
+GRID_ELEM_SIZE = 20
 
-game_window_width = 1000
+game_window_width = 1700
 game_window_height = 1000
-
-# initial rectangle position (top left corner)
-x = game_window_width/2
-y = game_window_height/2
-
-# rectangle dimensions
-rect_width = 10
-rect_height = 100
 
 pyg.init()
 game_window = pyg.display.set_mode((game_window_width, game_window_height))
 pyg.display.set_caption("Tetris")
 
+BACKGROUND = pyg.image.load('assets/bg.jpg')
+
+clock = pyg.time.Clock()
+
+# initial rectangle position (top left corner)
+x = game_window.get_width()/2
+y = game_window.get_height()/2
+
 game_running = True    
 while game_running:
-    # wait to display next frame
-    pyg.time.delay(ms_per_frame)
-    
     # pressing the "X" button terminates the application
     for event in pyg.event.get():
         if event.type == pyg.QUIT:
@@ -64,5 +72,8 @@ while game_running:
             
     process_player_inputs()
     update_scene()
+    
+    # limits game's fps (waits) and returns the ms count since the last call
+    clock.tick(FPS)
             
 pyg.quit()
