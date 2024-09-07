@@ -35,11 +35,11 @@ def collision_detection():
     collision_detected = False
     return collision_detected
 
-            
-    
+
 def update_scene():
     # color background such that older objects do not appear
     game_window.blit(BACKGROUND, par.BACKGROUND_POS)
+    game_window.blit(tetris_logo, par.LOGO_POS)
     
     draw_grid()
     
@@ -50,12 +50,17 @@ def update_scene():
     pyg.display.update()
 
 def main():
-    global game_window, BACKGROUND, one_second_passed, ms_count, ms_count_prev, x, y
+    global game_window, BACKGROUND, tetris_logo, one_second_passed, ms_count, ms_count_prev, x, y
     pyg.init()
     game_window = pyg.display.set_mode((par.GAME_WINDOW_WIDTH, par.GAME_WINDOW_HEIGHT))
     pyg.display.set_caption("Tetris")
+    tetris_icon = pyg.image.load('assets/tetris_icon.png')
+    pyg.display.set_icon(tetris_icon)
 
     BACKGROUND = pyg.image.load('assets/bg.jpg')
+    tetris_logo = pyg.image.load('assets/tetris_logo.png')
+    tetris_logo = pyg.transform.scale2x(tetris_logo)
+    
 
     clock = pyg.time.Clock()
 
