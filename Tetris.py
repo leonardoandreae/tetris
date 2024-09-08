@@ -3,13 +3,18 @@ import sys, os
 sys.path.append(os.path.join(sys.path[0], 'src'))
 import GameParameters as par
 
+def event_handler():
+    global game_running, fall_ev, tile_falling
+    # pressing the "X" button terminates the application
+    for event in pyg.event.get():
+        if event.type == pyg.QUIT:
+            game_running = False
+        if event.type == fall_ev:
+            tile_falling = True
 
 def update_tile_position():
-    global x, y, ms_count, ms_count_prev
+    global x, y, ms_count, ms_count_prev, tile_falling
     keys_pressed = pyg.key.get_pressed()
-    
-    ms_count = pyg.time.get_ticks()  
-    one_second_passed = (ms_count % par.MS_PER_S) < (ms_count_prev % par.MS_PER_S)
     
     if (keys_pressed[pyg.K_LEFT] and (not keys_pressed[pyg.K_RIGHT])
             and x > par.GRID_TLC_x):
@@ -19,10 +24,10 @@ def update_tile_position():
             and x < par.GRID_TLC_x + par.GRID_ELEM_SIZE * (par.GRID_NR_OF_COLS - 1)):
         x += par.GRID_ELEM_SIZE
         
-    if one_second_passed and y < par.GRID_TLC_y + par.GRID_ELEM_SIZE * (par.GRID_NR_OF_ROWS - 1):
+    if tile_falling and y < par.GRID_TLC_y + par.GRID_ELEM_SIZE * (par.GRID_NR_OF_ROWS - 1):
         y += par.GRID_ELEM_SIZE
-    
-    ms_count_prev = ms_count
+        tile_falling = False
+        
             
 def draw_grid():
     for column in range(par.GRID_TLC_y, par.GRID_TLC_y + par.GRID_ELEM_SIZE * par.GRID_NR_OF_COLS, par.GRID_ELEM_SIZE):
@@ -50,10 +55,12 @@ def update_scene():
     pyg.display.update()
 
 def main():
-    global game_window, BACKGROUND, tetris_logo, one_second_passed, ms_count, ms_count_prev, x, y
+    global game_window, BACKGROUND, tetris_logo, x, y, game_running, fall_ev, tile_falling
     pyg.init()
     game_window = pyg.display.set_mode((par.GAME_WINDOW_WIDTH, par.GAME_WINDOW_HEIGHT))
     pyg.display.set_caption("Tetris")
+    
+    # https://www.freepik.com/icons/tetris Icon by Freepik
     tetris_icon = pyg.image.load('assets/tetris_icon.png')
     pyg.display.set_icon(tetris_icon)
 
@@ -67,19 +74,15 @@ def main():
     # initial rectangle position (top left corner)
     x = par.GRID_TLC_x + par.GRID_ELEM_SIZE * int(par.GRID_NR_OF_COLS/2)
     y = par.GRID_TLC_y
-
-    # define global variables
-    one_second_passed = True
-    ms_count = 0
-    ms_count_prev = 0
+    
+    # detect if tile needs to fall by one square
+    fall_ev = pyg.USEREVENT + 0 # event ID = 24 (up to 32, but first 23 are used by pygame already)
+    pyg.time.set_timer(fall_ev, par.FALL_TIME_INTERVAL_ms)
+    tile_falling = False
 
     game_running = True    
     while game_running:
-        # pressing the "X" button terminates the application
-        for event in pyg.event.get():
-            if event.type == pyg.QUIT:
-                game_running = False
-                
+        event_handler()
         update_tile_position()
         update_scene()
         
