@@ -13,7 +13,8 @@ def event_handler(tile):
         if event.type == pyg.QUIT:
             game_running = False
         if event.type == fall_ev:
-            tile.is_falling = True
+            if not tile.bottom_reached():
+                tile.is_falling = True
         
             
 def draw_grid():

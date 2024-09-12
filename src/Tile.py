@@ -11,7 +11,7 @@ class Tile:
         self.configuration_idx = 0
         self.position = pyg.Vector2(par.GRID_TLC_x + par.GRID_ELEM_SIZE * int(par.GRID_NR_OF_COLS / 2),
                                     par.GRID_TLC_y)
-        self.configuration_matrix = par.TILE_SHAPES[self.type][self.configuration_idx]
+        self.configuration_matrix = par.TILE_SHAPES[self.type][self.configuration_idx+1]
     
     def rotate(self) -> None:
         self.configuration_idx = (self.configuration_idx + 1) % par.TILE_CONFIG_IDX_MAX
@@ -19,16 +19,21 @@ class Tile:
         
     def get_lowest_filled_height(self):
         lowest_filled_y = self.position.y
-        for row in range(0, len(self.configuration_matrix)):
+        is_found = False
+        for inv_row in range(0, len(self.configuration_matrix)):
+            if is_found:
+                break
             for col in range(0, len(self.configuration_matrix)):
-                if self.configuration_matrix[len(self.configuration_matrix) - 1 - row][col] == 1:
-                    lowest_filled_y += (len(self.configuration_matrix) - 1 - row) * par.GRID_ELEM_SIZE
+                if self.configuration_matrix[(len(self.configuration_matrix) - 1) - inv_row][col] == 1:
+                    lowest_filled_y += ((len(self.configuration_matrix) - 1) - inv_row) * par.GRID_ELEM_SIZE
+                    is_found = True
                     break
         # top left corner height
         return lowest_filled_y
         
     def bottom_reached(self) -> bool:
         if self.get_lowest_filled_height() == par.GRID_TLC_y + par.GRID_ELEM_SIZE * (par.GRID_NR_OF_ROWS -1):
+            self.rotation_allowed = False
             return True
         else:
             return False
