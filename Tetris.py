@@ -2,7 +2,7 @@ import pygame as pyg
 import sys, os
 sys.path.append(os.path.join(sys.path[0], 'src'))
 import GameParameters as par
-import Tile
+from Tile import *
 import numpy as np
 
 def event_handler(tile):
@@ -71,7 +71,7 @@ def main():
     fall_ev = pyg.USEREVENT + 0 # event ID = 24 (up to 32, but first 23 are used by pygame already)
     pyg.time.set_timer(fall_ev, par.FALL_TIME_INTERVAL_ms)
     
-    tile = Tile.Tile("L")
+    tile = Tile("L")
     lateral_key_released = True
     rotation_key_released = True
 
