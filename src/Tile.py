@@ -8,7 +8,6 @@ class Tile:
         self.lateral_movement_allowed = True
         self.rotation_allowed = True
         self.is_falling = False
-        self.bottom_reached = False
         self.configuration_idx = 0
         self.position = pyg.Vector2(par.GRID_TLC_x + par.GRID_ELEM_SIZE * int(par.GRID_NR_OF_COLS / 2),
                                     par.GRID_TLC_y)
@@ -17,21 +16,26 @@ class Tile:
     def rotate(self) -> None:
         self.configuration_idx = (self.configuration_idx + 1) % par.TILE_CONFIG_IDX_MAX
         self.configuration_matrix = par.TILE_SHAPES[self.type][self.configuration_idx]
+        
+    def get_lowest_filled_height(self):
+        lowest_filled_y = self.position.y
+        for row in range(0, len(self.configuration_matrix)):
+            for col in range(0, len(self.configuration_matrix)):
+                if self.configuration_matrix[len(self.configuration_matrix) - 1 - row][col] == 1:
+                    lowest_filled_y += (len(self.configuration_matrix) - 1 - row) * par.GRID_ELEM_SIZE
+                    break
+        # top left corner height
+        return lowest_filled_y
+        
+    def bottom_reached(self) -> bool:
+        if self.get_lowest_filled_height() == par.GRID_TLC_y + par.GRID_ELEM_SIZE * (par.GRID_NR_OF_ROWS -1):
+            return True
+        else:
+            return False
     
     def update_position(self, lateral_key_released, rotation_key_released):
         keys_pressed = pyg.key.get_pressed()
-        
-        # Check if bottom was reached
-        config_mat_bot_filled = False
-        config_mat_rows = len(self.configuration_matrix[self.configuration_idx])
-        for idx in range (0, config_mat_rows):
-            if self.configuration_matrix[self.configuration_idx][idx] == 1:
-                config_mat_bot_filled = True
-                break
-                
-        if ((self.position.y + config_mat_rows * par.GRID_ELEM_SIZE == par.GRID_TLC_y + par.GRID_ELEM_SIZE * par.GRID_NR_OF_ROWS) and
-                config_mat_bot_filled == True):
-                    self.bottom_reached = True
+        bottom_reached = self.bottom_reached()
 
         # Check if a lateral movement key was released
         if ((not lateral_key_released) and (not keys_pressed[pyg.K_LEFT])
@@ -57,7 +61,7 @@ class Tile:
             self.rotate()
             rotation_key_released = False
             
-        if self.is_falling and (not self.bottom_reached):
+        if self.is_falling and (not bottom_reached):
             self.position.y += par.GRID_ELEM_SIZE
             self.is_falling = False
             

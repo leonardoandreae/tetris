@@ -39,7 +39,7 @@ def update_scene(tile_pos, tile_config_mat):
     # draw tile
     for col in range (0,4):
         for row in range (0,4):
-           if tile_config_mat[col][row] == 1:
+           if tile_config_mat[row][col] == 1:
                tile_element = pyg.Rect(tile_pos.x + par.GRID_ELEM_SIZE * col, tile_pos.y + par.GRID_ELEM_SIZE * row, par.GRID_ELEM_SIZE, par.GRID_ELEM_SIZE)
                pyg.draw.rect(game_window, par.RED, tile_element)
                 
@@ -79,6 +79,8 @@ def main():
         event_handler(tile)
         [lateral_key_released, rotation_key_released] = tile.update_position(lateral_key_released, rotation_key_released)
         update_scene(tile.position, tile.configuration_matrix)
+        
+        print(f'lowest grid height = {par.GRID_TLC_y+par.GRID_ELEM_SIZE*par.GRID_NR_OF_ROWS}, \t lowest height = {tile.get_lowest_filled_height()}')
         
         # limits game's fps (waits) and returns the ms count since the last call
         clock.tick(par.FPS)          
