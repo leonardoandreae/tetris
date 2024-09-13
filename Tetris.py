@@ -26,8 +26,7 @@ def draw_grid():
             
             
 def collision_detection():
-    collision_detected = False
-    return collision_detected
+    pass
 
 
 def update_scene(tile_pos, tile_config_mat):
@@ -71,7 +70,7 @@ def main():
     fall_ev = pyg.USEREVENT + 0 # event ID = 24 (up to 32, but first 23 are used by pygame already)
     pyg.time.set_timer(fall_ev, par.FALL_TIME_INTERVAL_ms)
     
-    tile = Tile("L")
+    tile = Tile("I")
     lateral_key_released = True
     rotation_key_released = True
 
@@ -81,7 +80,7 @@ def main():
         [lateral_key_released, rotation_key_released] = tile.update_position(lateral_key_released, rotation_key_released)
         update_scene(tile.position, tile.configuration_matrix)
         
-        print(f'lowest grid height = {par.GRID_TLC_y+par.GRID_ELEM_SIZE*par.GRID_NR_OF_ROWS}, \t lowest height = {tile.get_lowest_filled_height()}')
+        print(f'config = {tile.configuration_idx} \t x = {tile.position.x} \t left = {tile.get_furthest_pos_filled('LEFT')} \t right = {tile.get_furthest_pos_filled('RIGHT')}')
         
         # limits game's fps (waits) and returns the ms count since the last call
         clock.tick(par.FPS)          

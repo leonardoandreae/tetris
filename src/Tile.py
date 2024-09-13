@@ -11,7 +11,7 @@ class Tile:
         self.configuration_idx = 0
         self.position = pyg.Vector2(par.GRID_TLC_x + par.GRID_ELEM_SIZE * int(par.GRID_NR_OF_COLS / 2),
                                     par.GRID_TLC_y)
-        self.configuration_matrix = par.TILE_SHAPES[self.type][self.configuration_idx+1]
+        self.configuration_matrix = par.TILE_SHAPES[self.type][self.configuration_idx]
     
     def rotate(self) -> None:
         self.configuration_idx = (self.configuration_idx + 1) % par.TILE_CONFIG_IDX_MAX
@@ -30,14 +30,37 @@ class Tile:
                     break
         # top left corner height
         return lowest_filled_y
-        
+    
+    def get_furthest_pos_filled(self, direction):
+        is_found = False
+        furthest_filled_x = self.position.x
+        for col in range(0, len(self.configuration_matrix)):
+            if is_found:
+                break
+            for row in range(0, len(self.configuration_matrix)):
+                if direction == 'LEFT':
+                    if self.configuration_matrix[row][col] == 1:
+                        furthest_filled_x += col * par.GRID_ELEM_SIZE
+                        is_found = True
+                        break
+                elif direction == 'RIGHT':
+                    # column index inverted
+                    if self.configuration_matrix[row][(len(self.configuration_matrix) - 1) - col] == 1:
+                        furthest_filled_x += ((len(self.configuration_matrix) - 1) - col) * par.GRID_ELEM_SIZE
+                        is_found = True
+                        break
+                else:
+                    pass # TODO throw error
+                
+        return furthest_filled_x
+    
     def bottom_reached(self) -> bool:
         if self.get_lowest_filled_height() == par.GRID_TLC_y + par.GRID_ELEM_SIZE * (par.GRID_NR_OF_ROWS -1):
             self.rotation_allowed = False
             return True
         else:
             return False
-    
+        
     def update_position(self, lateral_key_released, rotation_key_released):
         keys_pressed = pyg.key.get_pressed()
         bottom_reached = self.bottom_reached()
@@ -49,15 +72,17 @@ class Tile:
             
         # Check if rotation key was released
         if ((not rotation_key_released) and (not keys_pressed[pyg.K_SPACE])):
-            rotation_key_released = True        
-        
+            rotation_key_released = True
+                    
+        # Update left
         if (keys_pressed[pyg.K_LEFT] and (not keys_pressed[pyg.K_RIGHT])
-                and self.position.x > par.GRID_TLC_x and lateral_key_released):
+                and self.get_furthest_pos_filled('LEFT') > par.GRID_TLC_x and lateral_key_released):
             self.position.x -= par.GRID_ELEM_SIZE
             lateral_key_released = False
-                
+            
+        # Update right 
         if (keys_pressed[pyg.K_RIGHT] and (not keys_pressed[pyg.K_LEFT])
-                and self.position.x < par.GRID_TLC_x + par.GRID_ELEM_SIZE * (par.GRID_NR_OF_COLS - 1)
+                and self.get_furthest_pos_filled('RIGHT') < par.GRID_TLC_x + par.GRID_ELEM_SIZE * (par.GRID_NR_OF_COLS - 1)
                 and lateral_key_released):
             self.position.x += par.GRID_ELEM_SIZE
             lateral_key_released = False
