@@ -63,13 +63,10 @@ class Tile:
         
     def update_position(self, game_state):
         # Check if lateral movement is prevented
-        if game_state.lateral_movement_prevented and \
-                ((not game_state.keys_pressed[pyg.K_LEFT]) and (not game_state.keys_pressed[pyg.K_RIGHT])):
-            game_state.lateral_movement_prevented = False
+        game_state.lateral_movement_check()
             
         # Check if rotation is prevented
-        if game_state.rotation_prevented and (not game_state.keys_pressed[pyg.K_SPACE]):
-            game_state.rotation_prevented = False
+        game_state.rotation_check()
         
         # Update left
         if (game_state.keys_pressed[pyg.K_LEFT] and (not game_state.keys_pressed[pyg.K_RIGHT])
@@ -84,11 +81,13 @@ class Tile:
                 and (not game_state.lateral_movement_prevented)):
             self.position.x += par.GRID_ELEM_SIZE
             game_state.lateral_movement_prevented = True
-        
+            
+        # Rotation
         if (game_state.keys_pressed[pyg.K_SPACE] and self.rotation_allowed and (not game_state.rotation_prevented)):
             self.rotate()
             game_state.rotation_prevented = True
             
+        # Falling
         if self.is_falling and (not self.bottom_reached()):
             self.position.y += par.GRID_ELEM_SIZE
             self.is_falling = False

@@ -21,6 +21,15 @@ class GameState:
         
     def update_prev_keys(self) -> None:
         self.keys_pressed_prev = self.keys_pressed
+    
+    def lateral_movement_check(self):
+        if self.lateral_movement_prevented and \
+                ((not self.keys_pressed[pyg.K_LEFT]) and (not self.keys_pressed[pyg.K_RIGHT])):
+            self.lateral_movement_prevented = False
+        
+    def rotation_check(self):
+        if self.rotation_prevented and (not self.keys_pressed[pyg.K_SPACE]):
+            self.rotation_prevented = False
         
     def update_occupation_matrix(self) -> None:
         pass
