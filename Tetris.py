@@ -3,16 +3,15 @@ import sys, os
 sys.path.append(os.path.join(sys.path[0], 'src'))
 import GameParameters as par
 from Tile import *
+from GameState import *
 import numpy as np
 
-def event_handler(tile):
-    global game_running, fall_ev
-
+def event_handler(tile, game_state):
     for event in pyg.event.get():
         # pressing the "X" button terminates the application
         if event.type == pyg.QUIT:
-            game_running = False
-        if event.type == fall_ev:
+            game_state.game_running = False
+        if event.type == game_state.gravity_tick_ev:
             if not tile.bottom_reached():
                 tile.is_falling = True
         
@@ -30,6 +29,7 @@ def collision_detection():
 
 
 def update_scene(tile_pos, tile_config_mat):
+    # TODO: only draw tile each time not the entire thing
     # color background such that older objects do not appear
     game_window.blit(bg, par.BACKGROUND_POS)
     game_window.blit(tetris_logo, par.LOGO_POS)
@@ -51,7 +51,7 @@ def get_user_inputs():
     return keys_pressed
 
 def main():
-    global game_window, bg, tetris_logo, game_running, fall_ev
+    global game_window, bg, tetris_logo
     pyg.init()
     game_window = pyg.display.set_mode((par.GAME_WINDOW_WIDTH, par.GAME_WINDOW_HEIGHT))
     pyg.display.set_caption("Tetris")
@@ -64,26 +64,19 @@ def main():
     tetris_logo = pyg.image.load('assets/tetris_logo.png')
     tetris_logo = pyg.transform.scale2x(tetris_logo)
     
-    clock = pyg.time.Clock()
-    
-    # detect if tile needs to fall by one square
-    fall_ev = pyg.USEREVENT + 0 # event ID = 24 (up to 32, but first 23 are used by pygame already)
-    pyg.time.set_timer(fall_ev, par.FALL_TIME_INTERVAL_ms)
-    
+    game_state = GameState()
     tile = Tile("I")
-    lateral_key_released = True
-    rotation_key_released = True
-
-    game_running = True    
-    while game_running:
-        event_handler(tile)
-        [lateral_key_released, rotation_key_released] = tile.update_position(lateral_key_released, rotation_key_released)
-        update_scene(tile.position, tile.configuration_matrix)
+  
+    while game_state.game_running:
+        event_handler(tile, game_state)
         
-        print(f'config = {tile.configuration_idx} \t x = {tile.position.x} \t left = {tile.get_furthest_pos_filled('LEFT')} \t right = {tile.get_furthest_pos_filled('RIGHT')}')
+        game_state.get_current_keys()
+        tile.update_position(game_state)
+        update_scene(tile.position, tile.configuration_matrix)
+        game_state.update_prev_keys()
         
         # limits game's fps (waits) and returns the ms count since the last call
-        clock.tick(par.FPS)          
+        game_state.clock.tick(par.FPS)          
     pyg.quit() 
     
 if __name__ == "__main__":

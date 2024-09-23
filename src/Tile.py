@@ -61,38 +61,34 @@ class Tile:
         else:
             return False
         
-    def update_position(self, lateral_key_released, rotation_key_released):
-        keys_pressed = pyg.key.get_pressed()
-        bottom_reached = self.bottom_reached()
-
-        # Check if a lateral movement key was released
-        if ((not lateral_key_released) and (not keys_pressed[pyg.K_LEFT])
-                and (not keys_pressed[pyg.K_RIGHT])):
-            lateral_key_released = True
+    def update_position(self, game_state):
+        # Check if lateral movement is prevented
+        if game_state.lateral_movement_prevented and \
+                ((not game_state.keys_pressed[pyg.K_LEFT]) and (not game_state.keys_pressed[pyg.K_RIGHT])):
+            game_state.lateral_movement_prevented = False
             
-        # Check if rotation key was released
-        if ((not rotation_key_released) and (not keys_pressed[pyg.K_SPACE])):
-            rotation_key_released = True
-                    
+        # Check if rotation is prevented
+        if game_state.rotation_prevented and (not game_state.keys_pressed[pyg.K_SPACE]):
+            game_state.rotation_prevented = False
+        
         # Update left
-        if (keys_pressed[pyg.K_LEFT] and (not keys_pressed[pyg.K_RIGHT])
-                and self.get_furthest_pos_filled('LEFT') > par.GRID_TLC_x and lateral_key_released):
+        if (game_state.keys_pressed[pyg.K_LEFT] and (not game_state.keys_pressed[pyg.K_RIGHT])
+                and (self.get_furthest_pos_filled('LEFT') > par.GRID_TLC_x)
+                and (not game_state.lateral_movement_prevented)):
             self.position.x -= par.GRID_ELEM_SIZE
-            lateral_key_released = False
+            game_state.lateral_movement_prevented = True
             
         # Update right 
-        if (keys_pressed[pyg.K_RIGHT] and (not keys_pressed[pyg.K_LEFT])
-                and self.get_furthest_pos_filled('RIGHT') < par.GRID_TLC_x + par.GRID_ELEM_SIZE * (par.GRID_NR_OF_COLS - 1)
-                and lateral_key_released):
+        if (game_state.keys_pressed[pyg.K_RIGHT] and (not game_state.keys_pressed[pyg.K_LEFT])
+                and (self.get_furthest_pos_filled('RIGHT') < par.GRID_TLC_x + par.GRID_ELEM_SIZE * (par.GRID_NR_OF_COLS - 1))
+                and (not game_state.lateral_movement_prevented)):
             self.position.x += par.GRID_ELEM_SIZE
-            lateral_key_released = False
+            game_state.lateral_movement_prevented = True
         
-        if (keys_pressed[pyg.K_SPACE] and self.rotation_allowed and rotation_key_released):
+        if (game_state.keys_pressed[pyg.K_SPACE] and self.rotation_allowed and (not game_state.rotation_prevented)):
             self.rotate()
-            rotation_key_released = False
+            game_state.rotation_prevented = True
             
-        if self.is_falling and (not bottom_reached):
+        if self.is_falling and (not self.bottom_reached()):
             self.position.y += par.GRID_ELEM_SIZE
             self.is_falling = False
-            
-        return lateral_key_released, rotation_key_released
