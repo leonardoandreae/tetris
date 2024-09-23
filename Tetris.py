@@ -31,14 +31,14 @@ def collision_detection():
 
 def update_scene(tile_pos, tile_config_mat):
     # color background such that older objects do not appear
-    game_window.blit(BACKGROUND, par.BACKGROUND_POS)
+    game_window.blit(bg, par.BACKGROUND_POS)
     game_window.blit(tetris_logo, par.LOGO_POS)
     
     draw_grid()
     
     # draw tile
-    for col in range (0,4):
-        for row in range (0,4):
+    for col in range (0,par.TILE_CONFIG_IDX_MAX):
+        for row in range (0,par.TILE_CONFIG_IDX_MAX):
            if tile_config_mat[row][col] == 1:
                tile_element = pyg.Rect(tile_pos.x + par.GRID_ELEM_SIZE * col, tile_pos.y + par.GRID_ELEM_SIZE * row, par.GRID_ELEM_SIZE, par.GRID_ELEM_SIZE)
                pyg.draw.rect(game_window, par.RED, tile_element)
@@ -51,7 +51,7 @@ def get_user_inputs():
     return keys_pressed
 
 def main():
-    global game_window, BACKGROUND, tetris_logo, game_running, fall_ev
+    global game_window, bg, tetris_logo, game_running, fall_ev
     pyg.init()
     game_window = pyg.display.set_mode((par.GAME_WINDOW_WIDTH, par.GAME_WINDOW_HEIGHT))
     pyg.display.set_caption("Tetris")
@@ -60,7 +60,7 @@ def main():
     tetris_icon = pyg.image.load('assets/tetris_icon.png')
     pyg.display.set_icon(tetris_icon)
 
-    BACKGROUND = pyg.image.load('assets/bg.jpg')
+    bg = pyg.image.load('assets/bg.jpg')
     tetris_logo = pyg.image.load('assets/tetris_logo.png')
     tetris_logo = pyg.transform.scale2x(tetris_logo)
     
