@@ -73,7 +73,6 @@ def main():
         game_state.get_current_keys()
         tile.update_position(game_state)
         update_scene(tile.position, tile.configuration_matrix)
-        game_state.update_prev_keys()
         
         # limits game's fps (waits) and returns the ms count since the last call
         game_state.clock.tick(par.FPS)          

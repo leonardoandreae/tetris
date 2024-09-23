@@ -18,9 +18,6 @@ class GameState:
         
     def get_current_keys(self) -> None:
         self.keys_pressed = pyg.key.get_pressed()
-        
-    def update_prev_keys(self) -> None:
-        self.keys_pressed_prev = self.keys_pressed
     
     def lateral_movement_check(self):
         if self.lateral_movement_prevented and \
