@@ -23,12 +23,8 @@ def draw_grid():
             grid_element = pyg.Rect(column, row, par.GRID_ELEM_SIZE, par.GRID_ELEM_SIZE)
             pyg.draw.rect(game_window, par.BLACK, grid_element, 1)
             
-            
-def collision_detection():
-    pass
 
-
-def update_scene(tile_pos, tile_config_mat):
+def update_scene(tile_type, tile_pos, tile_config_mat):
     # TODO: only draw tile each time not the entire thing
     # color background such that older objects do not appear
     game_window.blit(bg, par.BACKGROUND_POS)
@@ -41,7 +37,7 @@ def update_scene(tile_pos, tile_config_mat):
         for row in range (0,par.TILE_CONFIG_IDX_MAX):
            if tile_config_mat[row][col] == 1:
                tile_element = pyg.Rect(tile_pos.x + par.GRID_ELEM_SIZE * col, tile_pos.y + par.GRID_ELEM_SIZE * row, par.GRID_ELEM_SIZE, par.GRID_ELEM_SIZE)
-               pyg.draw.rect(game_window, par.RED, tile_element)
+               pyg.draw.rect(game_window, par.TILE_COLORS[tile_type], tile_element)
                 
     # After calling the drawing functions to make the display Surface object look the way you want, you must call this to make the display Surface actually appear on the user’s monitor.
     pyg.display.update()
@@ -65,14 +61,14 @@ def main():
     tetris_logo = pyg.transform.scale2x(tetris_logo)
     
     game_state = GameState()
-    tile = Tile("I")
+    tile = Tile("J")
   
     while game_state.game_running:
         event_handler(tile, game_state)
         
         game_state.get_current_keys()
         tile.update_position(game_state)
-        update_scene(tile.position, tile.configuration_matrix)
+        update_scene(tile.type, tile.position, tile.configuration_matrix)
         
         # limits game's fps (waits) and returns the ms count since the last call
         game_state.clock.tick(par.FPS)          
