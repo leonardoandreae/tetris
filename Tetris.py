@@ -14,37 +14,50 @@ def event_handler(tile, game_state):
         if event.type == game_state.gravity_tick_ev:
             if not tile.bottom_reached():
                 tile.is_falling = True
-        
-            
-def draw_grid():
-    for column in range(par.GRID_TLC_y, par.GRID_TLC_y + par.GRID_ELEM_SIZE * par.GRID_NR_OF_COLS, par.GRID_ELEM_SIZE):
-        for row in range(par.GRID_TLC_x, par.GRID_TLC_x + par.GRID_ELEM_SIZE * par.GRID_NR_OF_ROWS, par.GRID_ELEM_SIZE):
-            # create rectangle object
-            grid_element = pyg.Rect(column, row, par.GRID_ELEM_SIZE, par.GRID_ELEM_SIZE)
-            pyg.draw.rect(game_window, par.BLACK, grid_element, 1)
-            
 
-def update_scene(tile_type, tile_pos, tile_config_mat):
+def draw_grid():
+    # draw horizontal lines
+    for row_idx in range(0, par.GRID_NR_OF_ROWS + 1):
+        start_coords = (par.GRID_TLC_x, par.GRID_TLC_y + row_idx * par.GRID_ELEM_SIZE)
+        end_coords = (par.GRID_TLC_x + par.GRID_NR_OF_COLS * par.GRID_ELEM_SIZE, 
+                      par.GRID_TLC_y + row_idx * par.GRID_ELEM_SIZE)
+        pyg.draw.line(game_window, par.BLACK, start_coords, end_coords)
+    # draw vertical lines    
+    for col_idx in range(0, par.GRID_NR_OF_COLS + 1):
+        start_coords = (par.GRID_TLC_x + col_idx * par.GRID_ELEM_SIZE, par.GRID_TLC_y)
+        end_coords = (par.GRID_TLC_x + col_idx * par.GRID_ELEM_SIZE, 
+                      par.GRID_TLC_y + par.GRID_ELEM_SIZE * par.GRID_NR_OF_ROWS)
+        pyg.draw.line(game_window, par.BLACK, start_coords, end_coords)
+
+def draw_tile(tile):
+    # draw tile with its border
+    for col in range (0, par.TILE_CONFIG_IDX_MAX):
+        for row in range (0, par.TILE_CONFIG_IDX_MAX):
+           if tile.configuration_matrix[row][col] == 1:
+               tile_element = pyg.Rect(tile.position.x + par.GRID_ELEM_SIZE * col, 
+                                       tile.position.y + par.GRID_ELEM_SIZE * row, 
+                                       par.GRID_ELEM_SIZE, par.GRID_ELEM_SIZE)
+               pyg.draw.rect(game_window, par.TILE_COLORS[tile.type], tile_element)
+               top_left = (tile.position.x + par.GRID_ELEM_SIZE * col, 
+                           tile.position.y + par.GRID_ELEM_SIZE * row)
+               down_left = (top_left[0], top_left[1] + par.GRID_ELEM_SIZE)
+               down_right = (down_left[0] + par.GRID_ELEM_SIZE, down_left[1])
+               top_right = (down_right[0], down_right[1] - par.GRID_ELEM_SIZE)
+               pyg.draw.lines(game_window, par.WHITE, closed=True, 
+                              points=[top_left, down_left, down_right, top_right])
+
+ 
+def update_scene(tile):
     # TODO: only draw tile each time not the entire thing
     # color background such that older objects do not appear
     game_window.blit(bg, par.BACKGROUND_POS)
     game_window.blit(tetris_logo, par.LOGO_POS)
     
     draw_grid()
-    
-    # draw tile
-    for col in range (0,par.TILE_CONFIG_IDX_MAX):
-        for row in range (0,par.TILE_CONFIG_IDX_MAX):
-           if tile_config_mat[row][col] == 1:
-               tile_element = pyg.Rect(tile_pos.x + par.GRID_ELEM_SIZE * col, tile_pos.y + par.GRID_ELEM_SIZE * row, par.GRID_ELEM_SIZE, par.GRID_ELEM_SIZE)
-               pyg.draw.rect(game_window, par.TILE_COLORS[tile_type], tile_element)
-                
+    draw_tile(tile) 
     # After calling the drawing functions to make the display Surface object look the way you want, you must call this to make the display Surface actually appear on the user’s monitor.
     pyg.display.update()
-    
-def get_user_inputs():
-    keys_pressed = pyg.key.get_pressed()
-    return keys_pressed
+
 
 def main():
     global game_window, bg, tetris_logo
@@ -68,7 +81,7 @@ def main():
         
         game_state.get_current_keys()
         tile.update_position(game_state)
-        update_scene(tile.type, tile.position, tile.configuration_matrix)
+        update_scene(tile)
         
         # limits game's fps (waits) and returns the ms count since the last call
         game_state.clock.tick(par.FPS)          
