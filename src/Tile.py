@@ -1,17 +1,15 @@
 import GameParameters as par
 import pygame as pyg
+import random
 
 class Tile:
-    def __init__(self, type) -> None:
-        self.type = type
-        self.vertical_movement_allowed = True
-        self.lateral_movement_allowed = True
-        self.rotation_allowed = True
-        self.is_falling = False
-        self.configuration_idx = 0
-        self.position = pyg.Vector2(par.GRID_TLC_x + par.GRID_ELEM_SIZE * int(par.GRID_NR_OF_COLS / 2),
-                                    par.GRID_TLC_y)
-        self.configuration_matrix = par.TILE_SHAPES[self.type][self.configuration_idx]
+    def __init__(self) -> None:
+        self.reset()
+
+    def get_next_type(self):
+        tile_types = list(par.TILE_SHAPES.keys())
+        idx = random.randint(0, len(tile_types)-1)
+        return tile_types[idx]
     
     def rotate(self) -> None:
         self.configuration_idx = (self.configuration_idx + 1) % par.TILE_CONFIG_IDX_MAX
@@ -91,3 +89,16 @@ class Tile:
         if self.is_falling and (not self.bottom_reached()):
             self.position.y += par.GRID_ELEM_SIZE
             self.is_falling = False
+
+    def reset(self):
+        self.type = self.get_next_type()
+        self.vertical_movement_allowed = True
+        self.lateral_movement_allowed = True
+        self.rotation_allowed = True
+        self.is_falling = False
+        self.configuration_idx = 0
+        self.position = pyg.Vector2(par.GRID_TLC_x + par.GRID_ELEM_SIZE * int(par.GRID_NR_OF_COLS / 2),
+                                    par.GRID_TLC_y)
+        self.configuration_matrix = par.TILE_SHAPES[self.type][self.configuration_idx]
+
+

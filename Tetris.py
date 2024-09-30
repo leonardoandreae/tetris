@@ -74,7 +74,7 @@ def main():
     tetris_logo = pyg.transform.scale2x(tetris_logo)
     
     game_state = GameState()
-    tile = Tile("J")
+    tile = Tile()
   
     while game_state.game_running:
         event_handler(tile, game_state)
