@@ -29,6 +29,23 @@ def draw_grid():
                       par.GRID_TLC_y + par.GRID_ELEM_SIZE * par.GRID_NR_OF_ROWS)
         pyg.draw.line(game_window, par.BLACK, start_coords, end_coords)
 
+def draw_board(game_state):
+    for row in range (0, par.GRID_NR_OF_ROWS):
+        for col in range (0, par.GRID_NR_OF_COLS):
+            if game_state.board_occupation_matrix[row][col] != None:
+                block = pyg.Rect(par.GRID_TLC_x + col * par.GRID_ELEM_SIZE, 
+                                 par.GRID_TLC_y + row * par.GRID_ELEM_SIZE, 
+                                 par.GRID_ELEM_SIZE, par.GRID_ELEM_SIZE)
+                pyg.draw.rect(game_window, game_state.board_occupation_matrix[row][col], block)
+                top_left = (par.GRID_TLC_x + col * par.GRID_ELEM_SIZE, 
+                           par.GRID_TLC_y + row * par.GRID_ELEM_SIZE)
+                down_left = (top_left[0], top_left[1] + par.GRID_ELEM_SIZE)
+                down_right = (down_left[0] + par.GRID_ELEM_SIZE, down_left[1])
+                top_right = (down_right[0], down_right[1] - par.GRID_ELEM_SIZE)
+                pyg.draw.lines(game_window, par.WHITE, closed=True, 
+                              points=[top_left, down_left, down_right, top_right])
+
+
 def draw_tile(tile):
     # draw tile with its border
     for col in range (0, par.TILE_CONFIG_IDX_MAX):
@@ -47,13 +64,14 @@ def draw_tile(tile):
                               points=[top_left, down_left, down_right, top_right])
 
  
-def update_scene(tile):
+def draw_scene(tile, game_state):
     # TODO: only draw tile each time not the entire thing
     # color background such that older objects do not appear
     game_window.blit(bg, par.BACKGROUND_POS)
     game_window.blit(tetris_logo, par.LOGO_POS)
     
     draw_grid()
+    draw_board(game_state)
     draw_tile(tile) 
     # After calling the drawing functions to make the display Surface object look the way you want, you must call this to make the display Surface actually appear on the user’s monitor.
     pyg.display.update()
@@ -81,7 +99,7 @@ def main():
         
         game_state.get_current_keys()
         tile.update_position(game_state)
-        update_scene(tile)
+        draw_scene(tile, game_state)
         
         # limits game's fps (waits) and returns the ms count since the last call
         game_state.clock.tick(par.FPS)          

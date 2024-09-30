@@ -6,9 +6,19 @@ class Tile:
     def __init__(self) -> None:
         self.reset()
 
+    def reset(self):
+        self.type = self.get_next_type()
+        self.vertical_movement_allowed = True
+        self.lateral_movement_allowed = True
+        self.rotation_allowed = True
+        self.is_falling = False
+        self.configuration_idx = 0
+        self.position = self.get_initial_position()
+        self.configuration_matrix = par.TILE_SHAPES[self.type][self.configuration_idx]
+
     def get_next_type(self):
         tile_types = list(par.TILE_SHAPES.keys())
-        idx = random.randint(0, len(tile_types)-1)
+        idx = random.randint(0, len(tile_types) - 1)
         return tile_types[idx]
     
     def rotate(self) -> None:
@@ -59,6 +69,15 @@ class Tile:
         else:
             return False
         
+    def get_initial_position(self):
+        if self.type == "I" or self.type == "O":
+            pos = pyg.Vector2(par.GRID_TLC_x + par.GRID_ELEM_SIZE * (int(par.GRID_NR_OF_COLS / 2) - 2),
+                                    par.GRID_TLC_y)
+        else:
+            pos = pyg.Vector2(par.GRID_TLC_x + par.GRID_ELEM_SIZE * (int(par.GRID_NR_OF_COLS / 2) - 1),
+                                    par.GRID_TLC_y)
+        return pos
+        
     def update_position(self, game_state):
         # Check if lateral movement is prevented
         game_state.lateral_movement_check()
@@ -90,15 +109,15 @@ class Tile:
             self.position.y += par.GRID_ELEM_SIZE
             self.is_falling = False
 
-    def reset(self):
-        self.type = self.get_next_type()
-        self.vertical_movement_allowed = True
-        self.lateral_movement_allowed = True
-        self.rotation_allowed = True
-        self.is_falling = False
-        self.configuration_idx = 0
-        self.position = pyg.Vector2(par.GRID_TLC_x + par.GRID_ELEM_SIZE * int(par.GRID_NR_OF_COLS / 2),
-                                    par.GRID_TLC_y)
-        self.configuration_matrix = par.TILE_SHAPES[self.type][self.configuration_idx]
+        # Check if tile is locked and reset if so
+        self.tile_locked_check(game_state)
 
-
+    def tile_locked_check(self, game_state):
+        if self.bottom_reached():
+            for row in range(0, len(self.configuration_matrix)):
+                for col in range(0, len(self.configuration_matrix)):
+                    if self.configuration_matrix[row][col] == 1:
+                        row_ = int((self.position.y - par.GRID_TLC_y) / par.GRID_ELEM_SIZE) + row
+                        col_ = int((self.position.x - par.GRID_TLC_x) / par.GRID_ELEM_SIZE) + col
+                        game_state.board_occupation_matrix[row_][col_] = par.TILE_COLORS[self.type]
+            self.reset()         
