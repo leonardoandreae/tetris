@@ -14,41 +14,64 @@ def event_handler(tile, game_state):
         if event.type == game_state.gravity_tick_ev:
             if not tile.bottom_reached():
                 tile.is_falling = True
-        
-            
+
 def draw_grid():
-    for column in range(par.GRID_TLC_y, par.GRID_TLC_y + par.GRID_ELEM_SIZE * par.GRID_NR_OF_COLS, par.GRID_ELEM_SIZE):
-        for row in range(par.GRID_TLC_x, par.GRID_TLC_x + par.GRID_ELEM_SIZE * par.GRID_NR_OF_ROWS, par.GRID_ELEM_SIZE):
-            # create rectangle object
-            grid_element = pyg.Rect(column, row, par.GRID_ELEM_SIZE, par.GRID_ELEM_SIZE)
-            pyg.draw.rect(game_window, par.BLACK, grid_element, 1)
-            
-            
-def collision_detection():
-    pass
+    # draw horizontal lines
+    for row_idx in range(0, par.GRID_NR_OF_ROWS + 1):
+        start_coords = (par.GRID_TLC_x, par.GRID_TLC_y + row_idx * par.GRID_ELEM_SIZE)
+        end_coords = (par.GRID_TLC_x + par.GRID_NR_OF_COLS * par.GRID_ELEM_SIZE, 
+                      par.GRID_TLC_y + row_idx * par.GRID_ELEM_SIZE)
+        pyg.draw.line(game_window, par.BLACK, start_coords, end_coords)
+    # draw vertical lines    
+    for col_idx in range(0, par.GRID_NR_OF_COLS + 1):
+        start_coords = (par.GRID_TLC_x + col_idx * par.GRID_ELEM_SIZE, par.GRID_TLC_y)
+        end_coords = (par.GRID_TLC_x + col_idx * par.GRID_ELEM_SIZE, 
+                      par.GRID_TLC_y + par.GRID_ELEM_SIZE * par.GRID_NR_OF_ROWS)
+        pyg.draw.line(game_window, par.BLACK, start_coords, end_coords)
 
+def draw_block_with_borders(TLC_x, TLC_y, size, color, border_color):
+    block = pyg.Rect(TLC_x, TLC_y, size, size)
+    pyg.draw.rect(game_window, color, block)
+    top_left = (TLC_x, TLC_y) 
+    down_left = (top_left[0], top_left[1] + size)
+    down_right = (down_left[0] + size, down_left[1])
+    top_right = (down_right[0], down_right[1] - size)
+    pyg.draw.lines(game_window, border_color, closed=True,
+                   points=[top_left, down_left, down_right, top_right])
 
-def update_scene(tile_pos, tile_config_mat):
+def draw_board(game_state):
+    for row in range (0, par.GRID_NR_OF_ROWS):
+        for col in range (0, par.GRID_NR_OF_COLS):
+            if game_state.board_occupation_matrix[row][col] != None:
+                draw_block_with_borders(par.GRID_TLC_x + col * par.GRID_ELEM_SIZE,
+                                        par.GRID_TLC_y + row * par.GRID_ELEM_SIZE,
+                                        par.GRID_ELEM_SIZE,
+                                        game_state.board_occupation_matrix[row][col],
+                                        par.WHITE)
+
+def draw_tile(tile):
+    # draw tile with its border
+    for col in range (0, par.TILE_CONFIG_IDX_MAX):
+        for row in range (0, par.TILE_CONFIG_IDX_MAX):
+           if tile.configuration_matrix[row][col] == 1:
+               draw_block_with_borders(tile.position.x + par.GRID_ELEM_SIZE * col,
+                                       tile.position.y + par.GRID_ELEM_SIZE * row,
+                                       par.GRID_ELEM_SIZE,
+                                       par.TILE_COLORS[tile.type],
+                                       par.WHITE)
+ 
+def draw_scene(tile, game_state):
     # TODO: only draw tile each time not the entire thing
     # color background such that older objects do not appear
     game_window.blit(bg, par.BACKGROUND_POS)
     game_window.blit(tetris_logo, par.LOGO_POS)
     
     draw_grid()
-    
-    # draw tile
-    for col in range (0,par.TILE_CONFIG_IDX_MAX):
-        for row in range (0,par.TILE_CONFIG_IDX_MAX):
-           if tile_config_mat[row][col] == 1:
-               tile_element = pyg.Rect(tile_pos.x + par.GRID_ELEM_SIZE * col, tile_pos.y + par.GRID_ELEM_SIZE * row, par.GRID_ELEM_SIZE, par.GRID_ELEM_SIZE)
-               pyg.draw.rect(game_window, par.RED, tile_element)
-                
+    draw_board(game_state)
+    draw_tile(tile) 
     # After calling the drawing functions to make the display Surface object look the way you want, you must call this to make the display Surface actually appear on the user’s monitor.
     pyg.display.update()
-    
-def get_user_inputs():
-    keys_pressed = pyg.key.get_pressed()
-    return keys_pressed
+
 
 def main():
     global game_window, bg, tetris_logo
@@ -65,14 +88,14 @@ def main():
     tetris_logo = pyg.transform.scale2x(tetris_logo)
     
     game_state = GameState()
-    tile = Tile("I")
+    tile = Tile()
   
     while game_state.game_running:
         event_handler(tile, game_state)
         
         game_state.get_current_keys()
         tile.update_position(game_state)
-        update_scene(tile.position, tile.configuration_matrix)
+        draw_scene(tile, game_state)
         
         # limits game's fps (waits) and returns the ms count since the last call
         game_state.clock.tick(par.FPS)          

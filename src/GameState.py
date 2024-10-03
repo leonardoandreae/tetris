@@ -5,9 +5,9 @@ import numpy as np
 class GameState:
     def __init__(self):
         self.game_running = True
-        self.board_occupation_matrix = np.zeros((par.GRID_NR_OF_ROWS, par.GRID_NR_OF_COLS))
+        self.board_occupation_matrix = [[None for _ in range(par.GRID_NR_OF_COLS)] 
+                                        for _ in range(par.GRID_NR_OF_ROWS)]
         self.get_current_keys()
-        self.update_prev_keys()
         self.lateral_movement_prevented = False
         self.rotation_prevented = False
         self.clock = pyg.time.Clock()
