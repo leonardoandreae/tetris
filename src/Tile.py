@@ -25,99 +25,49 @@ class Tile:
         self.configuration_idx = (self.configuration_idx + 1) % par.TILE_CONFIG_IDX_MAX
         self.configuration_matrix = par.TILE_SHAPES[self.type][self.configuration_idx]
         
-    def get_lowest_filled_height(self):
-        lowest_filled_y = self.position.y
-        is_found = False
-        for inv_row in range(0, len(self.configuration_matrix)):
-            if is_found:
-                break
-            for col in range(0, len(self.configuration_matrix)):
-                if self.configuration_matrix[(len(self.configuration_matrix) - 1) - inv_row][col] == 1:
-                    lowest_filled_y += ((len(self.configuration_matrix) - 1) - inv_row) * par.GRID_ELEM_SIZE
-                    is_found = True
-                    break
-        # top left corner height
-        return lowest_filled_y
-    
-    def get_furthest_pos_filled(self, direction):
-        is_found = False
-        furthest_filled_x = self.position.x
-        for col in range(0, len(self.configuration_matrix)):
-            if is_found:
-                break
-            for row in range(0, len(self.configuration_matrix)):
-                if direction == 'LEFT':
-                    if self.configuration_matrix[row][col] == 1:
-                        furthest_filled_x += col * par.GRID_ELEM_SIZE
-                        is_found = True
-                        break
-                elif direction == 'RIGHT':
-                    # column index inverted
-                    if self.configuration_matrix[row][(len(self.configuration_matrix) - 1) - col] == 1:
-                        furthest_filled_x += ((len(self.configuration_matrix) - 1) - col) * par.GRID_ELEM_SIZE
-                        is_found = True
-                        break
-                else:
-                    pass # TODO throw error
-                
-        return furthest_filled_x
-    
-    def bottom_reached(self) -> bool:
-        if self.get_lowest_filled_height() == par.GRID_TLC_y + par.GRID_ELEM_SIZE * (par.GRID_NR_OF_ROWS -1):
-            self.rotation_allowed = False
-            return True
-        else:
-            return False
-        
     def get_initial_position(self):
         if self.type == "I" or self.type == "O":
             pos = pyg.Vector2(par.GRID_TLC_x + par.GRID_ELEM_SIZE * (int(par.GRID_NR_OF_COLS / 2) - 2),
-                                    par.GRID_TLC_y)
+                                    par.GRID_TLC_y - par.GRID_ELEM_SIZE)
         else:
             pos = pyg.Vector2(par.GRID_TLC_x + par.GRID_ELEM_SIZE * (int(par.GRID_NR_OF_COLS / 2) - 1),
-                                    par.GRID_TLC_y)
+                                    par.GRID_TLC_y - par.GRID_ELEM_SIZE)
         return pos
         
     def update_position(self, game_state):
-        # Check if lateral movement is prevented
+        # Check if lateral movement is disabled/enabled
         game_state.lateral_movement_check()
             
-        # Check if rotation is prevented
+        # Check if rotation is disabled/enabled
         game_state.rotation_check()
+
+        game_state.collision_detection(self)
         
         # Update left
-        if (game_state.keys_pressed[pyg.K_LEFT] and (not game_state.keys_pressed[pyg.K_RIGHT])
-                and (self.get_furthest_pos_filled('LEFT') > par.GRID_TLC_x)
-                and (not game_state.lateral_movement_prevented)):
+        if (game_state.keys_pressed[par.LEFT] and (not game_state.keys_pressed[par.RIGHT])
+                and (not game_state.left_collision)
+                and (not game_state.lateral_movement_disabled)):
             self.position.x -= par.GRID_ELEM_SIZE
-            game_state.lateral_movement_prevented = True
+            game_state.lateral_movement_disabled = True
             
-        # Update right 
-        if (game_state.keys_pressed[pyg.K_RIGHT] and (not game_state.keys_pressed[pyg.K_LEFT])
-                and (self.get_furthest_pos_filled('RIGHT') < par.GRID_TLC_x + par.GRID_ELEM_SIZE * (par.GRID_NR_OF_COLS - 1))
-                and (not game_state.lateral_movement_prevented)):
+        # Update right
+        if (game_state.keys_pressed[par.RIGHT] and (not game_state.keys_pressed[par.LEFT])
+                and (not game_state.right_collision)
+                and (not game_state.lateral_movement_disabled)):
             self.position.x += par.GRID_ELEM_SIZE
-            game_state.lateral_movement_prevented = True
+            game_state.lateral_movement_disabled = True
             
-        # Rotation
-        if (game_state.keys_pressed[pyg.K_SPACE] and self.rotation_allowed and (not game_state.rotation_prevented)):
+        # Update rotation state
+        if (game_state.keys_pressed[par.ROTATE] and self.rotation_allowed and (not game_state.rotation_disabled)):
             self.rotate()
-            game_state.rotation_prevented = True
-            
-        # Falling
-        if self.is_falling and (not self.bottom_reached()):
-            self.position.y += par.GRID_ELEM_SIZE
-            self.is_falling = False
-
-        # Check if tile is locked and reset if so
-        self.tile_locked_check(game_state)
-
-    def tile_locked_check(self, game_state):
-        if self.bottom_reached():
-            for row in range(0, len(self.configuration_matrix)):
-                for col in range(0, len(self.configuration_matrix)):
-                    if self.configuration_matrix[row][col] == 1:
-                        row_ = int((self.position.y - par.GRID_TLC_y) / par.GRID_ELEM_SIZE) + row
-                        col_ = int((self.position.x - par.GRID_TLC_x) / par.GRID_ELEM_SIZE) + col
-                        game_state.board_occupation_matrix[row_][col_] = par.TILE_COLORS[self.type]
-            self.reset()         
+            game_state.rotation_disabled = True
+        
+        # Update vertical position
+        if (not game_state.down_collision):
+            if (self.is_falling):
+                self.position.y += par.GRID_ELEM_SIZE
+                self.is_falling = False
+        else:
+            game_state.update_occupation_matrix(self)
+            self.reset()
+              

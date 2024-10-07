@@ -12,8 +12,7 @@ def event_handler(tile, game_state):
         if event.type == pyg.QUIT:
             game_state.game_running = False
         if event.type == game_state.gravity_tick_ev:
-            if not tile.bottom_reached():
-                tile.is_falling = True
+            tile.is_falling = True
 
 def draw_grid():
     # draw horizontal lines
@@ -21,13 +20,17 @@ def draw_grid():
         start_coords = (par.GRID_TLC_x, par.GRID_TLC_y + row_idx * par.GRID_ELEM_SIZE)
         end_coords = (par.GRID_TLC_x + par.GRID_NR_OF_COLS * par.GRID_ELEM_SIZE, 
                       par.GRID_TLC_y + row_idx * par.GRID_ELEM_SIZE)
-        pyg.draw.line(game_window, par.BLACK, start_coords, end_coords)
+        pyg.draw.line(surface=game_window, color=par.BLACK, 
+                      start_pos=start_coords, end_pos=end_coords,
+                      width=par.GRID_THICKNESS)
     # draw vertical lines    
     for col_idx in range(0, par.GRID_NR_OF_COLS + 1):
         start_coords = (par.GRID_TLC_x + col_idx * par.GRID_ELEM_SIZE, par.GRID_TLC_y)
         end_coords = (par.GRID_TLC_x + col_idx * par.GRID_ELEM_SIZE, 
                       par.GRID_TLC_y + par.GRID_ELEM_SIZE * par.GRID_NR_OF_ROWS)
-        pyg.draw.line(game_window, par.BLACK, start_coords, end_coords)
+        pyg.draw.line(surface=game_window, color=par.BLACK, 
+                      start_pos=start_coords, end_pos=end_coords,
+                      width=par.GRID_THICKNESS)
 
 def draw_block_with_borders(TLC_x, TLC_y, size, color, border_color):
     block = pyg.Rect(TLC_x, TLC_y, size, size)
@@ -36,8 +39,9 @@ def draw_block_with_borders(TLC_x, TLC_y, size, color, border_color):
     down_left = (top_left[0], top_left[1] + size)
     down_right = (down_left[0] + size, down_left[1])
     top_right = (down_right[0], down_right[1] - size)
-    pyg.draw.lines(game_window, border_color, closed=True,
-                   points=[top_left, down_left, down_right, top_right])
+    pyg.draw.lines(surface=game_window, color=border_color, closed=True,
+                   points=[top_left, down_left, down_right, top_right],
+                   width=par.BLOCK_BORDER_THICKNESS)
 
 def draw_board(game_state):
     for row in range (0, par.GRID_NR_OF_ROWS):
@@ -61,7 +65,7 @@ def draw_tile(tile):
                                        par.WHITE)
  
 def draw_scene(tile, game_state):
-    # TODO: only draw tile each time not the entire thing
+    # TODO: only draw tile and board each time not the entire thing
     # color background such that older objects do not appear
     game_window.blit(bg, par.BACKGROUND_POS)
     game_window.blit(tetris_logo, par.LOGO_POS)
