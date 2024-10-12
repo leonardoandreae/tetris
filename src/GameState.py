@@ -83,8 +83,12 @@ class GameState:
                         self.board_occupation_matrix[row_down_][col_] != None):
                     self.down_collision = True
                     break
-        
-        print(f'left = {self.left_collision} \t right = {self.right_collision} \t down = {self.down_collision}')
+
+    def game_over_check(self):
+        for col in range(0, par.GRID_NR_OF_COLS):
+            if self.board_occupation_matrix[0][col] == 1:
+                self.game_running = False
+
 
                     
     

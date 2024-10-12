@@ -3,10 +3,10 @@ import pygame as pyg
 import random
 
 class Tile:
-    def __init__(self) -> None:
-        self.reset()
+    def __init__(self, game_state) -> None:
+        self.reset(game_state)
 
-    def reset(self):
+    def reset(self, game_state):
         self.type = self.get_next_type()
         self.vertical_movement_allowed = True
         self.lateral_movement_allowed = True
@@ -15,6 +15,11 @@ class Tile:
         self.configuration_idx = 0
         self.position = self.get_initial_position()
         self.configuration_matrix = par.TILE_SHAPES[self.type][self.configuration_idx]
+        # Check for collisions and if occurred end the game
+        game_state.collision_detection(self)
+        if game_state.down_collision == True:
+            game_state.game_running = False
+
 
     def get_next_type(self):
         tile_types = list(par.TILE_SHAPES.keys())
@@ -69,5 +74,5 @@ class Tile:
                 self.is_falling = False
         else:
             game_state.update_occupation_matrix(self)
-            self.reset()
+            self.reset(game_state)
               
