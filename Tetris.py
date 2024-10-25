@@ -99,6 +99,7 @@ def main():
         
         game_state.get_current_keys()
         tile.update_position(game_state)
+        game_state.delete_complete_rows()
         draw_scene(tile, game_state)
 
         game_state.game_over_check()

@@ -13,8 +13,7 @@ class GameState:
         self.rotation_disabled = False
         self.clock = pyg.time.Clock()
         # event to detect if tile needs to fall by one square, triggered at regular time intervals
-        # event ID = 24 (up to 32, but first 23 are used by pygame already)
-        self.gravity_tick_ev = pyg.USEREVENT + 0
+        self.gravity_tick_ev = pyg.USEREVENT + 0 # event ID = 24 (up to 32, but first 23 are used by pygame already)
         pyg.time.set_timer(self.gravity_tick_ev, par.FALL_TIME_INTERVAL_ms) 
         # Collision flags
         self.left_collision = False
@@ -84,6 +83,35 @@ class GameState:
                     self.down_collision = True
                     break
 
+    def get_complete_rows(self):
+        col_completion_count = 0
+        row_complete_list = []
+        for row in range(par.GRID_NR_OF_ROWS - 1, -1, -1): # bottom -> top
+            for col in range(0, par.GRID_NR_OF_COLS):
+                if self.board_occupation_matrix[row][col] != None:
+                    col_completion_count += 1
+                else: 
+                    col_completion_count = 0
+                    break
+                if col_completion_count == par.GRID_NR_OF_COLS:
+                    row_complete_list.append(row)
+                    col_completion_count = 0
+        return row_complete_list
+
+    def drop_block(self, row_start, row_end):
+        for col in range(0, par.GRID_NR_OF_COLS):
+            for row in range(row_start, row_end, -1):
+                self.board_occupation_matrix[row][col] = self.board_occupation_matrix[row - 1][col]
+
+    def delete_complete_rows(self):
+        row_complete_list = self.get_complete_rows()
+        for col in range(0, par.GRID_NR_OF_COLS):
+            for row in row_complete_list:
+                self.board_occupation_matrix[row][col] = None
+        row_complete_list.append(0) # adding the 0 to call drop_block() on the last row
+        for i in range(len(row_complete_list) - 1):
+            self.drop_block(row_complete_list[i], row_complete_list[i + 1])
+            
     def game_over_check(self):
         for col in range(0, par.GRID_NR_OF_COLS):
             if self.board_occupation_matrix[0][col] == 1:
