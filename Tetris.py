@@ -68,11 +68,21 @@ def draw_tile(tile):
 def draw_scene(tile, game_state):
     # TODO: only draw tile and board each time not the entire thing
     # color background such that older objects do not appear
-    game_window.blit(bg, par.BACKGROUND_POS)
+    game_window.fill(par.GREY)
     game_window.blit(tetris_logo, par.LOGO_POS)
 
-    score_surface, _ = text_font.render(f'Score: {game_state.score}', par.WHITE)
-    game_window.blit(score_surface, par.SCORE_TEXT_POS)
+    score_surface, _ = text_font.render(f'Score:  {game_state.score}', par.WHITE)
+    level_surface, _ = text_font.render(f'Level:   {game_state.level}', par.WHITE)
+    lines_surface, _ = text_font.render(f'Lines:   {game_state.lines}', par.WHITE)
+
+    y_level = par.STATS_POS[1] + text_font.get_sized_height() + 10
+    x_level = par.STATS_POS[0]
+    y_lines = y_level + text_font.get_sized_height() + 10
+    x_lines = x_level
+
+    game_window.blit(score_surface, par.STATS_POS)
+    game_window.blit(level_surface, (x_level, y_level))
+    game_window.blit(lines_surface, (x_lines, y_lines))
     
     draw_grid()
     draw_board(game_state)
@@ -91,14 +101,17 @@ def main():
     tetris_icon = pyg.image.load('assets/tetris_icon.png')
     pyg.display.set_icon(tetris_icon)
 
-    bg = pyg.image.load('assets/bg.jpg')
     tetris_logo = pyg.image.load('assets/tetris_logo.png')
-    tetris_logo = pyg.transform.scale2x(tetris_logo)
 
-    text_font = pyg.freetype.SysFont(pyg.freetype.get_default_font(), 24)
+    text_font = pyg.freetype.SysFont(pyg.freetype.get_default_font(), par.FONT_SIZE)
+    
+    pyg.mixer.music.load('assets/tetris-theme.mp3')
     
     game_state = GameState()
     tile = Tile(game_state)
+
+    pyg.mixer.music.play(loops=-1, start=0.0, fade_ms=0)
+    pyg.mixer.music.set_volume(par.MUSIC_VOLUME)
   
     while game_state.game_running:
         event_handler(tile, game_state)

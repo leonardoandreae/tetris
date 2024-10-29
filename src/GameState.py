@@ -19,7 +19,9 @@ class GameState:
         self.left_collision = False
         self.right_collision = False
         self.down_collision = False
+        self.lines = 0
         self.score = 0
+        self.level = 1
         
     def get_current_keys(self) -> None:
         self.keys_pressed = pyg.key.get_pressed()
@@ -146,7 +148,7 @@ class GameState:
     def delete_complete_rows(self):
         row_complete_list = self.get_complete_rows()
         self.nr_of_completed_rows = len(row_complete_list)
-        self.score += self.nr_of_completed_rows
+        self.lines += self.nr_of_completed_rows
         if self.nr_of_completed_rows != 0:
             for col in range(0, par.GRID_NR_OF_COLS):
                 for row in row_complete_list:

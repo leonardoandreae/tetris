@@ -20,7 +20,6 @@ class Tile:
         if game_state.down_collision == True:
             game_state.game_running = False
 
-
     def get_next_type(self):
         tile_types = list(par.TILE_SHAPES.keys())
         idx = random.randint(0, len(tile_types) - 1)
