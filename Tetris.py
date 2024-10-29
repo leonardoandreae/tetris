@@ -1,4 +1,5 @@
 import pygame as pyg
+import pygame.freetype
 import sys, os
 sys.path.append(os.path.join(sys.path[0], 'src'))
 import GameParameters as par
@@ -69,6 +70,9 @@ def draw_scene(tile, game_state):
     # color background such that older objects do not appear
     game_window.blit(bg, par.BACKGROUND_POS)
     game_window.blit(tetris_logo, par.LOGO_POS)
+
+    score_surface, _ = text_font.render(f'Score: {game_state.score}', par.WHITE)
+    game_window.blit(score_surface, par.SCORE_TEXT_POS)
     
     draw_grid()
     draw_board(game_state)
@@ -78,7 +82,7 @@ def draw_scene(tile, game_state):
 
 
 def main():
-    global game_window, bg, tetris_logo
+    global game_window, bg, tetris_logo, text_surface, text_font
     pyg.init()
     game_window = pyg.display.set_mode((par.GAME_WINDOW_WIDTH, par.GAME_WINDOW_HEIGHT))
     pyg.display.set_caption("Tetris")
@@ -90,6 +94,8 @@ def main():
     bg = pyg.image.load('assets/bg.jpg')
     tetris_logo = pyg.image.load('assets/tetris_logo.png')
     tetris_logo = pyg.transform.scale2x(tetris_logo)
+
+    text_font = pyg.freetype.SysFont(pyg.freetype.get_default_font(), 24)
     
     game_state = GameState()
     tile = Tile(game_state)
