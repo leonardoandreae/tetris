@@ -10,7 +10,7 @@ class Tile:
         self.type = self.get_next_type()
         self.vertical_movement_allowed = True
         self.lateral_movement_allowed = True
-        self.rotation_allowed = True
+        self.rotation_allowed = False
         self.is_falling = False
         self.configuration_idx = 0
         self.position = self.get_initial_position()
@@ -25,8 +25,13 @@ class Tile:
         idx = random.randint(0, len(tile_types) - 1)
         return tile_types[idx]
     
-    def rotate(self) -> None:
-        self.configuration_idx = (self.configuration_idx + 1) % par.TILE_CONFIG_IDX_MAX
+    def rotate(self, direction) -> None:
+        if direction == 'CCW':
+            self.configuration_idx = (self.configuration_idx + 1) % par.TILE_CONFIG_IDX_MAX
+        elif direction == 'CW':
+            self.configuration_idx = (self.configuration_idx - 1) % par.TILE_CONFIG_IDX_MAX
+        else:
+            pass
         self.configuration_matrix = par.TILE_SHAPES[self.type][self.configuration_idx]
         
     def get_initial_position(self):
@@ -37,6 +42,23 @@ class Tile:
             pos = pyg.Vector2(par.GRID_TLC_x + par.GRID_ELEM_SIZE * (int(par.GRID_NR_OF_COLS / 2) - 1),
                                     par.GRID_TLC_y - par.GRID_ELEM_SIZE)
         return pos
+    
+    def is_overlapping(self, game_state):
+        for row in range(0, len(self.configuration_matrix)):
+            for col in range(0, len(self.configuration_matrix)):
+                row_ = int((self.position.y - par.GRID_TLC_y) / par.GRID_ELEM_SIZE) + row
+                col_ = int((self.position.x - par.GRID_TLC_x) / par.GRID_ELEM_SIZE) + col
+                if self.configuration_matrix[row][col] == 1 and \
+                        game_state.board_occupation_matrix[row_][col_] != None:
+                    return True
+        return False
+    
+    def is_out_of_bounds(self):
+        for row in range(0, len(self.configuration_matrix)):
+            for col in range(0, len(self.configuration_matrix)):
+                pass
+
+
         
     def update_position(self, game_state):
         # Check if lateral movement is disabled/enabled
@@ -44,6 +66,9 @@ class Tile:
             
         # Check if rotation is disabled/enabled
         game_state.rotation_check()
+
+        # Check if rotation is allowed by trying ARS kicks
+        game_state.rotation_allowed_check(self)
 
         game_state.collision_detection(self)
         
@@ -63,7 +88,7 @@ class Tile:
             
         # Update rotation state
         if (game_state.keys_pressed[par.ROTATE] and self.rotation_allowed and (not game_state.rotation_disabled)):
-            self.rotate()
+            self.rotate('CCW')
             game_state.rotation_disabled = True
         
         # Update vertical position

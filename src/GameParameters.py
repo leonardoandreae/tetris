@@ -196,4 +196,4 @@ TILE_SHAPES = {"I": [[[0, 0, 0, 0],
 LEFT = pyg.K_LEFT
 RIGHT = pyg.K_RIGHT
 DOWN = pyg.K_DOWN
-ROTATE = pyg.K_SPACE
+ROTATE = pyg.K_UP

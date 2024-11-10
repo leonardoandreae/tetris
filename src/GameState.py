@@ -34,7 +34,32 @@ class GameState:
     def rotation_check(self):
         if self.rotation_disabled and (not self.keys_pressed[par.ROTATE]):
             self.rotation_disabled = False
-        
+
+    def rotation_allowed_check(self, tile):
+        # TODO refactor this as a recursive function
+        # Attempt to rotate the tile and check if there's overlap or out of bounds outcomes
+        initial_position = tile.position.x
+        tile.rotate('CCW')
+        if (not tile.is_overlapping(self)) and (not tile.is_out_of_bounds(self)):
+            tile.rotation_allowed = True
+        else:
+            # Kick tile to the right
+            if tile.position.x < par.GRID_TLC_x + par.GRID_ELEM_SIZE * (par.GRID_NR_OF_COLS - 1):
+                tile.position.x += 1
+                if (not tile.is_overlapping(self)) and (not tile.is_out_of_bounds(self)):
+                    tile.rotation_allowed = True
+                else:
+                    # Kick tile to the left 
+                    tile.position.x = initial_position
+                    if tile.position > par.GRID_TLC_x:
+                        tile.position.x -= 1
+                        if (not tile.is_overlapping(self)) and (not tile.is_out_of_bounds(self)):
+                            tile.rotation_allowed = True
+        # Undo rotation and shift if rotation not allowed
+        if tile.rotation_allowed == False:
+            tile.rotate('CW')
+            tile.position.x = initial_position
+       
     def update_occupation_matrix(self, tile) -> None:
         for row in range(0, len(tile.configuration_matrix)):
             for col in range(0, len(tile.configuration_matrix)):
@@ -85,6 +110,7 @@ class GameState:
                         self.board_occupation_matrix[row_down_][col_] != None):
                     self.down_collision = True
                     break
+        # TODO add collision detection in the top direction
 
     def get_complete_rows(self):
         col_completion_count = 0
