@@ -71,7 +71,7 @@ class Tile:
                     pass
         return True
                     
-    def update_position(self, game_state):
+    def update_position(self, game_state, game_interface):
         # Check if lateral movement is disabled/enabled
         game_state.lateral_movement_check()
             
@@ -97,12 +97,15 @@ class Tile:
         # Update rotation state
         if (game_state.keys_pressed[par.ROTATE] and game_state.rotation_allowed_check(self, step=1) and (not game_state.rotation_disabled)):
             self.rotate('CCW')
+            game_interface.rotation_sfx.play()
             game_state.rotation_disabled = True
         
         # Update vertical position
         if (not game_state.down_contact):
             if game_state.keys_pressed[par.DOWN]:
                 self.position.y += self.can_drop * par.GRID_ELEM_SIZE
+                if self.can_drop == True:
+                    game_state.score += 1
                 self.can_drop = False
             if (self.is_falling):
                 self.position.y += par.GRID_ELEM_SIZE

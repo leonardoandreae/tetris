@@ -172,11 +172,29 @@ class GameState:
             idx += delta
             delta = 1
         return reduced_row_list
+    
+    def increase_score(self, nr_of_completed_rows, game_interface):
+        if nr_of_completed_rows == 1:
+            self.score += 40 * self.level
+            game_interface.single_sfx.play()
+        elif nr_of_completed_rows == 2:
+            self.score += 100 * self.level
+            game_interface.double_sfx.play()
+        elif nr_of_completed_rows == 3:
+            self.score += 300 * self.level
+            game_interface.triple_sfx.play()
+        elif nr_of_completed_rows >= 4:
+            self.score += 1200 * self.level
+            game_interface.quadruple_sfx.play()
 
-    def delete_complete_rows(self):
+    def delete_complete_rows(self, game_interface):
+        lines_prev = self.lines
         row_complete_list = self.get_complete_rows()
         self.nr_of_completed_rows = len(row_complete_list)
         self.lines += self.nr_of_completed_rows
+        if (self.lines % 10) < (lines_prev % 10):
+           self.level += 1 
+        self.increase_score(self.nr_of_completed_rows, game_interface)
         if self.nr_of_completed_rows != 0:
             for col in range(0, par.GRID_NR_OF_COLS):
                 for row in row_complete_list:
