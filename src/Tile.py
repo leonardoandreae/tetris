@@ -15,9 +15,9 @@ class Tile:
         self.configuration_idx = 0
         self.position = self.get_initial_position()
         self.configuration_matrix = par.TILE_SHAPES[self.type][self.configuration_idx]
-        # Check for collisions and if occurred end the game
-        game_state.collision_detection(self)
-        if game_state.down_collision == True:
+        # Check for contact and if occurred end the game
+        game_state.contact_detection(self)
+        if game_state.down_contact == True:
             game_state.game_running = False
 
     def get_next_type(self):
@@ -43,23 +43,33 @@ class Tile:
                                     par.GRID_TLC_y - par.GRID_ELEM_SIZE)
         return pos
     
-    def is_overlapping(self, game_state):
-        for row in range(0, len(self.configuration_matrix)):
-            for col in range(0, len(self.configuration_matrix)):
-                row_ = int((self.position.y - par.GRID_TLC_y) / par.GRID_ELEM_SIZE) + row
-                col_ = int((self.position.x - par.GRID_TLC_x) / par.GRID_ELEM_SIZE) + col
-                if self.configuration_matrix[row][col] == 1 and \
-                        game_state.board_occupation_matrix[row_][col_] != None:
-                    return True
-        return False
+    def is_out_of_bounds(self, x, y):
+        if (x < par.GRID_TLC_x or \
+                x > par.GRID_TLC_x + (par.GRID_NR_OF_COLS - 1) * par.GRID_ELEM_SIZE or \
+                y < par.GRID_TLC_y or \
+                y > par.GRID_TLC_y + (par.GRID_NR_OF_ROWS - 1) * par.GRID_ELEM_SIZE):
+            return True
+        else:
+            return False
     
-    def is_out_of_bounds(self):
+    def is_position_permitted(self, game_state):
         for row in range(0, len(self.configuration_matrix)):
             for col in range(0, len(self.configuration_matrix)):
-                pass
-
-
-        
+                # Check if the tile block is out of bounds
+                block_pos_x = self.position.x + par.GRID_ELEM_SIZE * col
+                block_pos_y = self.position.x + par.GRID_ELEM_SIZE * row
+                if self.configuration_matrix[row][col] == 1 and self.is_out_of_bounds(block_pos_x, block_pos_y):
+                    return False
+                elif self.configuration_matrix[row][col] == 1 and (not self.is_out_of_bounds(block_pos_x, block_pos_y)):
+                    # Check if the tile block is overlapping the board
+                    row_ = int((self.position.y - par.GRID_TLC_y) / par.GRID_ELEM_SIZE) + row
+                    col_ = int((self.position.x - par.GRID_TLC_x) / par.GRID_ELEM_SIZE) + col
+                    if game_state.board_occupation_matrix[row_][col_] != None:
+                        return False
+                else:
+                    pass
+        return True
+                    
     def update_position(self, game_state):
         # Check if lateral movement is disabled/enabled
         game_state.lateral_movement_check()
@@ -67,32 +77,29 @@ class Tile:
         # Check if rotation is disabled/enabled
         game_state.rotation_check()
 
-        # Check if rotation is allowed by trying ARS kicks
-        game_state.rotation_allowed_check(self)
-
-        game_state.collision_detection(self)
+        game_state.contact_detection(self)
         
         # Update left
         if (game_state.keys_pressed[par.LEFT] and (not game_state.keys_pressed[par.RIGHT])
-                and (not game_state.left_collision)
+                and (not game_state.left_contact)
                 and (not game_state.lateral_movement_disabled)):
             self.position.x -= par.GRID_ELEM_SIZE
             game_state.lateral_movement_disabled = True
             
         # Update right
         if (game_state.keys_pressed[par.RIGHT] and (not game_state.keys_pressed[par.LEFT])
-                and (not game_state.right_collision)
+                and (not game_state.right_contact)
                 and (not game_state.lateral_movement_disabled)):
             self.position.x += par.GRID_ELEM_SIZE
             game_state.lateral_movement_disabled = True
             
         # Update rotation state
-        if (game_state.keys_pressed[par.ROTATE] and self.rotation_allowed and (not game_state.rotation_disabled)):
+        if (game_state.keys_pressed[par.ROTATE] and game_state.rotation_allowed_check(self, step=1) and (not game_state.rotation_disabled)):
             self.rotate('CCW')
             game_state.rotation_disabled = True
         
         # Update vertical position
-        if (not game_state.down_collision):
+        if (not game_state.down_contact):
             if (self.is_falling):
                 self.position.y += par.GRID_ELEM_SIZE
                 self.is_falling = False

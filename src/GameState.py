@@ -15,10 +15,10 @@ class GameState:
         # event to detect if tile needs to fall by one square, triggered at regular time intervals
         self.gravity_tick_ev = pyg.USEREVENT + 0 # event ID = 24 (up to 32, but first 23 are used by pygame already)
         pyg.time.set_timer(self.gravity_tick_ev, par.FALL_TIME_INTERVAL_ms) 
-        # Collision flags
-        self.left_collision = False
-        self.right_collision = False
-        self.down_collision = False
+        # Contact flags
+        self.left_contact = False
+        self.right_contact = False
+        self.down_contact = False
         self.lines = 0
         self.score = 0
         self.level = 1
@@ -35,31 +35,30 @@ class GameState:
         if self.rotation_disabled and (not self.keys_pressed[par.ROTATE]):
             self.rotation_disabled = False
 
-    def rotation_allowed_check(self, tile):
-        # TODO refactor this as a recursive function
-        # Attempt to rotate the tile and check if there's overlap or out of bounds outcomes
-        initial_position = tile.position.x
-        tile.rotate('CCW')
-        if (not tile.is_overlapping(self)) and (not tile.is_out_of_bounds(self)):
-            tile.rotation_allowed = True
-        else:
-            # Kick tile to the right
-            if tile.position.x < par.GRID_TLC_x + par.GRID_ELEM_SIZE * (par.GRID_NR_OF_COLS - 1):
-                tile.position.x += 1
-                if (not tile.is_overlapping(self)) and (not tile.is_out_of_bounds(self)):
-                    tile.rotation_allowed = True
-                else:
-                    # Kick tile to the left 
-                    tile.position.x = initial_position
-                    if tile.position > par.GRID_TLC_x:
-                        tile.position.x -= 1
-                        if (not tile.is_overlapping(self)) and (not tile.is_out_of_bounds(self)):
-                            tile.rotation_allowed = True
-        # Undo rotation and shift if rotation not allowed
-        if tile.rotation_allowed == False:
+    def rotation_allowed_check(self, tile, step):
+        if step == 1:
+            # Attempt rotating and check if new position is ok
+            tile.rotate('CCW')
+        elif step == 2:
+            # Translate to the right and try again
+            tile.position.x += par.GRID_ELEM_SIZE
+        elif step == 3:
+            # Translate to the left and try again
+            tile.position.x -= 2 * par.GRID_ELEM_SIZE
+        else: 
+            pass
+        
+        if tile.is_position_permitted(self):
             tile.rotate('CW')
-            tile.position.x = initial_position
-       
+            return True
+        else:
+            if step == 3:
+                # reset position
+                tile.position.x += 2 * par.GRID_ELEM_SIZE
+                return False
+            else:
+                self.rotation_allowed_check(tile, step + 1)
+            
     def update_occupation_matrix(self, tile) -> None:
         for row in range(0, len(tile.configuration_matrix)):
             for col in range(0, len(tile.configuration_matrix)):
@@ -68,11 +67,11 @@ class GameState:
                     col_ = int((tile.position.x - par.GRID_TLC_x) / par.GRID_ELEM_SIZE) + col
                     self.board_occupation_matrix[row_][col_] = par.TILE_COLORS[tile.type]
 
-    def collision_detection(self, tile):
-        # Check collision on the left
-        self.left_collision = False # reset every frame
+    def contact_detection(self, tile):
+        # Check contact on the left
+        self.left_contact = False # reset every frame
         for row in range(0, len(tile.configuration_matrix)):
-            if self.left_collision == True:
+            if self.left_contact == True:
                 break
             for col in range(0, len(tile.configuration_matrix)):
                 row_ = int((tile.position.y - par.GRID_TLC_y) / par.GRID_ELEM_SIZE) + row
@@ -80,13 +79,13 @@ class GameState:
                 if tile.configuration_matrix[row][col] == 1 and \
                         (col_left_ < 0 or \
                         self.board_occupation_matrix[row_][col_left_] != None):
-                    self.left_collision = True
+                    self.left_contact = True
                     break
 
-        # Check collision on the right
-        self.right_collision = False # reset every frame
+        # Check contact on the right
+        self.right_contact = False # reset every frame
         for row in range(0, len(tile.configuration_matrix)):
-            if self.right_collision == True:
+            if self.right_contact == True:
                 break
             for col in range(len(tile.configuration_matrix) - 1, -1, -1):
                row_ = int((tile.position.y - par.GRID_TLC_y) / par.GRID_ELEM_SIZE) + row
@@ -94,13 +93,13 @@ class GameState:
                if tile.configuration_matrix[row][col] == 1 and \
                         (col_right_ > par.GRID_NR_OF_COLS - 1 or \
                         self.board_occupation_matrix[row_][col_right_] != None):
-                    self.right_collision = True
+                    self.right_contact = True
                     break
         
-        # Check collision at the bottom
-        self.down_collision = False # reset every frame
+        # Check contact at the bottom
+        self.down_contact = False # reset every frame
         for row in range(len(tile.configuration_matrix) - 1, -1, -1):
-            if self.down_collision == True:
+            if self.down_contact == True:
                 break
             for col in range(0, len(tile.configuration_matrix)):
                 row_down_ = int((tile.position.y - par.GRID_TLC_y) / par.GRID_ELEM_SIZE) + row + 1
@@ -108,9 +107,9 @@ class GameState:
                 if tile.configuration_matrix[row][col] == 1 and \
                           (row_down_ > par.GRID_NR_OF_ROWS - 1 or \
                         self.board_occupation_matrix[row_down_][col_] != None):
-                    self.down_collision = True
+                    self.down_contact = True
                     break
-        # TODO add collision detection in the top direction
+        # TODO add contact detection in the top direction
 
     def get_complete_rows(self):
         col_completion_count = 0
