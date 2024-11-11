@@ -12,6 +12,7 @@ class Tile:
         self.lateral_movement_allowed = True
         self.rotation_allowed = False
         self.is_falling = False
+        self.can_drop = False
         self.configuration_idx = 0
         self.position = self.get_initial_position()
         self.configuration_matrix = par.TILE_SHAPES[self.type][self.configuration_idx]
@@ -100,9 +101,12 @@ class Tile:
         
         # Update vertical position
         if (not game_state.down_contact):
+            if game_state.keys_pressed[par.DOWN]:
+                self.position.y += self.can_drop * par.GRID_ELEM_SIZE
+                self.can_drop = False
             if (self.is_falling):
                 self.position.y += par.GRID_ELEM_SIZE
-                self.is_falling = False
+                self.is_falling = False                
         else:
             game_state.update_occupation_matrix(self)
             self.reset(game_state)

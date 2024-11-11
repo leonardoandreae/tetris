@@ -14,6 +14,8 @@ def event_handler(tile, game_state):
             game_state.game_running = False
         if event.type == game_state.gravity_tick_ev:
             tile.is_falling = True
+        if event.type == game_state.downwards_drop_ev:
+            tile.can_drop = True
 
 def draw_grid():
     # draw horizontal lines

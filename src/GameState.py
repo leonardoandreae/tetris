@@ -14,7 +14,9 @@ class GameState:
         self.clock = pyg.time.Clock()
         # event to detect if tile needs to fall by one square, triggered at regular time intervals
         self.gravity_tick_ev = pyg.USEREVENT + 0 # event ID = 24 (up to 32, but first 23 are used by pygame already)
+        self.downwards_drop_ev = pyg.USEREVENT + 1
         pyg.time.set_timer(self.gravity_tick_ev, par.FALL_TIME_INTERVAL_ms) 
+        pyg.time.set_timer(self.downwards_drop_ev, par.DROP_TIME_INTERVAL_ms)
         # Contact flags
         self.left_contact = False
         self.right_contact = False
@@ -39,10 +41,10 @@ class GameState:
         if step == 1:
             # Attempt rotating and check if new position is ok
             tile.rotate('CCW')
-        elif step == 2:
+        elif step == 2 and tile.type != "I":
             # Translate to the right and try again
             tile.position.x += par.GRID_ELEM_SIZE
-        elif step == 3:
+        elif step == 3 and tile.type != "I":
             # Translate to the left and try again
             tile.position.x -= 2 * par.GRID_ELEM_SIZE
         else: 
@@ -54,7 +56,8 @@ class GameState:
         else:
             if step == 3:
                 # reset position
-                tile.position.x += 2 * par.GRID_ELEM_SIZE
+                if tile.type != "I":
+                    tile.position.x += 2 * par.GRID_ELEM_SIZE
                 return False
             else:
                 self.rotation_allowed_check(tile, step + 1)

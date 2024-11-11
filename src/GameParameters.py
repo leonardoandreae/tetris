@@ -3,9 +3,10 @@ import pygame as pyg
 # Miscellaneous
 FPS = 60
 FALL_TIME_INTERVAL_ms = 500
+DROP_TIME_INTERVAL_ms = 80
 BLOCK_BORDER_THICKNESS = 2
 FONT_SIZE = 40
-MUSIC_VOLUME = 0.5 
+MUSIC_VOLUME = 0.5
 
 # Grid
 GRID_ELEM_SIZE = 30
@@ -197,3 +198,4 @@ LEFT = pyg.K_LEFT
 RIGHT = pyg.K_RIGHT
 DOWN = pyg.K_DOWN
 ROTATE = pyg.K_UP
+DROP = pyg.K_SPACE
