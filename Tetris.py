@@ -17,7 +17,7 @@ def main():
         game_state.delete_complete_rows(game_interface)
         game_interface.draw_scene(tile, game_state)
         game_state.game_over_check()
-        # limits game's fps (waits) and returns the ms count since the last call
+        # waits until the desired fps is reached
         game_state.clock.tick(par.FPS)          
     pyg.quit() 
     

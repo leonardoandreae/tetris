@@ -187,13 +187,20 @@ class GameState:
             self.score += 1200 * self.level
             game_interface.quadruple_sfx.play()
 
+    def increase_level(self):
+        if self.level < 10:
+            self.level += 1
+            # speed up tile descent
+            par.FALL_TIME_INTERVAL_ms -= 40
+            pyg.time.set_timer(self.gravity_tick_ev, par.FALL_TIME_INTERVAL_ms) # reset timer
+
     def delete_complete_rows(self, game_interface):
         lines_prev = self.lines
         row_complete_list = self.get_complete_rows()
         self.nr_of_completed_rows = len(row_complete_list)
         self.lines += self.nr_of_completed_rows
         if (self.lines % 10) < (lines_prev % 10):
-           self.level += 1 
+           self.increase_level()
         self.increase_score(self.nr_of_completed_rows, game_interface)
         if self.nr_of_completed_rows != 0:
             for col in range(0, par.GRID_NR_OF_COLS):

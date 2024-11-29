@@ -107,9 +107,10 @@ class Tile:
                 if self.can_drop == True:
                     game_state.score += 1
                 self.can_drop = False
-            if (self.is_falling):
-                self.position.y += par.GRID_ELEM_SIZE
-                self.is_falling = False                
+            else: # else needed here to avoid dropping twice due to pressing DOWN and gravity tick
+                if (self.is_falling):
+                    self.position.y += par.GRID_ELEM_SIZE
+                    self.is_falling = False                
         else:
             game_state.update_occupation_matrix(self)
             self.reset(game_state)
