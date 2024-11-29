@@ -9,17 +9,14 @@ def main():
     game_interface = GameInterface()
     game_state = GameState()
     tile = Tile(game_state)
-  
+    
     while game_state.game_running:
         game_interface.event_handler(tile, game_state)
-        
         game_state.get_current_keys()
         tile.update_position(game_state, game_interface)
         game_state.delete_complete_rows(game_interface)
         game_interface.draw_scene(tile, game_state)
-
         game_state.game_over_check()
-
         # limits game's fps (waits) and returns the ms count since the last call
         game_state.clock.tick(par.FPS)          
     pyg.quit() 
