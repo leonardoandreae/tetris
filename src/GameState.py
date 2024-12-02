@@ -1,7 +1,8 @@
 import pygame as pyg
 import GameParameters as par
 from Tile import *
-import numpy as np
+from queue import Queue
+import random
 
 class GameState:
     def __init__(self):
@@ -24,7 +25,16 @@ class GameState:
         self.lines = 0
         self.score = 0
         self.level = 1
-        
+        # tile queue
+        self.tile_queue = Queue(maxsize=par.TILE_QUEUE_SIZE)
+        for _ in range(par.TILE_QUEUE_SIZE):
+            self.tile_queue.put(self.get_random_tile_type())
+
+    def get_random_tile_type(self):
+        tile_types = list(par.TILE_SHAPES.keys())
+        idx = random.randint(0, len(tile_types) - 1)
+        return tile_types[idx]
+   
     def get_current_keys(self) -> None:
         self.keys_pressed = pyg.key.get_pressed()
     

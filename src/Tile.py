@@ -1,13 +1,13 @@
 import GameParameters as par
 import pygame as pyg
-import random
 
 class Tile:
     def __init__(self, game_state) -> None:
         self.reset(game_state)
 
     def reset(self, game_state):
-        self.type = self.get_next_type()
+        self.type = game_state.tile_queue.queue[0]
+        self.next_type = game_state.tile_queue.queue[1]
         self.vertical_movement_allowed = True
         self.lateral_movement_allowed = True
         self.rotation_allowed = False
@@ -20,11 +20,6 @@ class Tile:
         game_state.contact_detection(self)
         if game_state.down_contact == True:
             game_state.game_running = False
-
-    def get_next_type(self):
-        tile_types = list(par.TILE_SHAPES.keys())
-        idx = random.randint(0, len(tile_types) - 1)
-        return tile_types[idx]
     
     def rotate(self, direction) -> None:
         if direction == 'CCW':
@@ -113,5 +108,9 @@ class Tile:
                     self.is_falling = False                
         else:
             game_state.update_occupation_matrix(self)
+            # remove current tile from the queue...
+            game_state.tile_queue.get()
+            # and add a new one
+            game_state.tile_queue.put(game_state.get_random_tile_type())
             self.reset(game_state)
               
