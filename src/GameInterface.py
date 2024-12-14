@@ -34,6 +34,28 @@ class GameInterface:
             if event.type == game_state.downwards_drop_ev:
                 tile.can_drop = True
 
+    def compute_smallest_drop_distance(self, tile, game_state):
+        drop_distances = [] # unit = number of cells
+        for col in range(0, par.TILE_CONFIG_IDX_MAX):
+            d_up = 0
+            d_down = 0
+            for row in range(par.TILE_CONFIG_IDX_MAX - 1, -1, -1):
+                if tile.configuration_matrix[row][col] == 1:
+                    row_ = int((tile.position.y - par.GRID_TLC_y) / par.GRID_ELEM_SIZE) + par.TILE_CONFIG_IDX_MAX
+                    col_ = int((tile.position.x - par.GRID_TLC_x) / par.GRID_ELEM_SIZE) + col
+                    while(row_ < par.GRID_NR_OF_ROWS):
+                        print(f'col = {col_}')
+                        if game_state.board_occupation_matrix[row_][col_] == None:
+                            d_down += 1
+                            row_ += 1
+                        else:
+                            break
+                    drop_distances.append(d_up + d_down)
+                    break
+                else:
+                    d_up += 1
+        return min(drop_distances)
+
     def draw_grid(self, nr_of_rows, nr_of_cols, TLC_coords):
         # draw horizontal lines
         for row_idx in range(0, nr_of_rows + 1):
@@ -95,7 +117,46 @@ class GameInterface:
                                                 par.GRID_ELEM_SIZE,
                                                 par.TILE_COLORS[tile_type],
                                                 par.WHITE)
-    
+                    
+    def draw_dropped_tile_preview(self, tile, game_state):
+        drop_distance = self.compute_smallest_drop_distance(tile, game_state)
+        # draw tile outer border at drop distance
+        for row in range (0, par.TILE_CONFIG_IDX_MAX):
+            for col in range (0, par.TILE_CONFIG_IDX_MAX):
+                if tile.configuration_matrix[row][col] == 1:                  
+                    if row == 0 or tile.configuration_matrix[row - 1][col] == 0: # lazy or eval allows to avoid idx overflow (same below)
+                        pyg.draw.line(self.game_window, 
+                                        par.BLACK, 
+                                        pyg.Vector2(tile.position.x + par.GRID_ELEM_SIZE * col, 
+                                                    tile.position.y + par.GRID_ELEM_SIZE * (row + drop_distance)),
+                                        pyg.Vector2(tile.position.x + par.GRID_ELEM_SIZE * (col + 1), 
+                                                    tile.position.y + par.GRID_ELEM_SIZE * (row + drop_distance)),
+                                        par.DROPPED_BLOCK_PREVIEW_BORDER)
+                    if col == 0 or tile.configuration_matrix[row][col - 1] == 0:
+                        pyg.draw.line(self.game_window, 
+                                        par.BLACK, 
+                                        pyg.Vector2(tile.position.x + par.GRID_ELEM_SIZE * col, 
+                                                    tile.position.y + par.GRID_ELEM_SIZE * (row + drop_distance)),
+                                        pyg.Vector2(tile.position.x + par.GRID_ELEM_SIZE * col, 
+                                                    tile.position.y + par.GRID_ELEM_SIZE * (row + 1 + drop_distance)),
+                                        par.DROPPED_BLOCK_PREVIEW_BORDER)                            
+                    if row == par.TILE_CONFIG_IDX_MAX - 1 or tile.configuration_matrix[row + 1][col] == 0:
+                        pyg.draw.line(self.game_window, 
+                                        par.BLACK, 
+                                        pyg.Vector2(tile.position.x + par.GRID_ELEM_SIZE * col, 
+                                                    tile.position.y + par.GRID_ELEM_SIZE * (row + 1 + drop_distance)),
+                                        pyg.Vector2(tile.position.x + par.GRID_ELEM_SIZE * (col + 1), 
+                                                    tile.position.y + par.GRID_ELEM_SIZE * (row + 1 + drop_distance)),
+                                        par.DROPPED_BLOCK_PREVIEW_BORDER)  
+                    if col == par.TILE_CONFIG_IDX_MAX - 1 or tile.configuration_matrix[row][col + 1] == 0:
+                        pyg.draw.line(self.game_window, 
+                                        par.BLACK, 
+                                        pyg.Vector2(tile.position.x + par.GRID_ELEM_SIZE * (col + 1), 
+                                                    tile.position.y + par.GRID_ELEM_SIZE * (row + drop_distance)),
+                                        pyg.Vector2(tile.position.x + par.GRID_ELEM_SIZE * (col + 1), 
+                                                    tile.position.y + par.GRID_ELEM_SIZE * (row + 1 + drop_distance)),
+                                        par.DROPPED_BLOCK_PREVIEW_BORDER)  
+
     def draw_scene(self, tile, game_state):
         # TODO: only draw tile and board each time not the entire thing
         # color background such that older objects do not appear
@@ -107,6 +168,7 @@ class GameInterface:
         level_text_surface, _ = self.text_font_1.render(f'Level:   {game_state.level}', par.WHITE)
         lines_text_surface, _ = self.text_font_1.render(f'Lines:   {game_state.lines}', par.WHITE)
 
+        # TODO: clean this up
         y_level = par.STATS_POS[1] + self.text_font_1.get_sized_height() + 10
         x_level = par.STATS_POS[0]
         y_lines = y_level + self.text_font_1.get_sized_height() + 10
@@ -121,6 +183,7 @@ class GameInterface:
         self.draw_next_tile(tile.next_type)
         self.draw_grid(par.GRID_NR_OF_ROWS, par.GRID_NR_OF_COLS, pyg.Vector2(par.GRID_TLC_x, par.GRID_TLC_y))
         self.draw_board(game_state)
-        self.draw_tile(tile) 
+        self.draw_tile(tile)
+        self.draw_dropped_tile_preview(tile, game_state)
         # After calling the drawing functions to make the display Surface object look the way you want, you must call this to make the display Surface actually appear on the user’s monitor.
         pyg.display.update()

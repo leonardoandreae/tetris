@@ -51,26 +51,28 @@ class GameState:
         if step == 1:
             # Attempt rotating and check if new position is ok
             tile.rotate('CCW')
-        elif step == 2 and tile.type != "I":
+        elif step == 2:
             # Translate to the right and try again
             tile.position.x += par.GRID_ELEM_SIZE
-        elif step == 3 and tile.type != "I":
+        elif step == 3:
             # Translate to the left and try again
             tile.position.x -= 2 * par.GRID_ELEM_SIZE
         else: 
             pass
-        
         if tile.is_position_permitted(self):
             tile.rotate('CW')
             return True
         else:
-            if step == 3:
-                # reset position
-                if tile.type != "I":
-                    tile.position.x += 2 * par.GRID_ELEM_SIZE
+            if tile.type == "I":
+                tile.rotate('CW')
                 return False
             else:
-                self.rotation_allowed_check(tile, step + 1)
+                if step == 3:
+                    # reset position
+                    tile.position.x += 2 * par.GRID_ELEM_SIZE
+                    return False
+                else:
+                    self.rotation_allowed_check(tile, step + 1)
             
     def update_occupation_matrix(self, tile) -> None:
         for row in range(0, len(tile.configuration_matrix)):
@@ -196,12 +198,14 @@ class GameState:
         elif nr_of_completed_rows >= 4:
             self.score += 1200 * self.level
             game_interface.quadruple_sfx.play()
+        else:
+            pass
 
     def increase_level(self):
         if self.level < 10:
             self.level += 1
             # speed up tile descent
-            par.FALL_TIME_INTERVAL_ms -= 40
+            par.FALL_TIME_INTERVAL_ms -= par.FALL_TIME_INTERVAL_DELTA_ms
             pyg.time.set_timer(self.gravity_tick_ev, par.FALL_TIME_INTERVAL_ms) # reset timer
 
     def delete_complete_rows(self, game_interface):
