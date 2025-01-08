@@ -2,8 +2,9 @@ import GameParameters as par
 import pygame as pyg
 
 class Tile:
-    def __init__(self, game_state) -> None:
+    def __init__(self, game_state, play_sfx) -> None:
         self.reset(game_state)
+        self.play_sfx = play_sfx
 
     def reset(self, game_state):
         self.type = game_state.tile_queue.queue[0]
@@ -47,6 +48,27 @@ class Tile:
             return True
         else:
             return False
+        
+    def compute_smallest_drop_distance(self, game_state):
+        drop_distances = [] # unit = number of cells
+        for col in range(0, par.TILE_CONFIG_IDX_MAX):
+            d_up = 0
+            d_down = 0
+            for row in range(par.TILE_CONFIG_IDX_MAX - 1, -1, -1):
+                if self.configuration_matrix[row][col] == 1:
+                    row_ = int((self.position.y - par.GRID_TLC_y) / par.GRID_ELEM_SIZE) + par.TILE_CONFIG_IDX_MAX
+                    col_ = int((self.position.x - par.GRID_TLC_x) / par.GRID_ELEM_SIZE) + col
+                    while(row_ < par.GRID_NR_OF_ROWS):
+                        if game_state.board_occupation_matrix[row_][col_] == None:
+                            d_down += 1
+                            row_ += 1
+                        else:
+                            break
+                    drop_distances.append(d_up + d_down)
+                    break
+                else:
+                    d_up += 1
+        return min(drop_distances)
     
     def is_position_permitted(self, game_state):
         for row in range(0, len(self.configuration_matrix)):
@@ -66,7 +88,7 @@ class Tile:
                     pass
         return True
                     
-    def update_position(self, game_state, game_interface):
+    def update_position(self, game_state):
         # Check if lateral movement is disabled/enabled
         game_state.lateral_movement_check()
             
@@ -92,7 +114,7 @@ class Tile:
         # Update rotation state
         if (game_state.keys_pressed[par.ROTATE] and game_state.rotation_allowed_check(self, step=1) and (not game_state.rotation_disabled)):
             self.rotate('CCW')
-            game_interface.rotation_sfx.play()
+            self.play_sfx('rotation')
             game_state.rotation_disabled = True
         
         # Update vertical position
@@ -110,7 +132,7 @@ class Tile:
             game_state.update_occupation_matrix(self)
             # remove current tile from the queue...
             game_state.tile_queue.get()
-            # and add a new one
+            # ...and add a new one
             game_state.tile_queue.put(game_state.get_random_tile_type())
             self.reset(game_state)
               

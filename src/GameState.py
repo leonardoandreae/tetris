@@ -5,7 +5,8 @@ from queue import Queue
 import random
 
 class GameState:
-    def __init__(self):
+    def __init__(self, play_sfx):
+        self.play_sfx = play_sfx
         self.game_running = True
         self.board_occupation_matrix = [[None for _ in range(par.GRID_NR_OF_COLS)] 
                                         for _ in range(par.GRID_NR_OF_ROWS)]
@@ -174,7 +175,7 @@ class GameState:
                         self.board_occupation_matrix[row][col] = self.board_occupation_matrix[row - d][col]
 
     def remove_subsequent_completed_rows(self, row_complete_list):
-        reduced_row_list = row_complete_list.copy()
+        reduced_row_list = row_complete_list.copy() 
         idx = 0
         delta = 1
         while (idx < len(row_complete_list) - 1):
@@ -185,19 +186,19 @@ class GameState:
             delta = 1
         return reduced_row_list
     
-    def increase_score(self, nr_of_completed_rows, game_interface):
+    def increase_score(self, nr_of_completed_rows):
         if nr_of_completed_rows == 1:
             self.score += 40 * self.level
-            game_interface.single_sfx.play()
+            self.play_sfx("single")
         elif nr_of_completed_rows == 2:
             self.score += 100 * self.level
-            game_interface.double_sfx.play()
+            self.play_sfx("double")
         elif nr_of_completed_rows == 3:
             self.score += 300 * self.level
-            game_interface.triple_sfx.play()
+            self.play_sfx("triple")
         elif nr_of_completed_rows >= 4:
             self.score += 1200 * self.level
-            game_interface.quadruple_sfx.play()
+            self.play_sfx("quadruple")
         else:
             pass
 
@@ -208,14 +209,14 @@ class GameState:
             par.FALL_TIME_INTERVAL_ms -= par.FALL_TIME_INTERVAL_DELTA_ms
             pyg.time.set_timer(self.gravity_tick_ev, par.FALL_TIME_INTERVAL_ms) # reset timer
 
-    def delete_complete_rows(self, game_interface):
+    def delete_complete_rows(self):
         lines_prev = self.lines
         row_complete_list = self.get_complete_rows()
         self.nr_of_completed_rows = len(row_complete_list)
         self.lines += self.nr_of_completed_rows
         if (self.lines % 10) < (lines_prev % 10):
            self.increase_level()
-        self.increase_score(self.nr_of_completed_rows, game_interface)
+        self.increase_score(self.nr_of_completed_rows)
         if self.nr_of_completed_rows != 0:
             for col in range(0, par.GRID_NR_OF_COLS):
                 for row in row_complete_list:
