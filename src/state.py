@@ -1,6 +1,6 @@
 import pygame as pyg
-import GameParameters as par
-from Tile import *
+import parameters as par
+from tile import *
 from queue import Queue
 import random
 

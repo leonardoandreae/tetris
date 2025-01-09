@@ -1,7 +1,7 @@
 import sys, os
 sys.path.append(os.path.join(sys.path[0], 'src'))
-import GameParameters as par
-from GameInterface import *
+import parameters as par
+from interface import *
 
 def main():
     game_interface = GameInterface()

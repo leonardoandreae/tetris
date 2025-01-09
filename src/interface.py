@@ -1,7 +1,7 @@
 import pygame as pyg
-import GameParameters as par
-from Tile import *
-from GameState import *
+import parameters as par
+from tile import *
+from state import *
 
 class GameInterface:
     """ The main interface to the game.
@@ -223,7 +223,7 @@ class GameInterface:
         self.draw_grid(par.TILE_CONFIG_IDX_MAX, par.TILE_CONFIG_IDX_MAX, par.NEXT_PIECE_GRID_POS)
         # draw next piece preview grid
         self.draw_grid(par.GRID_NR_OF_ROWS, par.GRID_NR_OF_COLS, pyg.Vector2(par.GRID_TLC_x, par.GRID_TLC_y))
-        self.draw_board(self.state)
+        self.draw_board()
         self.draw_tile(self.tile.type, 
                        self.tile.configuration_matrix,
                        self.tile.position.x,

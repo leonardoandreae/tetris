@@ -1,4 +1,4 @@
-import GameParameters as par
+import parameters as par
 import pygame as pyg
 
 class Tile:
