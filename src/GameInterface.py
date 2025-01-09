@@ -4,6 +4,27 @@ from Tile import *
 from GameState import *
 
 class GameInterface:
+    """ The main interface to the game.
+
+    The class provides access to the game-loop functions as well as the necessary 
+    drawing toold needed to render the game window. The class also provides all
+    the necessary music and sfx components.
+
+    ...
+
+    Attributes
+    ----------
+    state : GameState
+        Object representing the game state needed to track the status of time varying game elements.
+    tile : Tile
+        Object representing the currently descending tetromino.
+
+    Methods
+    -------
+    process_events_and_inputs()
+        Calls the event handler and retrieves the user's inputs.
+    """
+
     def __init__(self):
         pyg.init()
         self.game_window = pyg.display.set_mode((par.GAME_WINDOW_WIDTH, par.GAME_WINDOW_HEIGHT))
@@ -24,6 +45,10 @@ class GameInterface:
         self.play_main_theme()
         
     def process_events_and_inputs(self):
+        """ Calls the event handler and retrieves the user's inputs.
+
+        """
+
         self.event_handler()
         self.state.get_current_keys()
 
@@ -43,6 +68,18 @@ class GameInterface:
                 self.tile.can_drop = True
 
     def play_sfx(self, sfx_type):
+        """ Plays different sound effects.
+
+        Does nothing if the `sfx_type` argument does
+        not match a currently implementes sfx.
+
+        Parameters
+        ----------
+        sfx_type: str
+            The type of sfx to be played.
+
+        """
+
         if sfx_type == "rotation":
             self.rotation_sfx.play()
         elif sfx_type == "single":
@@ -61,6 +98,18 @@ class GameInterface:
         pyg.mixer.music.set_volume(par.MUSIC_VOLUME)
 
     def draw_grid(self, nr_of_rows, nr_of_cols, TLC_coords):
+        """ Draws a grid at the specified position with the specified dimensions.
+
+        Parameters
+        ----------
+        nr_of_rows: int
+            Number of rows of the grid.
+        nr_of_cols: int
+            Numer of columns of the grid.
+        TLC_coords: pygame.Vector2
+            Coordinates of the top left corner of the grid.
+        """
+
         # draw horizontal lines
         for row_idx in range(0, nr_of_rows + 1):
             start_coords = (TLC_coords.x, TLC_coords.y + row_idx * par.GRID_ELEM_SIZE)
