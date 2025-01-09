@@ -1,0 +1,70 @@
+\doxysection{tile.\+Tile Class Reference}
+\hypertarget{classtile_1_1_tile}{}\label{classtile_1_1_tile}\index{tile.Tile@{tile.Tile}}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{classtile_1_1_tile_a573b6afe11898786a070017cff975705}\label{classtile_1_1_tile_a573b6afe11898786a070017cff975705} 
+None {\bfseries \+\_\+\+\_\+init\+\_\+\+\_\+} (self, game\+\_\+state, play\+\_\+sfx)
+\item 
+\Hypertarget{classtile_1_1_tile_ac9fc57c19f0104edbf3f145e66b5b596}\label{classtile_1_1_tile_ac9fc57c19f0104edbf3f145e66b5b596} 
+{\bfseries reset} (self, game\+\_\+state)
+\item 
+\Hypertarget{classtile_1_1_tile_a354fb9c20791ce8afa119cb3f15afb52}\label{classtile_1_1_tile_a354fb9c20791ce8afa119cb3f15afb52} 
+None {\bfseries rotate} (self, direction)
+\item 
+\Hypertarget{classtile_1_1_tile_a69cba43823001d6467c06185554d5a36}\label{classtile_1_1_tile_a69cba43823001d6467c06185554d5a36} 
+{\bfseries get\+\_\+initial\+\_\+position} (self)
+\item 
+\Hypertarget{classtile_1_1_tile_a588d5825324065c3a17bed9b70275c38}\label{classtile_1_1_tile_a588d5825324065c3a17bed9b70275c38} 
+{\bfseries is\+\_\+out\+\_\+of\+\_\+bounds} (self, x, y)
+\item 
+\Hypertarget{classtile_1_1_tile_a9e1c8da21ea3e6670ff4ff2627864bd3}\label{classtile_1_1_tile_a9e1c8da21ea3e6670ff4ff2627864bd3} 
+{\bfseries compute\+\_\+smallest\+\_\+drop\+\_\+distance} (self, game\+\_\+state)
+\item 
+\Hypertarget{classtile_1_1_tile_a56ec1ee03a2b78f9a591a720d79517b5}\label{classtile_1_1_tile_a56ec1ee03a2b78f9a591a720d79517b5} 
+{\bfseries is\+\_\+position\+\_\+permitted} (self, game\+\_\+state)
+\item 
+\Hypertarget{classtile_1_1_tile_a01ed3852159e842ccbb3e567be77f5ee}\label{classtile_1_1_tile_a01ed3852159e842ccbb3e567be77f5ee} 
+{\bfseries update\+\_\+position} (self, game\+\_\+state)
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{classtile_1_1_tile_ae962c3a9d1ab8b2a4f30fa80f47d9eeb}\label{classtile_1_1_tile_ae962c3a9d1ab8b2a4f30fa80f47d9eeb} 
+{\bfseries play\+\_\+sfx} = play\+\_\+sfx
+\item 
+\Hypertarget{classtile_1_1_tile_a4ce176943db69782dee418633207ebce}\label{classtile_1_1_tile_a4ce176943db69782dee418633207ebce} 
+str {\bfseries type} = game\+\_\+state.\+tile\+\_\+queue.\+queue\mbox{[}0\mbox{]}
+\item 
+\Hypertarget{classtile_1_1_tile_af49cac488a0f9ae7df6ab01ab546d3c7}\label{classtile_1_1_tile_af49cac488a0f9ae7df6ab01ab546d3c7} 
+{\bfseries next\+\_\+type} = game\+\_\+state.\+tile\+\_\+queue.\+queue\mbox{[}1\mbox{]}
+\item 
+\Hypertarget{classtile_1_1_tile_a0704dc09c25e4d49b473a26ed97202a7}\label{classtile_1_1_tile_a0704dc09c25e4d49b473a26ed97202a7} 
+bool {\bfseries vertical\+\_\+movement\+\_\+allowed} = True
+\item 
+\Hypertarget{classtile_1_1_tile_ad698a4cef6db0209cfe0089424100012}\label{classtile_1_1_tile_ad698a4cef6db0209cfe0089424100012} 
+bool {\bfseries lateral\+\_\+movement\+\_\+allowed} = True
+\item 
+\Hypertarget{classtile_1_1_tile_a2e185e64b7866bc66555a0ffca13a944}\label{classtile_1_1_tile_a2e185e64b7866bc66555a0ffca13a944} 
+bool {\bfseries rotation\+\_\+allowed} = False
+\item 
+\Hypertarget{classtile_1_1_tile_a8b62b56b33c52a868e2724c31e8040fe}\label{classtile_1_1_tile_a8b62b56b33c52a868e2724c31e8040fe} 
+bool {\bfseries is\+\_\+falling} = False
+\item 
+\Hypertarget{classtile_1_1_tile_a531afceadfee3548f8d60d8b426cae6e}\label{classtile_1_1_tile_a531afceadfee3548f8d60d8b426cae6e} 
+bool {\bfseries can\+\_\+drop} = False
+\item 
+\Hypertarget{classtile_1_1_tile_a3f5833909acbf37348725815642cefdd}\label{classtile_1_1_tile_a3f5833909acbf37348725815642cefdd} 
+int {\bfseries configuration\+\_\+idx} = 0
+\item 
+\Hypertarget{classtile_1_1_tile_a56e415db500012c7469d0a735f718a53}\label{classtile_1_1_tile_a56e415db500012c7469d0a735f718a53} 
+{\bfseries position} = self.\+get\+\_\+initial\+\_\+position()
+\item 
+\Hypertarget{classtile_1_1_tile_a30f18d95885c6e74202dfd9f24ff6938}\label{classtile_1_1_tile_a30f18d95885c6e74202dfd9f24ff6938} 
+{\bfseries configuration\+\_\+matrix} = par.\+TILE\+\_\+\+SHAPES\mbox{[}self.\+type\mbox{]}\mbox{[}self.\+configuration\+\_\+idx\mbox{]}
+\end{DoxyCompactItemize}
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+src/tile.\+py\end{DoxyCompactItemize}

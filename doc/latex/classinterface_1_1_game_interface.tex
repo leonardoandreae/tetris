@@ -1,0 +1,149 @@
+\doxysection{interface.\+Game\+Interface Class Reference}
+\hypertarget{classinterface_1_1_game_interface}{}\label{classinterface_1_1_game_interface}\index{interface.GameInterface@{interface.GameInterface}}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{classinterface_1_1_game_interface_a5b04c0384011ebfcf022bf9e06f14a07}\label{classinterface_1_1_game_interface_a5b04c0384011ebfcf022bf9e06f14a07} 
+{\bfseries \+\_\+\+\_\+init\+\_\+\+\_\+} (self)
+\item 
+\mbox{\hyperlink{classinterface_1_1_game_interface_ab3d1b7ed0e9ba37cddbec63c62e02b0d}{process\+\_\+events\+\_\+and\+\_\+inputs}} (self)
+\item 
+\Hypertarget{classinterface_1_1_game_interface_a1018edc8fce3f4e3a5db9742c008e0b7}\label{classinterface_1_1_game_interface_a1018edc8fce3f4e3a5db9742c008e0b7} 
+{\bfseries update} (self)
+\item 
+\Hypertarget{classinterface_1_1_game_interface_aeb2dcdc559f5ac77c5ffc1b037f1d30d}\label{classinterface_1_1_game_interface_aeb2dcdc559f5ac77c5ffc1b037f1d30d} 
+{\bfseries event\+\_\+handler} (self)
+\item 
+\mbox{\hyperlink{classinterface_1_1_game_interface_a84f7be5372bed726c0d8a438fb35f042}{play\+\_\+sfx}} (self, sfx\+\_\+type)
+\item 
+\Hypertarget{classinterface_1_1_game_interface_a2247c3332af48794f490e539cf66ed52}\label{classinterface_1_1_game_interface_a2247c3332af48794f490e539cf66ed52} 
+{\bfseries play\+\_\+main\+\_\+theme} (self)
+\item 
+\mbox{\hyperlink{classinterface_1_1_game_interface_a0f819d542179be5d13e2a4e2e27b221f}{draw\+\_\+grid}} (self, nr\+\_\+of\+\_\+rows, nr\+\_\+of\+\_\+cols, TLC\+\_\+coords)
+\item 
+\Hypertarget{classinterface_1_1_game_interface_a79f7870f0eaa5eaeabfa686de78a76b3}\label{classinterface_1_1_game_interface_a79f7870f0eaa5eaeabfa686de78a76b3} 
+{\bfseries draw\+\_\+block\+\_\+with\+\_\+borders} (self, TLC\+\_\+x, TLC\+\_\+y, size, color, border\+\_\+color)
+\item 
+\Hypertarget{classinterface_1_1_game_interface_a9be80250c65670a3f7d08ed6bddbe561}\label{classinterface_1_1_game_interface_a9be80250c65670a3f7d08ed6bddbe561} 
+{\bfseries draw\+\_\+board} (self)
+\item 
+\Hypertarget{classinterface_1_1_game_interface_a5e54ee5ea5eb50756772e1c1b8aee03c}\label{classinterface_1_1_game_interface_a5e54ee5ea5eb50756772e1c1b8aee03c} 
+{\bfseries draw\+\_\+tile} (self, tile\+\_\+type, cfg\+\_\+mat, pos\+\_\+x, pos\+\_\+y)
+\item 
+\Hypertarget{classinterface_1_1_game_interface_a2daf0752fa4f06c50694e53a59c2566a}\label{classinterface_1_1_game_interface_a2daf0752fa4f06c50694e53a59c2566a} 
+{\bfseries draw\+\_\+dropped\+\_\+tile\+\_\+preview} (self)
+\item 
+\Hypertarget{classinterface_1_1_game_interface_a68cd69282bf21563187446e786dd6771}\label{classinterface_1_1_game_interface_a68cd69282bf21563187446e786dd6771} 
+{\bfseries draw\+\_\+scene} (self)
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{classinterface_1_1_game_interface_ad5f679eadfab3925eeb3738856d65fc7}\label{classinterface_1_1_game_interface_ad5f679eadfab3925eeb3738856d65fc7} 
+{\bfseries game\+\_\+window} = pyg.\+display.\+set\+\_\+mode((par.\+GAME\+\_\+\+WINDOW\+\_\+\+WIDTH, par.\+GAME\+\_\+\+WINDOW\+\_\+\+HEIGHT))
+\item 
+\Hypertarget{classinterface_1_1_game_interface_a5332d072f9c2e48fdd41290412006a04}\label{classinterface_1_1_game_interface_a5332d072f9c2e48fdd41290412006a04} 
+{\bfseries icon} = pyg.\+image.\+load(\textquotesingle{}assets/tetris\+\_\+icon.\+png\textquotesingle{})
+\item 
+\Hypertarget{classinterface_1_1_game_interface_a1290401dfcfb99910fb0940adfd0cb60}\label{classinterface_1_1_game_interface_a1290401dfcfb99910fb0940adfd0cb60} 
+{\bfseries logo} = pyg.\+image.\+load(\textquotesingle{}assets/tetris\+\_\+logo.\+png\textquotesingle{})
+\item 
+\Hypertarget{classinterface_1_1_game_interface_ad7870bb55cffcf86ddb2d7ecbab851d9}\label{classinterface_1_1_game_interface_ad7870bb55cffcf86ddb2d7ecbab851d9} 
+{\bfseries text\+\_\+font\+\_\+1} = pyg.\+freetype.\+Sys\+Font(pyg.\+freetype.\+get\+\_\+default\+\_\+font(), par.\+FONT\+\_\+\+SIZE\+\_\+1)
+\item 
+\Hypertarget{classinterface_1_1_game_interface_ae4c572297c85bb68cdb024a408e54beb}\label{classinterface_1_1_game_interface_ae4c572297c85bb68cdb024a408e54beb} 
+{\bfseries text\+\_\+font\+\_\+2} = pyg.\+freetype.\+Sys\+Font(pyg.\+freetype.\+get\+\_\+default\+\_\+font(), par.\+FONT\+\_\+\+SIZE\+\_\+2)
+\item 
+\Hypertarget{classinterface_1_1_game_interface_ae4e6acb7317e03e0e03102ada23bba72}\label{classinterface_1_1_game_interface_ae4e6acb7317e03e0e03102ada23bba72} 
+{\bfseries rotation\+\_\+sfx} = pyg.\+mixer.\+Sound(\textquotesingle{}assets/rotation.\+mp3\textquotesingle{})
+\item 
+\Hypertarget{classinterface_1_1_game_interface_a7a9342fde0a1b8fa982735e371bee48c}\label{classinterface_1_1_game_interface_a7a9342fde0a1b8fa982735e371bee48c} 
+{\bfseries single\+\_\+sfx} = pyg.\+mixer.\+Sound(\textquotesingle{}assets/single.\+mp3\textquotesingle{})
+\item 
+\Hypertarget{classinterface_1_1_game_interface_ae3647b6f779cc1df2ab8f7a8e88ef14d}\label{classinterface_1_1_game_interface_ae3647b6f779cc1df2ab8f7a8e88ef14d} 
+{\bfseries double\+\_\+sfx} = pyg.\+mixer.\+Sound(\textquotesingle{}assets/double.\+mp3\textquotesingle{})
+\item 
+\Hypertarget{classinterface_1_1_game_interface_a31782b6a02a6c968d1c7771be04a6f28}\label{classinterface_1_1_game_interface_a31782b6a02a6c968d1c7771be04a6f28} 
+{\bfseries triple\+\_\+sfx} = pyg.\+mixer.\+Sound(\textquotesingle{}assets/triple.\+mp3\textquotesingle{})
+\item 
+\Hypertarget{classinterface_1_1_game_interface_a348534afac42905e70efb74c1b01da4a}\label{classinterface_1_1_game_interface_a348534afac42905e70efb74c1b01da4a} 
+{\bfseries quadruple\+\_\+sfx} = pyg.\+mixer.\+Sound(\textquotesingle{}assets/quadruple.\+mp3\textquotesingle{})
+\item 
+\Hypertarget{classinterface_1_1_game_interface_a50b1c93561d7e932f9e995548cac286e}\label{classinterface_1_1_game_interface_a50b1c93561d7e932f9e995548cac286e} 
+{\bfseries state} = \mbox{\hyperlink{classstate_1_1_game_state}{Game\+State}}(self.\+play\+\_\+sfx)
+\item 
+\Hypertarget{classinterface_1_1_game_interface_a6e42de1fecfd5f95c91188626189302c}\label{classinterface_1_1_game_interface_a6e42de1fecfd5f95c91188626189302c} 
+{\bfseries tile} = \mbox{\hyperlink{classtile_1_1_tile}{Tile}}(self.\+state, self.\+play\+\_\+sfx)
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+\begin{DoxyVerb}The main interface to the game.
+
+The class provides access to the game-loop functions as well as the necessary 
+drawing toold needed to render the game window. The class also provides all
+the necessary music and sfx components.
+
+...
+
+Attributes
+----------
+state : GameState
+    Object representing the game state needed to track the status of time varying game elements.
+tile : Tile
+    Object representing the currently descending tetromino.
+
+Methods
+-------
+process_events_and_inputs()
+    Calls the event handler and retrieves the user's inputs.
+\end{DoxyVerb}
+ 
+
+\doxysubsection{Member Function Documentation}
+\Hypertarget{classinterface_1_1_game_interface_a0f819d542179be5d13e2a4e2e27b221f}\index{interface.GameInterface@{interface.GameInterface}!draw\_grid@{draw\_grid}}
+\index{draw\_grid@{draw\_grid}!interface.GameInterface@{interface.GameInterface}}
+\doxysubsubsection{\texorpdfstring{draw\_grid()}{draw\_grid()}}
+{\footnotesize\ttfamily \label{classinterface_1_1_game_interface_a0f819d542179be5d13e2a4e2e27b221f} 
+interface.\+Game\+Interface.\+draw\+\_\+grid (\begin{DoxyParamCaption}\item[{}]{self}{, }\item[{}]{nr\+\_\+of\+\_\+rows}{, }\item[{}]{nr\+\_\+of\+\_\+cols}{, }\item[{}]{TLC\+\_\+coords}{}\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}Draws a grid at the specified position with the specified dimensions.
+
+Parameters
+----------
+nr_of_rows: int
+    Number of rows of the grid.
+nr_of_cols: int
+    Numer of columns of the grid.
+TLC_coords: pygame.Vector2
+    Coordinates of the top left corner of the grid.
+\end{DoxyVerb}
+ \Hypertarget{classinterface_1_1_game_interface_a84f7be5372bed726c0d8a438fb35f042}\index{interface.GameInterface@{interface.GameInterface}!play\_sfx@{play\_sfx}}
+\index{play\_sfx@{play\_sfx}!interface.GameInterface@{interface.GameInterface}}
+\doxysubsubsection{\texorpdfstring{play\_sfx()}{play\_sfx()}}
+{\footnotesize\ttfamily \label{classinterface_1_1_game_interface_a84f7be5372bed726c0d8a438fb35f042} 
+interface.\+Game\+Interface.\+play\+\_\+sfx (\begin{DoxyParamCaption}\item[{}]{self}{, }\item[{}]{sfx\+\_\+type}{}\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}Plays different sound effects.
+
+Does nothing if the `sfx_type` argument does
+not match a currently implementes sfx.
+
+Parameters
+----------
+sfx_type: str
+    The type of sfx to be played.
+\end{DoxyVerb}
+ \Hypertarget{classinterface_1_1_game_interface_ab3d1b7ed0e9ba37cddbec63c62e02b0d}\index{interface.GameInterface@{interface.GameInterface}!process\_events\_and\_inputs@{process\_events\_and\_inputs}}
+\index{process\_events\_and\_inputs@{process\_events\_and\_inputs}!interface.GameInterface@{interface.GameInterface}}
+\doxysubsubsection{\texorpdfstring{process\_events\_and\_inputs()}{process\_events\_and\_inputs()}}
+{\footnotesize\ttfamily \label{classinterface_1_1_game_interface_ab3d1b7ed0e9ba37cddbec63c62e02b0d} 
+interface.\+Game\+Interface.\+process\+\_\+events\+\_\+and\+\_\+inputs (\begin{DoxyParamCaption}\item[{}]{self}{}\end{DoxyParamCaption})}
+
+\begin{DoxyVerb}Calls the event handler and retrieves the user's inputs.
+\end{DoxyVerb}
+ 
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+src/interface.\+py\end{DoxyCompactItemize}

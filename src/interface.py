@@ -4,7 +4,7 @@ from tile import *
 from state import *
 
 class GameInterface:
-    """ The main interface to the game.
+    """The main interface to the game.
 
     The class provides access to the game-loop functions as well as the necessary 
     drawing toold needed to render the game window. The class also provides all
@@ -45,7 +45,7 @@ class GameInterface:
         self.play_main_theme()
         
     def process_events_and_inputs(self):
-        """ Calls the event handler and retrieves the user's inputs.
+        """Calls the event handler and retrieves the user's inputs.
 
         """
 
@@ -68,7 +68,7 @@ class GameInterface:
                 self.tile.can_drop = True
 
     def play_sfx(self, sfx_type):
-        """ Plays different sound effects.
+        """Plays different sound effects.
 
         Does nothing if the `sfx_type` argument does
         not match a currently implementes sfx.
@@ -98,7 +98,7 @@ class GameInterface:
         pyg.mixer.music.set_volume(par.MUSIC_VOLUME)
 
     def draw_grid(self, nr_of_rows, nr_of_cols, TLC_coords):
-        """ Draws a grid at the specified position with the specified dimensions.
+        """Draws a grid at the specified position with the specified dimensions.
 
         Parameters
         ----------

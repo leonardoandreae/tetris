@@ -1,5 +1,5 @@
 var searchData=
 [
-  ['play_5fsfx_0',['play_sfx',['../class_game_interface_1_1_game_interface.html#ad87c42365396da0b9e656fcd56fd892b',1,'GameInterface::GameInterface']]],
-  ['process_5fevents_5fand_5finputs_1',['process_events_and_inputs',['../class_game_interface_1_1_game_interface.html#a9226f67919bf4ea9d4e6f7bd491bb3f0',1,'GameInterface::GameInterface']]]
+  ['play_5fsfx_0',['play_sfx',['../classinterface_1_1_game_interface.html#a84f7be5372bed726c0d8a438fb35f042',1,'interface::GameInterface']]],
+  ['process_5fevents_5fand_5finputs_1',['process_events_and_inputs',['../classinterface_1_1_game_interface.html#ab3d1b7ed0e9ba37cddbec63c62e02b0d',1,'interface::GameInterface']]]
 ];
