@@ -2,7 +2,7 @@ import sys, os
 sys.path.append(os.path.join(sys.path[0], 'src'))
 import parameters as par
 from interface import *
-#test
+
 def main():
     game_interface = GameInterface()
     while game_interface.state.game_running:
