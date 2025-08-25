@@ -50,25 +50,28 @@ class Tile:
             return False
         
     def compute_smallest_drop_distance(self, game_state):
-        drop_distances = [] # unit = number of cells
-        for col in range(0, par.TILE_CONFIG_IDX_MAX):
-            d_up = 0
-            d_down = 0
-            for row in range(par.TILE_CONFIG_IDX_MAX - 1, -1, -1):
-                if self.configuration_matrix[row][col] == 1:
-                    row_ = int((self.position.y - par.GRID_TLC_y) / par.GRID_ELEM_SIZE) + par.TILE_CONFIG_IDX_MAX
-                    col_ = int((self.position.x - par.GRID_TLC_x) / par.GRID_ELEM_SIZE) + col
-                    while(row_ < par.GRID_NR_OF_ROWS):
-                        if game_state.board_occupation_matrix[row_][col_] == None:
-                            d_down += 1
-                            row_ += 1
-                        else:
-                            break
-                    drop_distances.append(d_up + d_down)
-                    break
-                else:
-                    d_up += 1
-        return min(drop_distances)
+        if (game_state.down_contact):
+            return 0
+        else:
+            drop_distances = [] # unit = number of cells
+            for col in range(0, par.TILE_CONFIG_IDX_MAX):
+                d_up = 0
+                d_down = 0
+                for row in range(par.TILE_CONFIG_IDX_MAX - 1, -1, -1):
+                    if self.configuration_matrix[row][col] == 1:
+                        row_ = int((self.position.y - par.GRID_TLC_y) / par.GRID_ELEM_SIZE) + par.TILE_CONFIG_IDX_MAX
+                        col_ = int((self.position.x - par.GRID_TLC_x) / par.GRID_ELEM_SIZE) + col
+                        while(row_ < par.GRID_NR_OF_ROWS):
+                            if game_state.board_occupation_matrix[row_][col_] == None:
+                                d_down += 1
+                                row_ += 1
+                            else:
+                                break
+                        drop_distances.append(d_up + d_down)
+                        break
+                    else:
+                        d_up += 1
+            return min(drop_distances)
     
     def is_position_permitted(self, game_state):
         for row in range(0, len(self.configuration_matrix)):
@@ -129,10 +132,14 @@ class Tile:
                     self.position.y += par.GRID_ELEM_SIZE
                     self.is_falling = False                
         else:
-            game_state.update_occupation_matrix(self)
-            # remove current tile from the queue...
-            game_state.tile_queue.get()
-            # ...and add a new one
-            game_state.tile_queue.put(game_state.get_random_tile_type())
-            self.reset(game_state)
+            if (game_state.down_contact_timer_ms >= par.DOWN_CONTACT_TIMEOUT_ms):
+                game_state.down_contact_timer_ms = 0
+                game_state.update_occupation_matrix(self)
+                # remove current tile from the queue...
+                game_state.tile_queue.get()
+                # ...and add a new one
+                game_state.tile_queue.put(game_state.get_random_tile_type())
+                self.reset(game_state) 
+            game_state.down_contact_timer_ms += 1 / (par.FPS) * 1000 
+            
               

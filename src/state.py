@@ -23,6 +23,8 @@ class GameState:
         self.left_contact = False
         self.right_contact = False
         self.down_contact = False
+        # Down contact timer -> used to check how long the tile has been in contact with the ground
+        self.down_contact_timer_ms = 0
         self.lines = 0
         self.score = 0
         self.level = 1
@@ -125,7 +127,7 @@ class GameState:
                         self.board_occupation_matrix[row_down_][col_] != None):
                     self.down_contact = True
                     break
-        # TODO add contact detection in the top direction
+        # TODO add contact detection in the top direction (needed?)
 
     def get_complete_rows(self):
         col_completion_count = 0
