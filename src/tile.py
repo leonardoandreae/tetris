@@ -50,29 +50,22 @@ class Tile:
             return False
         
     def compute_smallest_drop_distance(self, game_state):
-        if (game_state.down_contact):
-            return 0
-        else:
-            drop_distances = [] # unit = number of cells
-            for col in range(0, par.TILE_CONFIG_IDX_MAX):
-                d_up = 0
-                d_down = 0
-                for row in range(par.TILE_CONFIG_IDX_MAX - 1, -1, -1):
-                    if self.configuration_matrix[row][col] == 1:
-                        row_ = int((self.position.y - par.GRID_TLC_y) / par.GRID_ELEM_SIZE) + par.TILE_CONFIG_IDX_MAX
-                        col_ = int((self.position.x - par.GRID_TLC_x) / par.GRID_ELEM_SIZE) + col
-                        while(row_ < par.GRID_NR_OF_ROWS):
-                            if game_state.board_occupation_matrix[row_][col_] == None:
-                                d_down += 1
-                                row_ += 1
-                            else:
-                                break
-                        drop_distances.append(d_up + d_down)
-                        break
-                    else:
-                        d_up += 1
-            return min(drop_distances)
-    
+        drop_distances = [] # unit = number of cells
+        for col in range(0, par.TILE_CONFIG_IDX_MAX):
+            d = 0
+            for row in range(par.TILE_CONFIG_IDX_MAX - 1, -1, -1):
+                if self.configuration_matrix[row][col] == 1:
+                    row_ = int((self.position.y - par.GRID_TLC_y) / par.GRID_ELEM_SIZE) + row
+                    col_ = int((self.position.x - par.GRID_TLC_x) / par.GRID_ELEM_SIZE) + col
+                    while(row_ + 1 < par.GRID_NR_OF_ROWS):
+                        if game_state.board_occupation_matrix[row_ + 1][col_] == None:
+                            d += 1
+                            row_ += 1
+                        else:
+                            break
+                    drop_distances.append(d)
+        return min(drop_distances)
+
     def is_position_permitted(self, game_state):
         for row in range(0, len(self.configuration_matrix)):
             for col in range(0, len(self.configuration_matrix)):
