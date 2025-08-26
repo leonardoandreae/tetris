@@ -1,7 +1,7 @@
 import pygame as pyg
 
 # Miscellaneous
-FPS = 60
+TARGET_FPS = 60
 FALL_TIME_INTERVAL_ms = 500
 DOWN_CONTACT_TIMEOUT_ms = 500
 FALL_TIME_INTERVAL_DELTA_ms = 40
@@ -42,6 +42,7 @@ PURPLE = (128, 0, 128)
 GREEN = (0, 255, 0)
 BLUE = (0, 0, 255)
 ORANGE = (255, 127, 0)
+TRANSPARENT_GREY = (128, 128, 128, 150)
 
 # Tile related
 TILE_COLORS = {"I": CYAN,
@@ -207,3 +208,4 @@ RIGHT = pyg.K_RIGHT
 DOWN = pyg.K_DOWN
 ROTATE = pyg.K_UP
 DROP = pyg.K_SPACE
+PAUSE = pyg.K_ESCAPE

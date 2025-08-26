@@ -51,6 +51,8 @@ class GameInterface:
 
         self.event_handler()
         self.state.get_current_keys()
+        if self.state.keys_pressed[par.PAUSE]:
+            self.state.game_paused = True
 
     def update(self):
         self.tile.update_position(self.state)
@@ -196,7 +198,19 @@ class GameInterface:
                                                     self.tile.position.y + par.GRID_ELEM_SIZE * (row + drop_distance)),
                                         pyg.Vector2(self.tile.position.x + par.GRID_ELEM_SIZE * (col + 1), 
                                                     self.tile.position.y + par.GRID_ELEM_SIZE * (row + 1 + drop_distance)),
-                                        par.DROPPED_BLOCK_PREVIEW_BORDER)  
+                                        par.DROPPED_BLOCK_PREVIEW_BORDER)
+                        
+    def pause_menu(self):
+        # Pause in-game events
+        pyg.time.set_timer(self.state.gravity_tick_ev, 0)
+        # Pause music
+        pyg.mixer.music.pause()
+
+        # Draw transparent grey overlay
+        transparent_overlay = pyg.Surface((par.GAME_WINDOW_WIDTH, par.GAME_WINDOW_HEIGHT), pyg.SRCALPHA)
+        pyg.draw.rect(transparent_overlay, par.TRANSPARENT_GREY, (pyg.Vector2(0,0), pyg.Vector2(par.GAME_WINDOW_WIDTH, par.GAME_WINDOW_HEIGHT)))
+        self.game_window.blit(transparent_overlay, (0, 0))
+        pyg.display.update()
 
     def draw_scene(self):
         # TODO: only draw tile and board each time not the entire thing
@@ -238,4 +252,5 @@ class GameInterface:
         After calling the drawing functions to make the display Surface object look the way you want
         you must call update() to make the display Surface actually appear on the user’s monitor.
         '''
-        pyg.display.update()
+        if not self.state.game_paused:
+            pyg.display.update()

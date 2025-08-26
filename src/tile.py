@@ -50,7 +50,17 @@ class Tile:
             return False
         
     def compute_smallest_drop_distance(self, game_state):
-        drop_distances = [] # unit = number of cells
+        """Computes the smallest distance (umber of cells) that the tile can drop until it hits another tile
+        or the bottom of the board.
+
+        Parameters
+        ----------
+        game_state: GameState
+            The current game state.
+
+        """
+         
+        drop_distances = []
         for col in range(0, par.TILE_CONFIG_IDX_MAX):
             d = 0
             for row in range(par.TILE_CONFIG_IDX_MAX - 1, -1, -1):
@@ -133,6 +143,6 @@ class Tile:
                 # ...and add a new one
                 game_state.tile_queue.put(game_state.get_random_tile_type())
                 self.reset(game_state) 
-            game_state.down_contact_timer_ms += 1 / (par.FPS) * 1000 
+            game_state.down_contact_timer_ms += 1 / (par.TARGET_FPS) * 1000 
             
               

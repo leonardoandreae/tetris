@@ -7,10 +7,13 @@ def main():
     game_interface = GameInterface()
     while game_interface.state.game_running:
         game_interface.process_events_and_inputs()
-        game_interface.update()
+        if not game_interface.state.game_paused:
+            game_interface.update()
         game_interface.draw_scene()
+        if game_interface.state.game_paused:
+            game_interface.pause_menu()
         # waits until the desired fps is reached
-        game_interface.state.clock.tick(par.FPS)          
+        game_interface.state.clock.tick(par.TARGET_FPS)          
     pyg.quit() 
     
 if __name__ == "__main__":
