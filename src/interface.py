@@ -2,6 +2,7 @@ import pygame as pyg
 import parameters as par
 from tile import *
 from state import *
+from button import *
 
 class GameInterface:
     """The main interface to the game.
@@ -209,7 +210,9 @@ class GameInterface:
         # Draw transparent grey overlay
         transparent_overlay = pyg.Surface((par.GAME_WINDOW_WIDTH, par.GAME_WINDOW_HEIGHT), pyg.SRCALPHA)
         pyg.draw.rect(transparent_overlay, par.TRANSPARENT_GREY, (pyg.Vector2(0,0), pyg.Vector2(par.GAME_WINDOW_WIDTH, par.GAME_WINDOW_HEIGHT)))
-        self.game_window.blit(transparent_overlay, (0, 0))
+        self.game_window.blit(transparent_overlay, par.PAUSE_MENU_TRANSPARENT_OVERLAY_POS)
+        button = Button(TLC_coords=(par.GAME_WINDOW_WIDTH // 2 - 100, par.GAME_WINDOW_HEIGHT // 2 - 25), text='Resume')
+        button.draw(self.game_window)
         pyg.display.update()
 
     def draw_scene(self):

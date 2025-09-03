@@ -13,6 +13,10 @@ FONT_SIZE_2 = 22
 MUSIC_VOLUME = 0.5
 TILE_QUEUE_SIZE = 5
 
+# Buttons
+DEFAULT_BUTTON_FONT_SIZE = 40
+TEXT_TO_BUTTON_BORDER_SPACING = 30
+
 # Grid
 GRID_ELEM_SIZE = 30
 GRID_NR_OF_COLS = 10
@@ -30,6 +34,7 @@ STATS_POS = (530, 500)
 STATS_VERTICAL_SPACING = 10
 NEXT_PIECE_TEXT_POS = pyg.Vector2(572, 270)
 NEXT_PIECE_GRID_POS = pyg.Vector2(570, 300)
+PAUSE_MENU_TRANSPARENT_OVERLAY_POS = (0, 0)
 
 # Colors
 RED = (255, 0, 0)
@@ -43,6 +48,9 @@ GREEN = (0, 255, 0)
 BLUE = (0, 0, 255)
 ORANGE = (255, 127, 0)
 TRANSPARENT_GREY = (128, 128, 128, 150)
+DEFAULT_BUTTON_COLORS = {"button_idle": WHITE,
+                         "button_hover": YELLOW,
+                         "button_active": RED}
 
 # Tile related
 TILE_COLORS = {"I": CYAN,
