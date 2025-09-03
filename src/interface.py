@@ -41,6 +41,7 @@ class GameInterface:
         self.double_sfx = pyg.mixer.Sound('assets/double.mp3')
         self.triple_sfx = pyg.mixer.Sound('assets/triple.mp3')
         self.quadruple_sfx = pyg.mixer.Sound('assets/quadruple.mp3')
+        self.resume_button = Button(par.RESUME_BUTTON_POS, 'Resume')
         self.state = GameState(self.play_sfx)
         self.tile = Tile(self.state, self.play_sfx)
         self.play_main_theme()
@@ -202,17 +203,23 @@ class GameInterface:
                                         par.DROPPED_BLOCK_PREVIEW_BORDER)
                         
     def pause_menu(self):
-        # Pause in-game events
-        pyg.time.set_timer(self.state.gravity_tick_ev, 0)
-        # Pause music
-        pyg.mixer.music.pause()
+        if self.state.game_paused and self.resume_button.is_activated():
+            self.state.game_paused = False
+            # Resume in-game events
+            pyg.time.set_timer(self.state.gravity_tick_ev, par.FALL_TIME_INTERVAL_ms)
+            # Resume music
+            pyg.mixer.music.unpause()
+        else:
+            # Pause in-game events
+            pyg.time.set_timer(self.state.gravity_tick_ev, 0)
+            # Pause music
+            pyg.mixer.music.pause()
 
         # Draw transparent grey overlay
         transparent_overlay = pyg.Surface((par.GAME_WINDOW_WIDTH, par.GAME_WINDOW_HEIGHT), pyg.SRCALPHA)
         pyg.draw.rect(transparent_overlay, par.TRANSPARENT_GREY, (pyg.Vector2(0,0), pyg.Vector2(par.GAME_WINDOW_WIDTH, par.GAME_WINDOW_HEIGHT)))
         self.game_window.blit(transparent_overlay, par.PAUSE_MENU_TRANSPARENT_OVERLAY_POS)
-        button = Button(TLC_coords=(par.GAME_WINDOW_WIDTH // 2 - 100, par.GAME_WINDOW_HEIGHT // 2 - 25), text='Resume')
-        button.draw(self.game_window)
+        self.resume_button.draw(self.game_window)
         pyg.display.update()
 
     def draw_scene(self):

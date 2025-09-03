@@ -24,14 +24,23 @@ class Button():
 			self.mouse_over = False
 			self.clicked = False
 
-	def draw(self, surface, colors: dict = par.DEFAULT_BUTTON_COLORS) -> None:
+	def is_activated(self) -> bool:
+		clicked_old = self.clicked
+		self.update_button_state()
+		if clicked_old and not self.clicked and self.mouse_over:
+			return True
+		else:
+			return False
+
+	def draw(self, surface, colors: dict = par.DEFAULT_BUTTON_COLORS, border_radius: int = 20) -> None:
+		#TODO: check border radius validity -> should not be larger than half the smallest side of the button
 		self.update_button_state()
 		if not self.mouse_over:
-			pyg.draw.rect(surface, colors["button_idle"], self.rect)
+			pyg.draw.rect(surface, colors["button_idle"], self.rect, border_radius=border_radius)
 		elif self.mouse_over and not self.clicked:
-			pyg.draw.rect(surface, colors["button_hover"], self.rect)
+			pyg.draw.rect(surface, colors["button_hover"], self.rect, border_radius=border_radius)
 		else:
-			pyg.draw.rect(surface, colors["button_active"], self.rect)
+			pyg.draw.rect(surface, colors["button_active"], self.rect, border_radius=border_radius)
 
 		surface.blit(self.text_surface[0], (self.rect.centerx - self.text_surface[0].get_width() // 2,
 										self.rect.centery - self.text_surface[0].get_height() // 2))
