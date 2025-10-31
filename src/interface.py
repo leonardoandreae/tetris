@@ -42,6 +42,7 @@ class GameInterface:
         self.triple_sfx = pyg.mixer.Sound('assets/triple.mp3')
         self.quadruple_sfx = pyg.mixer.Sound('assets/quadruple.mp3')
         self.resume_button = Button(par.RESUME_BUTTON_POS, 'Resume')
+        self.transparent_overlay = pyg.Surface((par.GAME_WINDOW_WIDTH, par.GAME_WINDOW_HEIGHT), pyg.SRCALPHA)
         self.state = GameState(self.play_sfx)
         self.tile = Tile(self.state, self.play_sfx)
         self.play_main_theme()
@@ -53,8 +54,28 @@ class GameInterface:
 
         self.event_handler()
         self.state.get_current_keys()
-        if self.state.keys_pressed[par.PAUSE]:
+        self.update_pause_state()
+    
+    def update_pause_state(self):
+        self.state.game_resumed_timer_ms += self.state.clock.get_time()
+        
+        if not self.state.game_paused and self.state.keys_pressed[par.PAUSE] and self.state.game_resumed_timer_ms > par.PAUSE_COOLDOWN_ms:
             self.state.game_paused = True
+            self.state.pause_key_released = False
+            # Pause in-game events
+            pyg.time.set_timer(self.state.gravity_tick_ev, 0)
+            # Pause music
+            pyg.mixer.music.pause()
+
+        if (self.state.game_paused and self.resume_button.is_activated()) or \
+           (self.state.game_paused and self.state.keys_pressed[par.PAUSE] and self.state.pause_key_released):
+            self.state.game_resumed_timer_ms = 0
+            self.state.game_paused = False
+            # Resume in-game events
+            pyg.time.set_timer(self.state.gravity_tick_ev, par.FALL_TIME_INTERVAL_ms)
+            # Resume music
+            pyg.mixer.music.unpause()
+
 
     def update(self):
         self.tile.update_position(self.state)
@@ -70,6 +91,8 @@ class GameInterface:
                 self.tile.is_falling = True
             if event.type == self.state.downwards_drop_ev:
                 self.tile.can_drop = True
+            if event.type == pyg.KEYUP and event.key == par.PAUSE:
+                self.state.pause_key_released = True
 
     def play_sfx(self, sfx_type):
         """Plays different sound effects.
@@ -202,23 +225,10 @@ class GameInterface:
                                                     self.tile.position.y + par.GRID_ELEM_SIZE * (row + 1 + drop_distance)),
                                         par.DROPPED_BLOCK_PREVIEW_BORDER)
                         
-    def pause_menu(self):
-        if self.state.game_paused and self.resume_button.is_activated():
-            self.state.game_paused = False
-            # Resume in-game events
-            pyg.time.set_timer(self.state.gravity_tick_ev, par.FALL_TIME_INTERVAL_ms)
-            # Resume music
-            pyg.mixer.music.unpause()
-        else:
-            # Pause in-game events
-            pyg.time.set_timer(self.state.gravity_tick_ev, 0)
-            # Pause music
-            pyg.mixer.music.pause()
-
+    def draw_pause_menu(self):
         # Draw transparent grey overlay
-        transparent_overlay = pyg.Surface((par.GAME_WINDOW_WIDTH, par.GAME_WINDOW_HEIGHT), pyg.SRCALPHA)
-        pyg.draw.rect(transparent_overlay, par.TRANSPARENT_GREY, (pyg.Vector2(0,0), pyg.Vector2(par.GAME_WINDOW_WIDTH, par.GAME_WINDOW_HEIGHT)))
-        self.game_window.blit(transparent_overlay, par.PAUSE_MENU_TRANSPARENT_OVERLAY_POS)
+        pyg.draw.rect(self.transparent_overlay, par.TRANSPARENT_GREY, (pyg.Vector2(0,0), pyg.Vector2(par.GAME_WINDOW_WIDTH, par.GAME_WINDOW_HEIGHT)))
+        self.game_window.blit(self.transparent_overlay, par.PAUSE_MENU_TRANSPARENT_OVERLAY_POS)
         self.resume_button.draw(self.game_window)
         pyg.display.update()
 

@@ -4,10 +4,10 @@ import parameters as par
 class Button():
 	def __init__(self, TLC_coords: tuple, text: str = '', font_size: int = par.DEFAULT_BUTTON_FONT_SIZE, text_color: tuple = par.BLACK) -> None:
 		text_font = pyg.freetype.SysFont(pyg.freetype.get_default_font(), font_size)
-		self.text_surface = text_font.render(text, text_color)
+		self.text_surface, _ = text_font.render(text, text_color)
 		self.rect = pyg.Rect(TLC_coords[0], TLC_coords[1], 
-						self.text_surface[0].get_width() + par.TEXT_TO_BUTTON_BORDER_SPACING,
-						self.text_surface[0].get_height() + par.TEXT_TO_BUTTON_BORDER_SPACING)
+						self.text_surface.get_width() + par.TEXT_TO_BUTTON_BORDER_SPACING,
+						self.text_surface.get_height() + par.TEXT_TO_BUTTON_BORDER_SPACING)
 		self.mouse_over = False
 		self.clicked = False
 
@@ -32,8 +32,8 @@ class Button():
 		else:
 			return False
 
-	def draw(self, surface, colors: dict = par.DEFAULT_BUTTON_COLORS, border_radius: int = 20) -> None:
-		#TODO: check border radius validity -> should not be larger than half the smallest side of the button
+	def draw(self, surface, colors: dict = par.DEFAULT_BUTTON_COLORS, border_radius: int = par.DEFAULT_BUTTON_BORDER_RADIUS) -> None:
+		# TODO: check border radius validity -> should not be larger than half the smallest side of the button
 		self.update_button_state()
 		if not self.mouse_over:
 			pyg.draw.rect(surface, colors["button_idle"], self.rect, border_radius=border_radius)
@@ -42,5 +42,5 @@ class Button():
 		else:
 			pyg.draw.rect(surface, colors["button_active"], self.rect, border_radius=border_radius)
 
-		surface.blit(self.text_surface[0], (self.rect.centerx - self.text_surface[0].get_width() // 2,
-										self.rect.centery - self.text_surface[0].get_height() // 2))
+		surface.blit(self.text_surface, (self.rect.centerx - self.text_surface.get_width() // 2,
+										self.rect.centery - self.text_surface.get_height() // 2))

@@ -9,6 +9,8 @@ class GameState:
         self.play_sfx = play_sfx
         self.game_running = True
         self.game_paused = False
+        self.game_resumed_timer_ms = 0
+        self.pause_key_released = False
         self.board_occupation_matrix = [[None for _ in range(par.GRID_NR_OF_COLS)] 
                                         for _ in range(par.GRID_NR_OF_ROWS)]
         self.get_current_keys()
