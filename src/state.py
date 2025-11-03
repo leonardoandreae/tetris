@@ -19,9 +19,9 @@ class GameState:
         self.clock = pyg.time.Clock()
         # event to detect if tile needs to fall by one square, triggered at regular time intervals
         self.gravity_tick_ev = pyg.USEREVENT + 0 # event ID = 24 (up to 32, but first 23 are used by pygame already)
-        self.downwards_drop_ev = pyg.USEREVENT + 1
+        self.soft_drop_ev = pyg.USEREVENT + 1
         pyg.time.set_timer(self.gravity_tick_ev, par.FALL_TIME_INTERVAL_ms) 
-        pyg.time.set_timer(self.downwards_drop_ev, par.DROP_TIME_INTERVAL_ms)
+        pyg.time.set_timer(self.soft_drop_ev, par.SOFT_DROP_TIME_INTERVAL_ms)
         # Contact flags
         self.left_contact = False
         self.right_contact = False

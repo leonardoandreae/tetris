@@ -89,8 +89,8 @@ class GameInterface:
                 self.state.game_running = False
             if event.type == self.state.gravity_tick_ev:
                 self.tile.is_falling = True
-            if event.type == self.state.downwards_drop_ev:
-                self.tile.can_drop = True
+            if event.type == self.state.soft_drop_ev:
+                self.tile.can_soft_drop = True
             if event.type == pyg.KEYUP and event.key == par.PAUSE:
                 self.state.pause_key_released = True
 

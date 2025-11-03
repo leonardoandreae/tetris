@@ -13,7 +13,7 @@ class Tile:
         self.lateral_movement_allowed = True
         self.rotation_allowed = False
         self.is_falling = False
-        self.can_drop = False
+        self.can_soft_drop = False
         self.configuration_idx = 0
         self.position = self.get_initial_position()
         self.configuration_matrix = par.TILE_SHAPES[self.type][self.configuration_idx]
@@ -50,7 +50,7 @@ class Tile:
             return False
         
     def compute_smallest_drop_distance(self, game_state):
-        """Computes the smallest distance (umber of cells) that the tile can drop until it hits another tile
+        """Computes the smallest distance (number of cells) that the tile can drop until it hits another tile
         or the bottom of the board.
 
         Parameters
@@ -126,10 +126,14 @@ class Tile:
         # Update vertical position
         if (not game_state.down_contact):
             if game_state.keys_pressed[par.DOWN]:
-                self.position.y += self.can_drop * par.GRID_ELEM_SIZE
-                if self.can_drop == True:
+                self.position.y += int(self.can_soft_drop) * par.GRID_ELEM_SIZE
+                if self.can_soft_drop:
                     game_state.score += 1
-                self.can_drop = False
+                self.can_soft_drop = False
+            elif game_state.keys_pressed[par.HARD_DROP]:
+                drop_dist = self.compute_smallest_drop_distance(game_state)
+                self.position.y += drop_dist * par.GRID_ELEM_SIZE
+                game_state.score += 2 * drop_dist
             else: # else needed here to avoid dropping twice due to pressing DOWN and gravity tick
                 if (self.is_falling):
                     self.position.y += par.GRID_ELEM_SIZE
@@ -143,6 +147,6 @@ class Tile:
                 # ...and add a new one
                 game_state.tile_queue.put(game_state.get_random_tile_type())
                 self.reset(game_state) 
-            game_state.down_contact_timer_ms += 1 / (par.TARGET_FPS) * 1000 
+            game_state.down_contact_timer_ms += game_state.clock.get_time()
             
               
