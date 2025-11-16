@@ -2,9 +2,9 @@ import parameters as par
 import pygame as pyg
 
 class Tile:
-    def __init__(self, game_state, play_sfx) -> None:
+    def __init__(self, game_state) -> None:
+        self._listeners = {}
         self.reset(game_state)
-        self.play_sfx = play_sfx
 
     def reset(self, game_state):
         self.type = game_state.tile_queue.queue[0]
@@ -21,6 +21,40 @@ class Tile:
         game_state.contact_detection(self)
         if game_state.down_contact == True:
             game_state.game_running = False
+
+    def on(self, event, callback):
+        """ Subscribe a callback to a named event.
+
+        Parameters
+        ----------
+        event : str
+            The name of the event to listen for.
+
+        callback : function
+            The function to call when the event is emitted.
+
+        """
+
+        if event not in self._listeners:
+            self._listeners[event] = [] # creates empty list for the event
+        self._listeners[event].append(callback)
+
+
+    def emit(self, event, data = None):
+        """Emit an event and notify listeners.
+
+        Parameters
+        ----------
+        event : str
+            The name of the event to emit.
+
+        data : any, optional
+            Additional data to pass to the event listeners.
+        """
+
+        if event in self._listeners:
+            for callback in self._listeners[event]:
+                callback(event, data)
     
     def rotate(self, direction) -> None:
         if direction == 'CCW':
@@ -120,7 +154,7 @@ class Tile:
         # Update rotation state
         if (game_state.keys_pressed[par.ROTATE] and game_state.rotation_allowed_check(self, step=1) and (not game_state.rotation_disabled)):
             self.rotate('CCW')
-            self.play_sfx('rotation')
+            self.emit("rotation")
             game_state.rotation_disabled = True
         
         # Update vertical position
@@ -128,12 +162,12 @@ class Tile:
             if game_state.keys_pressed[par.DOWN]:
                 self.position.y += int(self.can_soft_drop) * par.GRID_ELEM_SIZE
                 if self.can_soft_drop:
-                    game_state.score += 1
+                    game_state.increase_score("soft_drop")
                 self.can_soft_drop = False
             elif game_state.keys_pressed[par.HARD_DROP]:
                 drop_dist = self.compute_smallest_drop_distance(game_state)
                 self.position.y += drop_dist * par.GRID_ELEM_SIZE
-                game_state.score += 2 * drop_dist
+                game_state.increase_score("hard_drop", drop_distance=drop_dist)
             else: # else needed here to avoid dropping twice due to pressing DOWN and gravity tick
                 if (self.is_falling):
                     self.position.y += par.GRID_ELEM_SIZE

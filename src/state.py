@@ -5,8 +5,8 @@ from queue import Queue
 import random
 
 class GameState:
-    def __init__(self, play_sfx):
-        self.play_sfx = play_sfx
+    def __init__(self) -> None:
+        self._listeners = {}
         self.game_running = True
         self.game_paused = False
         self.game_resumed_timer_ms = 0
@@ -17,10 +17,11 @@ class GameState:
         self.lateral_movement_disabled = False
         self.rotation_disabled = False
         self.clock = pyg.time.Clock()
+        self.fall_time_interval_ms = par.INITIAL_FALL_TIME_INTERVAL_ms
         # event to detect if tile needs to fall by one square, triggered at regular time intervals
         self.gravity_tick_ev = pyg.USEREVENT + 0 # event ID = 24 (up to 32, but first 23 are used by pygame already)
         self.soft_drop_ev = pyg.USEREVENT + 1
-        pyg.time.set_timer(self.gravity_tick_ev, par.FALL_TIME_INTERVAL_ms) 
+        pyg.time.set_timer(self.gravity_tick_ev, self.fall_time_interval_ms) 
         pyg.time.set_timer(self.soft_drop_ev, par.SOFT_DROP_TIME_INTERVAL_ms)
         # Contact flags
         self.left_contact = False
@@ -35,6 +36,41 @@ class GameState:
         self.tile_queue = Queue(maxsize=par.TILE_QUEUE_SIZE)
         for _ in range(par.TILE_QUEUE_SIZE):
             self.tile_queue.put(self.get_random_tile_type())
+
+    def on(self, event, callback):
+        """ Subscribe a callback to a named event.
+
+        Parameters
+        ----------
+        event : str
+            The name of the event to listen for.
+
+        callback : function
+            The function to call when the event is emitted.
+
+        """
+
+        if event not in self._listeners:
+            self._listeners[event] = [] # creates empty list for the event
+        self._listeners[event].append(callback)
+
+
+    def emit(self, event, data = None):
+        """Emit an event and notify listeners.
+
+        Parameters
+        ----------
+        event : str
+            The name of the event to emit.
+
+        data : any, optional
+            Additional data to pass to the event listeners.
+        """
+
+        if event in self._listeners:
+            for callback in self._listeners[event]:
+                callback(event, data)
+
 
     def get_random_tile_type(self):
         tile_types = list(par.TILE_SHAPES.keys())
@@ -131,8 +167,9 @@ class GameState:
                     self.down_contact = True
                     break
 
+
     def get_completed_rows_list(self) -> list:
-        """ Returns a list of row indices that are completely filled (i.e., no None values) in the board occupancy matrix.
+        """ Returns a list of row indices that are completely filled (i.e. no None values) in the board occupancy matrix.
         
         """
         col_completion_count = 0
@@ -149,38 +186,55 @@ class GameState:
                     col_completion_count = 0
         return row_complete_list
    
-    def increase_score(self, nr_of_completed_rows):
-        if nr_of_completed_rows == 1:
-            self.score += 40 * self.level
-            self.play_sfx("single")
-        elif nr_of_completed_rows == 2:
-            self.score += 100 * self.level
-            self.play_sfx("double")
-        elif nr_of_completed_rows == 3:
-            self.score += 300 * self.level
-            self.play_sfx("triple")
-        elif nr_of_completed_rows >= 4:
-            self.score += 1200 * self.level
-            self.play_sfx("quadruple")
+
+    def increase_score(self, event : str, nr_of_completed_rows : int = None, drop_distance : int = None) -> None:
+        """ Increases the score based on the scoring event type and notifies listeners.
+        
+        """
+
+        if event == "lines_completed":
+            self.score += par.LINE_CLEAR_SCORE_MULTIPLIERS[nr_of_completed_rows] * self.level
+            self.emit(event, nr_of_completed_rows)
+        elif event == "soft_drop":
+            self.score += 1
+            self.emit(event)
+        elif event == "hard_drop":
+            self.score += par.SCORE_MULTIPLIER_HARD_DROP * drop_distance
+            self.emit(event, drop_distance)
         else:
             pass
 
+
     def increase_level(self):
-        if self.level < 10:
+        """ Increases the game level by 1, up to the maximum level, and speeds up the tile descent.
+        
+        """
+        if self.level < par.MAX_LEVEL:
             self.level += 1
             # speed up tile descent
-            par.FALL_TIME_INTERVAL_ms -= par.FALL_TIME_INTERVAL_DELTA_ms
-            pyg.time.set_timer(self.gravity_tick_ev, par.FALL_TIME_INTERVAL_ms) # reset timer
+            self.fall_time_interval_ms -= par.FALL_TIME_INTERVAL_DELTA_ms
+            pyg.time.set_timer(self.gravity_tick_ev, self.fall_time_interval_ms) # reset timer
 
-    def delete_completed_rows(self):
-        lines_prev = self.lines
+
+    def level_up_check(self) -> None:
+        """ Checks if the level needs to be increased based on the number of lines cleared.
+        
+        """
+
+        if self.lines >= self.level * par.MAX_LINES_PER_LEVEL:
+            self.increase_level()
+
+
+    def delete_completed_rows(self) -> None:
+        """ Deletes completed rows, updates score and level accordingly, and drops blocks above the deleted rows downwards.
+        
+        """
         completed_rows_list = self.get_completed_rows_list()
-        self.nr_of_completed_rows = len(completed_rows_list)
-        self.lines += self.nr_of_completed_rows
-        if (self.lines % 10) < (lines_prev % 10): # TODO: rewrite this condition
-           self.increase_level()
-        self.increase_score(self.nr_of_completed_rows)
-        if self.nr_of_completed_rows != 0:
+        self.lines += len(completed_rows_list)
+        self.level_up_check()
+
+        if len(completed_rows_list) != 0:
+            self.increase_score("lines_completed", nr_of_completed_rows=len(completed_rows_list))
             for col in range(0, par.GRID_NR_OF_COLS):
                 for row in completed_rows_list:
                     self.board_occupancy_matrix[row][col] = None

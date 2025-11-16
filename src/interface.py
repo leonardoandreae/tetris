@@ -40,11 +40,19 @@ class GameInterface:
         self.single_sfx = pyg.mixer.Sound('assets/single.mp3')
         self.double_sfx = pyg.mixer.Sound('assets/double.mp3')
         self.triple_sfx = pyg.mixer.Sound('assets/triple.mp3')
-        self.quadruple_sfx = pyg.mixer.Sound('assets/quadruple.mp3')
+        self.tetris_sfx = pyg.mixer.Sound('assets/tetris.mp3')
         self.resume_button = Button(par.RESUME_BUTTON_POS, 'Resume')
         self.transparent_overlay = pyg.Surface((par.GAME_WINDOW_WIDTH, par.GAME_WINDOW_HEIGHT), pyg.SRCALPHA)
-        self.state = GameState(self.play_sfx)
-        self.tile = Tile(self.state, self.play_sfx)
+
+        self.state = GameState()
+        self.state.on("lines_completed", self.play_sfx_callback)
+        self.state.on("soft_drop", self.play_sfx_callback)
+        self.state.on("hard_drop", self.play_sfx_callback)
+        self.state.on("rotation", self.play_sfx_callback)
+
+        self.tile = Tile(self.state)
+        self.tile.on("rotation", self.play_sfx_callback)
+
         self.play_main_theme()
         
     def process_events_and_inputs(self):
@@ -71,7 +79,7 @@ class GameInterface:
             self.state.game_resumed_timer_ms = 0
             self.state.game_paused = False
             # Resume in-game events
-            pyg.time.set_timer(self.state.gravity_tick_ev, par.FALL_TIME_INTERVAL_ms)
+            pyg.time.set_timer(self.state.gravity_tick_ev, self.state.fall_time_interval_ms)
             # Resume music
             pyg.mixer.music.unpause()
 
@@ -95,19 +103,26 @@ class GameInterface:
             if event.type == pyg.KEYUP and event.key == par.PAUSE:
                 self.state.pause_key_released = True
 
+
+    def play_sfx_callback(self, event, data = None):
+        if event == "rotation":
+            self.play_sfx("rotation")
+
+        elif event == "lines_completed":
+            sfx_map = {
+                1: "single",
+                2: "double",
+                3: "triple",
+                4: "tetris"
+            }
+            if data in sfx_map:
+                self.play_sfx(sfx_map[data])
+        else:
+            pass
+
+
     def play_sfx(self, sfx_type):
-        """Plays different sound effects.
-
-        Does nothing if the `sfx_type` argument does
-        not match a currently implementes sfx.
-
-        Parameters
-        ----------
-        sfx_type: str
-            The type of sfx to be played.
-
-        """
-
+        # TODO: add soft drop and hard drop sfx
         if sfx_type == "rotation":
             self.rotation_sfx.play()
         elif sfx_type == "single":
@@ -116,8 +131,8 @@ class GameInterface:
             self.double_sfx.play()
         elif sfx_type == "triple":
             self.triple_sfx.play()
-        elif sfx_type == "quadruple":
-            self.quadruple_sfx.play()
+        elif sfx_type == "tetris":
+            self.tetris_sfx.play()
         else:
             pass
         
@@ -233,7 +248,7 @@ class GameInterface:
         self.resume_button.draw(self.game_window)
         pyg.display.update()
 
-    def draw_scene(self):
+    def draw_frame(self):
         # TODO: only draw tile and board each time not the entire thing
         # color background such that older tile positions do not appear
         self.game_window.fill(par.GREY)
