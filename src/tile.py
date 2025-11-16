@@ -68,7 +68,7 @@ class Tile:
                     row_ = int((self.position.y - par.GRID_TLC_y) / par.GRID_ELEM_SIZE) + row
                     col_ = int((self.position.x - par.GRID_TLC_x) / par.GRID_ELEM_SIZE) + col
                     while(row_ + 1 < par.GRID_NR_OF_ROWS):
-                        if game_state.board_occupation_matrix[row_ + 1][col_] == None:
+                        if game_state.board_occupancy_matrix[row_ + 1][col_] == None:
                             d += 1
                             row_ += 1
                         else:
@@ -88,7 +88,7 @@ class Tile:
                     # Check if the tile block is overlapping the board
                     row_ = int((self.position.y - par.GRID_TLC_y) / par.GRID_ELEM_SIZE) + row
                     col_ = int((self.position.x - par.GRID_TLC_x) / par.GRID_ELEM_SIZE) + col
-                    if game_state.board_occupation_matrix[row_][col_] != None:
+                    if game_state.board_occupancy_matrix[row_][col_] != None:
                         return False
                 else:
                     pass

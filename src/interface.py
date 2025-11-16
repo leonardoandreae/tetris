@@ -54,7 +54,6 @@ class GameInterface:
 
         self.event_handler()
         self.state.get_current_keys()
-        self.update_pause_state()
     
     def update_pause_state(self):
         self.state.game_resumed_timer_ms += self.state.clock.get_time()
@@ -78,9 +77,11 @@ class GameInterface:
 
 
     def update(self):
-        self.tile.update_position(self.state)
-        self.state.delete_complete_rows()
-        self.state.game_over_check()
+        self.update_pause_state()
+        if not self.state.game_paused:  
+            self.tile.update_position(self.state)
+            self.state.delete_completed_rows()
+            self.state.game_over_check()
 
     def event_handler(self):
         for event in pyg.event.get():
@@ -168,11 +169,11 @@ class GameInterface:
     def draw_board(self):
         for row in range (0, par.GRID_NR_OF_ROWS):
             for col in range (0, par.GRID_NR_OF_COLS):
-                if self.state.board_occupation_matrix[row][col] != None:
+                if self.state.board_occupancy_matrix[row][col] != None:
                     self.draw_block_with_borders(par.GRID_TLC_x + col * par.GRID_ELEM_SIZE,
                                                  par.GRID_TLC_y + row * par.GRID_ELEM_SIZE,
                                                  par.GRID_ELEM_SIZE,
-                                                 self.state.board_occupation_matrix[row][col],
+                                                 self.state.board_occupancy_matrix[row][col],
                                                  par.WHITE)
 
     def draw_tile(self, tile_type, cfg_mat, pos_x, pos_y):
@@ -268,6 +269,9 @@ class GameInterface:
                        par.NEXT_PIECE_GRID_POS.x,
                        par.NEXT_PIECE_GRID_POS.y)
         self.draw_dropped_tile_preview()
+
+        if self.state.game_paused:
+            self.draw_pause_menu()
         '''
         After calling the drawing functions to make the display Surface object look the way you want
         you must call update() to make the display Surface actually appear on the user’s monitor.
