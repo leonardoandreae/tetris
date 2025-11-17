@@ -7,14 +7,14 @@ def main() -> None:
     """ Main function to run the game loop.
     
     """
-    
+
     game_interface = GameInterface()
     while game_interface.state.game_running:
         game_interface.process_events_and_inputs()
         game_interface.update()
         game_interface.draw_frame()
         # waits until the desired fps is reached
-        game_interface.state.clock.tick(par.TARGET_FPS)          
+        game_interface.state.get_clock().tick(par.TARGET_FPS)          
     pyg.quit() 
     
 if __name__ == "__main__":

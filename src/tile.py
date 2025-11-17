@@ -1,14 +1,22 @@
 import parameters as par
 import pygame as pyg
+import random
+from queue import Queue
 
 class Tile:
     def __init__(self, game_state) -> None:
         self._listeners = {}
+        # Down contact timer -> used to check how long the tile has been in contact with the ground
+        self._down_contact_timer_ms = 0
+        # tile queue
+        self._tile_queue = Queue(maxsize=par.TILE_QUEUE_SIZE)
+        for _ in range(par.TILE_QUEUE_SIZE):
+            self._tile_queue.put(Tile.get_random_tile_type())
         self.reset(game_state)
 
     def reset(self, game_state):
-        self.type = game_state.tile_queue.queue[0]
-        self.next_type = game_state.tile_queue.queue[1]
+        self.type = self._tile_queue.queue[0]
+        self.next_type = self._tile_queue.queue[1]
         self.vertical_movement_allowed = True
         self.lateral_movement_allowed = True
         self.rotation_allowed = False
@@ -19,7 +27,7 @@ class Tile:
         self.configuration_matrix = par.TILE_SHAPES[self.type][self.configuration_idx]
         # Check for contact and if occurred end the game
         game_state.contact_detection(self)
-        if game_state.down_contact == True:
+        if game_state.get_contact_flags("down"):
             game_state.game_running = False
 
     def on(self, event, callback):
@@ -55,6 +63,17 @@ class Tile:
         if event in self._listeners:
             for callback in self._listeners[event]:
                 callback(event, data)
+
+    @staticmethod
+    def get_random_tile_type() -> str:
+        """ Returns a random tile type from the available tile shapes.
+        
+        """
+
+        tile_types = list(par.TILE_SHAPES.keys())
+        idx = random.randint(0, len(tile_types) - 1)
+        return tile_types[idx]
+    
     
     def rotate(self, direction) -> None:
         if direction == 'CCW':
@@ -102,7 +121,7 @@ class Tile:
                     row_ = int((self.position.y - par.GRID_TLC_y) / par.GRID_ELEM_SIZE) + row
                     col_ = int((self.position.x - par.GRID_TLC_x) / par.GRID_ELEM_SIZE) + col
                     while(row_ + 1 < par.GRID_NR_OF_ROWS):
-                        if game_state.board_occupancy_matrix[row_ + 1][col_] == None:
+                        if game_state.get_BOM_element(row_ + 1, col_) == None:
                             d += 1
                             row_ += 1
                         else:
@@ -122,11 +141,40 @@ class Tile:
                     # Check if the tile block is overlapping the board
                     row_ = int((self.position.y - par.GRID_TLC_y) / par.GRID_ELEM_SIZE) + row
                     col_ = int((self.position.x - par.GRID_TLC_x) / par.GRID_ELEM_SIZE) + col
-                    if game_state.board_occupancy_matrix[row_][col_] != None:
+                    if game_state.get_BOM_element(row_, col_) != None:
                         return False
                 else:
                     pass
         return True
+    
+
+    def rotation_allowed_check(self, game_state, step):
+        if step == 1:
+            # Attempt rotating and check if new position is ok
+            self.rotate('CCW')
+        elif step == 2:
+            # Translate to the right and try again
+            self.position.x += par.GRID_ELEM_SIZE
+        elif step == 3:
+            # Translate to the left and try again
+            self.position.x -= 2 * par.GRID_ELEM_SIZE
+        else: 
+            pass
+        if self.is_position_permitted(game_state):
+            self.rotate('CW')
+            return True
+        else:
+            if self.type == "I":
+                self.rotate('CW')
+                return False
+            else:
+                if step == 3:
+                    # reset position
+                    self.position.x += 2 * par.GRID_ELEM_SIZE
+                    return False
+                else:
+                    self.rotation_allowed_check(game_state, step + 1)
+                    
                     
     def update_position(self, game_state):
         # Check if lateral movement is disabled/enabled
@@ -139,26 +187,26 @@ class Tile:
         
         # Update left
         if (game_state.keys_pressed[par.LEFT] and (not game_state.keys_pressed[par.RIGHT])
-                and (not game_state.left_contact)
+                and (not game_state.get_contact_flags("left"))
                 and (not game_state.lateral_movement_disabled)):
             self.position.x -= par.GRID_ELEM_SIZE
             game_state.lateral_movement_disabled = True
             
         # Update right
         if (game_state.keys_pressed[par.RIGHT] and (not game_state.keys_pressed[par.LEFT])
-                and (not game_state.right_contact)
+                and (not game_state.get_contact_flags("right"))
                 and (not game_state.lateral_movement_disabled)):
             self.position.x += par.GRID_ELEM_SIZE
             game_state.lateral_movement_disabled = True
             
         # Update rotation state
-        if (game_state.keys_pressed[par.ROTATE] and game_state.rotation_allowed_check(self, step=1) and (not game_state.rotation_disabled)):
+        if (game_state.keys_pressed[par.ROTATE] and self.rotation_allowed_check(game_state, step=1) and (not game_state.rotation_disabled)):
             self.rotate('CCW')
             self.emit("rotation")
             game_state.rotation_disabled = True
         
         # Update vertical position
-        if (not game_state.down_contact):
+        if (not game_state.get_contact_flags("down")):
             if game_state.keys_pressed[par.DOWN]:
                 self.position.y += int(self.can_soft_drop) * par.GRID_ELEM_SIZE
                 if self.can_soft_drop:
@@ -173,14 +221,14 @@ class Tile:
                     self.position.y += par.GRID_ELEM_SIZE
                     self.is_falling = False                
         else:
-            if (game_state.down_contact_timer_ms >= par.DOWN_CONTACT_TIMEOUT_ms):
-                game_state.down_contact_timer_ms = 0
-                game_state.update_occupation_matrix(self)
+            if (self._down_contact_timer_ms >= par.DOWN_CONTACT_TIMEOUT_ms):
+                self._down_contact_timer_ms = 0
+                game_state.update_occupancy_matrix(self)
                 # remove current tile from the queue...
-                game_state.tile_queue.get()
+                self._tile_queue.get()
                 # ...and add a new one
-                game_state.tile_queue.put(game_state.get_random_tile_type())
+                self._tile_queue.put(Tile.get_random_tile_type())
                 self.reset(game_state) 
-            game_state.down_contact_timer_ms += game_state.clock.get_time()
+            self._down_contact_timer_ms += game_state.get_clock().get_time()
             
               

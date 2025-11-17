@@ -20,10 +20,6 @@ class GameInterface:
     tile : Tile
         Object representing the currently descending tetromino.
 
-    Methods
-    -------
-    process_events_and_inputs()
-        Calls the event handler and retrieves the user's inputs.
     """
 
     def __init__(self):
@@ -43,12 +39,23 @@ class GameInterface:
         self.tetris_sfx = pyg.mixer.Sound('assets/tetris.mp3')
         self.resume_button = Button(par.RESUME_BUTTON_POS, 'Resume')
         self.transparent_overlay = pyg.Surface((par.GAME_WINDOW_WIDTH, par.GAME_WINDOW_HEIGHT), pyg.SRCALPHA)
+        self.fall_time_interval_ms = par.INITIAL_FALL_TIME_INTERVAL_ms
 
         self.state = GameState()
         self.state.on("lines_completed", self.play_sfx_callback)
         self.state.on("soft_drop", self.play_sfx_callback)
         self.state.on("hard_drop", self.play_sfx_callback)
         self.state.on("rotation", self.play_sfx_callback)
+        self.state.on("game_paused", self.paused_state_callback)
+        self.state.on("game_resumed", self.paused_state_callback)
+        self.state.on("level_up", self.level_up_callback)
+
+        # event to detect if tile needs to fall by one square due to gravity, triggered at regular time intervals
+        self.gravity_tick_ev = pyg.USEREVENT + 0 # event ID = 24 (up to 32, but first 23 are used by pygame already)
+        # event to detect if tile can soft drop, triggered at regular time intervals
+        self.soft_drop_ev = pyg.USEREVENT + 1
+        pyg.time.set_timer(self.gravity_tick_ev, self.fall_time_interval_ms) 
+        pyg.time.set_timer(self.soft_drop_ev, par.SOFT_DROP_TIME_INTERVAL_ms)
 
         self.tile = Tile(self.state)
         self.tile.on("rotation", self.play_sfx_callback)
@@ -62,31 +69,11 @@ class GameInterface:
 
         self.event_handler()
         self.state.get_current_keys()
-    
-    def update_pause_state(self):
-        self.state.game_resumed_timer_ms += self.state.clock.get_time()
-        
-        if not self.state.game_paused and self.state.keys_pressed[par.PAUSE] and self.state.game_resumed_timer_ms > par.PAUSE_COOLDOWN_ms:
-            self.state.game_paused = True
-            self.state.pause_key_released = False
-            # Pause in-game events
-            pyg.time.set_timer(self.state.gravity_tick_ev, 0)
-            # Pause music
-            pyg.mixer.music.pause()
-
-        if (self.state.game_paused and self.resume_button.is_activated()) or \
-           (self.state.game_paused and self.state.keys_pressed[par.PAUSE] and self.state.pause_key_released):
-            self.state.game_resumed_timer_ms = 0
-            self.state.game_paused = False
-            # Resume in-game events
-            pyg.time.set_timer(self.state.gravity_tick_ev, self.state.fall_time_interval_ms)
-            # Resume music
-            pyg.mixer.music.unpause()
 
 
     def update(self):
-        self.update_pause_state()
-        if not self.state.game_paused:  
+        self.state.update_pause_state(self.resume_button.is_activated())
+        if not self.state.is_game_paused():  
             self.tile.update_position(self.state)
             self.state.delete_completed_rows()
             self.state.game_over_check()
@@ -96,9 +83,9 @@ class GameInterface:
             # pressing the "X" button terminates the application
             if event.type == pyg.QUIT:
                 self.state.game_running = False
-            if event.type == self.state.gravity_tick_ev:
+            if event.type == self.gravity_tick_ev:
                 self.tile.is_falling = True
-            if event.type == self.state.soft_drop_ev:
+            if event.type == self.soft_drop_ev:
                 self.tile.can_soft_drop = True
             if event.type == pyg.KEYUP and event.key == par.PAUSE:
                 self.state.pause_key_released = True
@@ -107,7 +94,6 @@ class GameInterface:
     def play_sfx_callback(self, event, data = None):
         if event == "rotation":
             self.play_sfx("rotation")
-
         elif event == "lines_completed":
             sfx_map = {
                 1: "single",
@@ -117,12 +103,39 @@ class GameInterface:
             }
             if data in sfx_map:
                 self.play_sfx(sfx_map[data])
+        elif event == "soft_drop":
+            pass  # TODO: add soft drop sfx
+        elif event == "hard_drop":
+            pass  # TODO: add hard drop sfx
+        else:
+            pass
+
+
+    def paused_state_callback(self, event, data = None):
+        if event == "game_paused":
+            # Pause gravity
+            pyg.time.set_timer(self.state.gravity_tick_ev, 0)
+            # Pause music
+            pyg.mixer.music.pause()
+        elif event == "game_resumed":
+            # Resume gravity
+            pyg.time.set_timer(self.state.gravity_tick_ev, self.fall_time_interval_ms())
+            # Resume music
+            pyg.mixer.music.unpause()
+        else:
+            pass
+
+
+    def level_up_callback(self, event, data = None):
+        if event == "level_up":
+            # speed up tile descent
+            self.fall_time_interval_ms -= par.FALL_TIME_INTERVAL_DELTA_ms
+            pyg.time.set_timer(self.gravity_tick_ev, self.fall_time_interval_ms)
         else:
             pass
 
 
     def play_sfx(self, sfx_type):
-        # TODO: add soft drop and hard drop sfx
         if sfx_type == "rotation":
             self.rotation_sfx.play()
         elif sfx_type == "single":
@@ -133,9 +146,14 @@ class GameInterface:
             self.triple_sfx.play()
         elif sfx_type == "tetris":
             self.tetris_sfx.play()
+        elif sfx_type == "soft_drop":
+            pass  # TODO: add soft drop sfx
+        elif sfx_type == "hard_drop":
+            pass  # TODO: add hard drop sfx
         else:
             pass
         
+
     def play_main_theme(self):
         pyg.mixer.music.play(loops=-1, start=0.0, fade_ms=0)
         pyg.mixer.music.set_volume(par.MUSIC_VOLUME)
@@ -184,11 +202,11 @@ class GameInterface:
     def draw_board(self):
         for row in range (0, par.GRID_NR_OF_ROWS):
             for col in range (0, par.GRID_NR_OF_COLS):
-                if self.state.board_occupancy_matrix[row][col] != None:
+                if self.state.get_BOM_element(row, col) != None:
                     self.draw_block_with_borders(par.GRID_TLC_x + col * par.GRID_ELEM_SIZE,
                                                  par.GRID_TLC_y + row * par.GRID_ELEM_SIZE,
                                                  par.GRID_ELEM_SIZE,
-                                                 self.state.board_occupancy_matrix[row][col],
+                                                 self.state.get_BOM_element(row, col),
                                                  par.WHITE)
 
     def draw_tile(self, tile_type, cfg_mat, pos_x, pos_y):
@@ -255,9 +273,9 @@ class GameInterface:
         self.game_window.blit(self.logo, par.LOGO_POS)
 
         next_piece_text_surface, _ = self.text_font_2.render(f'Next Piece:', par.WHITE)
-        score_text_surface, _ = self.text_font_1.render(f'Score:  {self.state.score}', par.WHITE)
-        level_text_surface, _ = self.text_font_1.render(f'Level:   {self.state.level}', par.WHITE)
-        lines_text_surface, _ = self.text_font_1.render(f'Lines:   {self.state.lines}', par.WHITE)
+        score_text_surface, _ = self.text_font_1.render(f'Score:  {self.state.get_score()}', par.WHITE)
+        level_text_surface, _ = self.text_font_1.render(f'Level:   {self.state.get_level()}', par.WHITE)
+        lines_text_surface, _ = self.text_font_1.render(f'Lines:   {self.state.get_lines()}', par.WHITE)
 
         y_level = par.STATS_POS[1] + self.text_font_1.get_sized_height() + par.STATS_VERTICAL_SPACING
         x_level = par.STATS_POS[0]
@@ -285,11 +303,11 @@ class GameInterface:
                        par.NEXT_PIECE_GRID_POS.y)
         self.draw_dropped_tile_preview()
 
-        if self.state.game_paused:
+        if self.state.is_game_paused():
             self.draw_pause_menu()
         '''
         After calling the drawing functions to make the display Surface object look the way you want
         you must call update() to make the display Surface actually appear on the user’s monitor.
         '''
-        if not self.state.game_paused:
+        if not self.state.is_game_paused():
             pyg.display.update()
