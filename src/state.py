@@ -6,6 +6,17 @@ from tile import *
 class GameState:
     """ Class representing the game state.
 
+    Attributes
+    ----------
+    game_running : bool
+        Indicates whether the game is currently running.
+    pause_key_released : bool
+        Indicates whether the pause key has been released. Used to prevent multiple toggles on a single key press.
+    lateral_movement_disabled : bool
+        Indicates whether lateral movement is currently disabled. Used to prevent multiple movements on a single key press.
+    rotation_disabled : bool
+        Indicates whether rotation is currently disabled. Used to prevent multiple rotations on a single key press.
+
     """
 
     def __init__(self) -> None:
@@ -32,8 +43,8 @@ class GameState:
         # ---public attributes---
         self.game_running = True
         self.pause_key_released = False
-        self.lateral_movement_disabled = False # to prevent multiple lateral moves on single key press
-        self.rotation_disabled = False # to prevent multiple rotations on single key press
+        self.lateral_movement_disabled = False
+        self.rotation_disabled = False 
         
         
     def on(self, event, callback) -> None:
