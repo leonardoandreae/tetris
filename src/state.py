@@ -134,7 +134,7 @@ class GameState:
         
 
     def get_lines(self) -> int:
-        """ Returns the number of lines cleared.
+        """ Returns the total number of lines cleared.
         
         """
 
@@ -161,6 +161,7 @@ class GameState:
         """ Updates the current keys pressed state.
         
         """
+        
         self.keys_pressed = pyg.key.get_pressed()
     
 
@@ -192,12 +193,12 @@ class GameState:
             The tile to place on the board.
         """
 
-        for row in range(0, len(tile.configuration_matrix)):
-            for col in range(0, len(tile.configuration_matrix)):
-                if tile.configuration_matrix[row][col] == 1:
+        for row in range(0, len(tile.get_cfg_matrix())):
+            for col in range(0, len(tile.get_cfg_matrix())):
+                if tile.get_cfg_matrix()[row][col] == 1:
                     row_ = int((tile.position.y - par.GRID_TLC_y) / par.GRID_ELEM_SIZE) + row
                     col_ = int((tile.position.x - par.GRID_TLC_x) / par.GRID_ELEM_SIZE) + col
-                    self._board_occupancy_matrix[row_][col_] = par.TILE_COLORS[tile.type]
+                    self._board_occupancy_matrix[row_][col_] = par.TILE_COLORS[tile.get_current_type()]
 
 
     def contact_detection(self, tile):
@@ -211,13 +212,13 @@ class GameState:
 
         # Check contact on the left
         self._left_contact = False # reset every frame
-        for row in range(0, len(tile.configuration_matrix)):
+        for row in range(0, len(tile.get_cfg_matrix())):
             if self._left_contact == True:
                 break
-            for col in range(0, len(tile.configuration_matrix)):
+            for col in range(0, len(tile.get_cfg_matrix())):
                 row_ = int((tile.position.y - par.GRID_TLC_y) / par.GRID_ELEM_SIZE) + row
                 col_left_ = int((tile.position.x - par.GRID_TLC_x) / par.GRID_ELEM_SIZE) + col - 1
-                if tile.configuration_matrix[row][col] == 1 and \
+                if tile.get_cfg_matrix()[row][col] == 1 and \
                         (col_left_ < 0 or \
                         self._board_occupancy_matrix[row_][col_left_] != None):
                     self._left_contact = True
@@ -225,13 +226,13 @@ class GameState:
 
         # Check contact on the right
         self._right_contact = False # reset every frame
-        for row in range(0, len(tile.configuration_matrix)):
+        for row in range(0, len(tile.get_cfg_matrix())):
             if self._right_contact == True:
                 break
-            for col in range(len(tile.configuration_matrix) - 1, -1, -1):
+            for col in range(len(tile.get_cfg_matrix()) - 1, -1, -1):
                row_ = int((tile.position.y - par.GRID_TLC_y) / par.GRID_ELEM_SIZE) + row
                col_right_ = int((tile.position.x - par.GRID_TLC_x) / par.GRID_ELEM_SIZE) + col + 1
-               if tile.configuration_matrix[row][col] == 1 and \
+               if tile.get_cfg_matrix()[row][col] == 1 and \
                         (col_right_ > par.GRID_NR_OF_COLS - 1 or \
                         self._board_occupancy_matrix[row_][col_right_] != None):
                     self._right_contact = True
@@ -239,13 +240,13 @@ class GameState:
         
         # Check contact at the bottom
         self._down_contact = False # reset every frame
-        for row in range(len(tile.configuration_matrix) - 1, -1, -1):
+        for row in range(len(tile.get_cfg_matrix()) - 1, -1, -1):
             if self._down_contact == True:
                 break
-            for col in range(0, len(tile.configuration_matrix)):
+            for col in range(0, len(tile.get_cfg_matrix())):
                 row_down_ = int((tile.position.y - par.GRID_TLC_y) / par.GRID_ELEM_SIZE) + row + 1
                 col_ = int((tile.position.x - par.GRID_TLC_x) / par.GRID_ELEM_SIZE) + col
-                if tile.configuration_matrix[row][col] == 1 and \
+                if tile.get_cfg_matrix()[row][col] == 1 and \
                           (row_down_ > par.GRID_NR_OF_ROWS - 1 or \
                         self._board_occupancy_matrix[row_down_][col_] != None):
                     self._down_contact = True

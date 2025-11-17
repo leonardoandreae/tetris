@@ -225,8 +225,8 @@ class GameInterface:
         # draw tile outer border at drop distance
         for row in range (0, par.TILE_CONFIG_IDX_MAX):
             for col in range (0, par.TILE_CONFIG_IDX_MAX):
-                if self.tile.configuration_matrix[row][col] == 1:                  
-                    if row == 0 or self.tile.configuration_matrix[row - 1][col] == 0: # lazy OR eval allows to avoid idx overflow (same below)
+                if self.tile._configuration_matrix[row][col] == 1:                  
+                    if row == 0 or self.tile._configuration_matrix[row - 1][col] == 0: # lazy OR eval allows to avoid idx overflow (same below)
                         pyg.draw.line(self.game_window, 
                                         par.BLACK, 
                                         pyg.Vector2(self.tile.position.x + par.GRID_ELEM_SIZE * col, 
@@ -234,7 +234,7 @@ class GameInterface:
                                         pyg.Vector2(self.tile.position.x + par.GRID_ELEM_SIZE * (col + 1), 
                                                     self.tile.position.y + par.GRID_ELEM_SIZE * (row + drop_distance)),
                                         par.DROPPED_BLOCK_PREVIEW_BORDER)
-                    if col == 0 or self.tile.configuration_matrix[row][col - 1] == 0:
+                    if col == 0 or self.tile._configuration_matrix[row][col - 1] == 0:
                         pyg.draw.line(self.game_window, 
                                         par.BLACK, 
                                         pyg.Vector2(self.tile.position.x + par.GRID_ELEM_SIZE * col, 
@@ -242,7 +242,7 @@ class GameInterface:
                                         pyg.Vector2(self.tile.position.x + par.GRID_ELEM_SIZE * col, 
                                                     self.tile.position.y + par.GRID_ELEM_SIZE * (row + 1 + drop_distance)),
                                         par.DROPPED_BLOCK_PREVIEW_BORDER)                            
-                    if row == par.TILE_CONFIG_IDX_MAX - 1 or self.tile.configuration_matrix[row + 1][col] == 0:
+                    if row == par.TILE_CONFIG_IDX_MAX - 1 or self.tile._configuration_matrix[row + 1][col] == 0:
                         pyg.draw.line(self.game_window, 
                                         par.BLACK, 
                                         pyg.Vector2(self.tile.position.x + par.GRID_ELEM_SIZE * col, 
@@ -250,7 +250,7 @@ class GameInterface:
                                         pyg.Vector2(self.tile.position.x + par.GRID_ELEM_SIZE * (col + 1), 
                                                     self.tile.position.y + par.GRID_ELEM_SIZE * (row + 1 + drop_distance)),
                                         par.DROPPED_BLOCK_PREVIEW_BORDER)  
-                    if col == par.TILE_CONFIG_IDX_MAX - 1 or self.tile.configuration_matrix[row][col + 1] == 0:
+                    if col == par.TILE_CONFIG_IDX_MAX - 1 or self.tile._configuration_matrix[row][col + 1] == 0:
                         pyg.draw.line(self.game_window, 
                                         par.BLACK, 
                                         pyg.Vector2(self.tile.position.x + par.GRID_ELEM_SIZE * (col + 1), 
@@ -292,13 +292,13 @@ class GameInterface:
         # draw next piece preview grid
         self.draw_grid(par.GRID_NR_OF_ROWS, par.GRID_NR_OF_COLS, pyg.Vector2(par.GRID_TLC_x, par.GRID_TLC_y))
         self.draw_board()
-        self.draw_tile(self.tile.type, 
-                       self.tile.configuration_matrix,
+        self.draw_tile(self.tile.get_current_type(), 
+                       self.tile._configuration_matrix,
                        self.tile.position.x,
                        self.tile.position.y)
         # draw next tile preview
-        self.draw_tile(self.tile.next_type,
-                       par.TILE_SHAPES[self.tile.next_type][0],
+        self.draw_tile(self.tile.get_next_type(),
+                       par.TILE_SHAPES[self.tile.get_next_type()][0],
                        par.NEXT_PIECE_GRID_POS.x,
                        par.NEXT_PIECE_GRID_POS.y)
         self.draw_dropped_tile_preview()
