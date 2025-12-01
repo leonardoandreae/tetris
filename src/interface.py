@@ -42,6 +42,13 @@ class GameInterface:
         self.transparent_overlay = pyg.Surface((par.GAME_WINDOW_WIDTH, par.GAME_WINDOW_HEIGHT), pyg.SRCALPHA)
         self.fall_time_interval_ms = par.INITIAL_FALL_TIME_INTERVAL_ms
 
+        self.pause_info_text_surface, _ = self.text_font_1.render(f'Press "Esc" to pause the game', par.WHITE)
+        self.next_piece_text_surface, _ = self.text_font_2.render(f'Next:', par.WHITE)
+        self.y_level = par.STATS_POS[1] + self.text_font_1.get_sized_height() + par.STATS_VERTICAL_SPACING
+        self.x_level = par.STATS_POS[0]
+        self.y_lines = self.y_level + self.text_font_1.get_sized_height() + par.STATS_VERTICAL_SPACING
+        self.x_lines = self.x_level
+
         self.state = GameState()
         self.state.on("lines_completed", self.play_sfx_callback)
         self.state.on("soft_drop", self.play_sfx_callback)
@@ -220,8 +227,17 @@ class GameInterface:
                                                 par.GRID_ELEM_SIZE,
                                                 par.TILE_COLORS[tile_type],
                                                 border_color)
+
                     
-    def draw_dropped_tile_preview(self, color: tuple = par.WHITE):
+    def draw_dropped_tile_preview(self, color: tuple = par.WHITE) -> None:
+        """ Draws the outline of where the current tile would land if dropped immediately.
+
+        Parameters
+        ----------
+        color: tuple
+            RGB color of the outline.
+        """
+
         drop_distance = self.tile.compute_smallest_drop_distance(self.state)
         # draw tile outer border at drop distance
         for row in range (0, par.TILE_CONFIG_IDX_MAX):
@@ -259,16 +275,22 @@ class GameInterface:
                                         pyg.Vector2(self.tile.position.x + par.GRID_ELEM_SIZE * (col + 1), 
                                                     self.tile.position.y + par.GRID_ELEM_SIZE * (row + 1 + drop_distance)),
                                         par.DROPPED_BLOCK_PREVIEW_BORDER)
-                        
-    def draw_pause_menu(self):
+
+
+    def draw_pause_menu(self) -> None:
+        """ Draws the pause menu. 
+        
+        """
+
         # Draw transparent grey overlay
         pyg.draw.rect(self.transparent_overlay, par.TRANSPARENT_GREY, (pyg.Vector2(0,0), pyg.Vector2(par.GAME_WINDOW_WIDTH, par.GAME_WINDOW_HEIGHT)))
         self.game_window.blit(self.transparent_overlay, par.PAUSE_MENU_TRANSPARENT_OVERLAY_POS)
         self.resume_button.draw(self.game_window)
         pyg.display.update()
 
+
     def draw_frame(self) -> None:
-        """ Draws the current frame of the game.
+        """ Draws the current frame.
         
         """
 
@@ -277,23 +299,17 @@ class GameInterface:
         self.game_window.fill(par.BLACK)
         self.game_window.blit(self.logo, par.LOGO_POS)
 
-        next_piece_text_surface, _ = self.text_font_2.render(f'Next:', par.WHITE)
         score_text_surface, _ = self.text_font_1.render(f'Score:  {self.state.get_score()}', par.WHITE)
         level_text_surface, _ = self.text_font_1.render(f'Level:   {self.state.get_level()}', par.WHITE)
         lines_text_surface, _ = self.text_font_1.render(f'Lines:   {self.state.get_lines()}', par.WHITE)
 
-        y_level = par.STATS_POS[1] + self.text_font_1.get_sized_height() + par.STATS_VERTICAL_SPACING
-        x_level = par.STATS_POS[0]
-        y_lines = y_level + self.text_font_1.get_sized_height() + par.STATS_VERTICAL_SPACING
-        x_lines = x_level
 
         self.game_window.blit(score_text_surface, par.STATS_POS)
-        self.game_window.blit(level_text_surface, (x_level, y_level))
-        self.game_window.blit(lines_text_surface, (x_lines, y_lines))
-        self.game_window.blit(next_piece_text_surface, par.NEXT_PIECE_TEXT_POS)
+        self.game_window.blit(level_text_surface, (self.x_level, self.y_level))
+        self.game_window.blit(lines_text_surface, (self.x_lines, self.y_lines))
+        self.game_window.blit(self.next_piece_text_surface, par.NEXT_PIECE_TEXT_POS)
 
-        pause_info_tetxt_surface, _ = self.text_font_1.render(f'Press "Esc" to pause the game', par.WHITE)
-        self.game_window.blit(pause_info_tetxt_surface, par.PAUSE_INFO_TEXT_POS)
+        self.game_window.blit(self.pause_info_text_surface, par.PAUSE_INFO_TEXT_POS)
         
         # draw next piece preview grid
         self.draw_grid(par.TILE_CONFIG_IDX_MAX, par.TILE_CONFIG_IDX_MAX, par.NEXT_PIECE_GRID_POS, par.GREY)
