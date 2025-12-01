@@ -86,7 +86,10 @@ class GameInterface:
             self.state.delete_completed_rows()
             self.state.game_over_check()
 
-    def event_handler(self):
+    def event_handler(self) -> None:
+        """ Processes in-game events.
+        
+        """
         for event in pyg.event.get():
             # pressing the "X" button terminates the application
             if event.type == pyg.QUIT:
@@ -99,7 +102,17 @@ class GameInterface:
                 self.state.pause_key_released = True
 
 
-    def play_sfx_callback(self, event, data = None):
+    def play_sfx_callback(self, event, data = None) -> None:
+        """ Callback function triggered to play sound effects.
+
+        Parameters
+        ----------
+        event: str
+            Event that triggered the callback.
+        data: any
+            Additional data associated with the event.
+        """
+
         if event == "rotation":
             self.play_sfx("rotation")
         elif event == "lines_completed":
@@ -119,7 +132,16 @@ class GameInterface:
             pass
 
 
-    def paused_state_callback(self, event, data = None):
+    def paused_state_callback(self, event, data = None) -> None:
+        """ Callback function triggered when the game is paused or resumed.
+        Parameters
+        ----------
+        event: str
+            Event that triggered the callback.
+        data: any
+            Additional data associated with the event.
+        """
+
         if event == "game_paused":
             # Pause gravity
             pyg.time.set_timer(self.gravity_tick_ev, 0)
@@ -134,7 +156,16 @@ class GameInterface:
             pass
 
 
-    def level_up_callback(self, event, data = None):
+    def level_up_callback(self, event, data = None) -> None: 
+        """ Callback function triggered when leveling up.
+        Parameters
+        ----------
+        event: str
+            Event that triggered the callback.
+        data: any
+            Additional data associated with the event.
+        """
+
         if event == "level_up":
             # speed up tile descent
             self.fall_time_interval_ms -= par.FALL_TIME_INTERVAL_DELTA_ms
@@ -143,7 +174,15 @@ class GameInterface:
             pass
 
 
-    def play_sfx(self, sfx_type):
+    def play_sfx(self, sfx_type) -> None:
+        """ Plays the specified sound effect.
+
+        Parameters
+        ----------
+        sfx_type: str
+            Type of sound effect to be played.
+        """
+
         if sfx_type == "rotation":
             self.rotation_sfx.play()
         elif sfx_type == "single":
@@ -162,12 +201,16 @@ class GameInterface:
             pass
         
 
-    def play_main_theme(self):
+    def play_main_theme(self) -> None:
+        """ Plays the main theme in loop.
+        
+        """
         pyg.mixer.music.play(loops=-1, start=0.0, fade_ms=0)
         pyg.mixer.music.set_volume(par.MUSIC_VOLUME)
 
-    def draw_grid(self, nr_of_rows, nr_of_cols, TLC_coords, color=par.DEFAULT_GRID_COLOR):
-        """Draws a grid at the specified position with the specified dimensions.
+
+    def draw_grid(self, nr_of_rows, nr_of_cols, TLC_coords, color=par.DEFAULT_GRID_COLOR) -> None:
+        """ Draws a grid at the specified position with the specified dimensions.
 
         Parameters
         ----------
@@ -196,7 +239,24 @@ class GameInterface:
                         start_pos=start_coords, end_pos=end_coords,
                         width=par.GRID_THICKNESS)
 
-    def draw_block_with_borders(self, TLC_x, TLC_y, size, color, border_color):
+
+    def draw_block_with_borders(self, TLC_x, TLC_y, size, color, border_color) -> None:
+        """ Draws a block with borders of the specified color at the specified position.
+        
+        Parameters
+        ----------
+        TLC_x: int
+            X coordinate of the top left corner of the block.
+        TLC_y: int
+            Y coordinate of the top left corner of the block.
+        size: int
+            Size of the block (width and height).
+        color: tuple
+            RGB color of the block.
+        border_color: tuple
+            RGB color of the block border.
+        """
+
         block = pyg.Rect(TLC_x, TLC_y, size, size)
         pyg.draw.rect(self.game_window, color, block)
         top_left = (TLC_x, TLC_y) 
@@ -207,7 +267,11 @@ class GameInterface:
                     points=[top_left, down_left, down_right, top_right],
                     width=par.BLOCK_BORDER_THICKNESS)
 
-    def draw_board(self):
+
+    def draw_board(self) -> None:
+        """ Draws the board of the game.
+        
+        """
         for row in range (0, par.GRID_NR_OF_ROWS):
             for col in range (0, par.GRID_NR_OF_COLS):
                 if self.state.get_BOM_element(row, col) != None:
@@ -217,7 +281,24 @@ class GameInterface:
                                                  self.state.get_BOM_element(row, col),
                                                  par.WHITE)
 
-    def draw_tile(self, tile_type, cfg_mat, pos_x, pos_y, border_color = par.WHITE):
+
+    def draw_tile(self, tile_type, cfg_mat, pos_x, pos_y, border_color = par.WHITE) -> None:
+        """ Draws a tile at the specified position.
+        
+        Parameters
+        ----------
+        tile_type: str
+            Type of the tile to be drawn.
+        cfg_mat: list
+            Configuration matrix of the tile to be drawn.
+        pos_x: int
+            X coordinate of the top left corner of the tile to be drawn.
+        pos_y: int
+            Y coordinate of the top left corner of the tile to be drawn.
+        border_color: tuple
+            RGB color of the tile border.
+        """
+
         # draw tile with its border
         for col in range (0, par.TILE_CONFIG_IDX_MAX):
             for row in range (0, par.TILE_CONFIG_IDX_MAX):
@@ -228,7 +309,7 @@ class GameInterface:
                                                 par.TILE_COLORS[tile_type],
                                                 border_color)
 
-                    
+
     def draw_dropped_tile_preview(self, color: tuple = par.WHITE) -> None:
         """ Draws the outline of where the current tile would land if dropped immediately.
 
