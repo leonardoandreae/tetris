@@ -1,5 +1,5 @@
 var searchData=
 [
-  ['play_5fsfx_0',['play_sfx',['../classinterface_1_1_game_interface.html#a84f7be5372bed726c0d8a438fb35f042',1,'interface::GameInterface']]],
-  ['process_5fevents_5fand_5finputs_1',['process_events_and_inputs',['../classinterface_1_1_game_interface.html#ab3d1b7ed0e9ba37cddbec63c62e02b0d',1,'interface::GameInterface']]]
+  ['compute_5fsmallest_5fdrop_5fdistance_0',['compute_smallest_drop_distance',['../classtile_1_1_tile.html#a47ca8686885abbd7027e716523c30ef0',1,'tile::Tile']]],
+  ['contact_5fdetection_1',['contact_detection',['../classstate_1_1_game_state.html#a4295350bb8ebb50df9edf7f7fb73e8be',1,'state::GameState']]]
 ];
