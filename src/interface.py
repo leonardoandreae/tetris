@@ -8,47 +8,72 @@ class GameInterface:
     """The main interface to the game.
 
     The class provides access to the game-loop functions as well as the necessary 
-    drawing toold needed to render the game window. The class also provides all
-    the necessary music and sfx components.
-
-    ...
+    drawing toolbox needed to render the game window. The class also loads all
+    the necessary music, sfx and UI components.
 
     Attributes
     ----------
-    state : GameState
-        Object representing the game state needed to track the status of time varying game elements.
-    tile : Tile
-        Object representing the currently descending tetromino.
+    state: GameState
+        The current state of the game.
 
     """
 
-    def __init__(self):
-        pyg.init()
-        self.game_window = pyg.display.set_mode((par.GAME_WINDOW_WIDTH, par.GAME_WINDOW_HEIGHT))
+    def __init__(self) -> None:
+        """ Initializes the game interface.
+        
+        """
+        
+        pyg.init() # initialize pygame modules
+        
+        # set up the game window
+        self.game_window_ = pyg.display.set_mode((par.GAME_WINDOW_WIDTH, par.GAME_WINDOW_HEIGHT))
         pyg.display.set_caption("Tetris")
-        self.icon = pyg.image.load('assets/tetris_icon.png') # https://www.freepik.com/icons/tetris Icon by Freepik
-        pyg.display.set_icon(self.icon)
-        self.logo = pyg.image.load('assets/tetris_logo.png')
-        self.logo = pyg.transform.smoothscale_by(self.logo, par.LOGO_SCALE_FACTOR)
-        self.text_font_1 = pyg.freetype.SysFont(pyg.freetype.get_default_font(), par.FONT_SIZE_1)
-        self.text_font_2 = pyg.freetype.SysFont(pyg.freetype.get_default_font(), par.FONT_SIZE_2)
+        
+        # load and set the game icon
+        self.icon_ = pyg.image.load('assets/tetris_icon.png') # https://www.freepik.com/icons/tetris Icon by Freepik
+        pyg.display.set_icon(self.icon_)
+        
+        # load and scale logo
+        self.logo_ = pyg.image.load('assets/tetris_logo.png')
+        self.logo_ = pyg.transform.smoothscale_by(self.logo_, par.LOGO_SCALE_FACTOR)
+        
+        # set up fonts
+        self.text_font_1_ = pyg.freetype.SysFont(pyg.freetype.get_default_font(), par.FONT_SIZE_1)
+        self.text_font_2_ = pyg.freetype.SysFont(pyg.freetype.get_default_font(), par.FONT_SIZE_2)
+        
+        # set up music and sfx
         pyg.mixer.music.load('assets/tetris-theme.mp3')
-        self.rotation_sfx = pyg.mixer.Sound('assets/rotation.mp3')
-        self.single_sfx = pyg.mixer.Sound('assets/single.mp3')
-        self.double_sfx = pyg.mixer.Sound('assets/double.mp3')
-        self.triple_sfx = pyg.mixer.Sound('assets/triple.mp3')
-        self.tetris_sfx = pyg.mixer.Sound('assets/tetris.mp3')
-        self.resume_button = Button(par.RESUME_BUTTON_POS, 'Resume')
-        self.transparent_overlay = pyg.Surface((par.GAME_WINDOW_WIDTH, par.GAME_WINDOW_HEIGHT), pyg.SRCALPHA)
-        self.fall_time_interval_ms = par.INITIAL_FALL_TIME_INTERVAL_ms
+        self.rotation_sfx_ = pyg.mixer.Sound('assets/rotation.mp3')
+        self.single_sfx_ = pyg.mixer.Sound('assets/single.mp3')
+        self.double_sfx_ = pyg.mixer.Sound('assets/double.mp3')
+        self.triple_sfx_ = pyg.mixer.Sound('assets/triple.mp3')
+        self.tetris_sfx_ = pyg.mixer.Sound('assets/tetris.mp3')
+        
+        # initialize fall time interval
+        self.fall_time_interval_ms_ = par.INITIAL_FALL_TIME_INTERVAL_ms
+        
+        # set up time invariant surfaces
+        self.transparent_overlay_ = pyg.Surface((par.GAME_WINDOW_WIDTH, par.GAME_WINDOW_HEIGHT), pyg.SRCALPHA)
+        self.pause_info_text_surface_, _ = self.text_font_1_.render(f'Press "Esc" to pause the game', par.WHITE)
+        self.next_piece_text_surface_, _ = self.text_font_2_.render(f'Next:', par.WHITE)
+        
+        # precompute text positions
+        self.level_text_pos_ = (par.STATS_POS[0], \
+            par.STATS_POS[1] + self.text_font_1_.get_sized_height() + par.STATS_VERTICAL_SPACING)
+        self.lines_text_pos_ = (self.level_text_pos_[0], \
+            self.level_text_pos_[1] + self.text_font_1_.get_sized_height() + par.STATS_VERTICAL_SPACING)
+        
+        # event to detect if tile needs to fall by one square due to gravity, triggered at regular time intervals
+        self.gravity_tick_ev_ = pyg.USEREVENT + 0 # event ID = 24 (up to 32, but first 23 are used by pygame already)
+        # event to detect if tile can soft drop, triggered at regular time intervals
+        self.soft_drop_ev_ = pyg.USEREVENT + 1
+        pyg.time.set_timer(self.gravity_tick_ev_, self.fall_time_interval_ms_) 
+        pyg.time.set_timer(self.soft_drop_ev_, par.SOFT_DROP_TIME_INTERVAL_ms)
+        
+        # set up resume button
+        self.resume_button_ = Button(par.RESUME_BUTTON_POS, 'Resume')
 
-        self.pause_info_text_surface, _ = self.text_font_1.render(f'Press "Esc" to pause the game', par.WHITE)
-        self.next_piece_text_surface, _ = self.text_font_2.render(f'Next:', par.WHITE)
-        self.y_level = par.STATS_POS[1] + self.text_font_1.get_sized_height() + par.STATS_VERTICAL_SPACING
-        self.x_level = par.STATS_POS[0]
-        self.y_lines = self.y_level + self.text_font_1.get_sized_height() + par.STATS_VERTICAL_SPACING
-        self.x_lines = self.x_level
-
+        # set up game state
         self.state = GameState()
         self.state.on("lines_completed", self.play_sfx_callback)
         self.state.on("soft_drop", self.play_sfx_callback)
@@ -58,19 +83,15 @@ class GameInterface:
         self.state.on("game_resumed", self.paused_state_callback)
         self.state.on("level_up", self.level_up_callback)
 
-        # event to detect if tile needs to fall by one square due to gravity, triggered at regular time intervals
-        self.gravity_tick_ev = pyg.USEREVENT + 0 # event ID = 24 (up to 32, but first 23 are used by pygame already)
-        # event to detect if tile can soft drop, triggered at regular time intervals
-        self.soft_drop_ev = pyg.USEREVENT + 1
-        pyg.time.set_timer(self.gravity_tick_ev, self.fall_time_interval_ms) 
-        pyg.time.set_timer(self.soft_drop_ev, par.SOFT_DROP_TIME_INTERVAL_ms)
+        # set up current tile
+        self.tile_ = Tile(self.state)
+        self.tile_.on("rotation", self.play_sfx_callback)
 
-        self.tile = Tile(self.state)
-        self.tile.on("rotation", self.play_sfx_callback)
-
+        # start playing main theme
         self.play_main_theme()
         
-    def process_events_and_inputs(self):
+        
+    def process_events_and_inputs(self) -> None:
         """Calls the event handler and retrieves the user's inputs.
 
         """
@@ -79,12 +100,17 @@ class GameInterface:
         self.state.get_current_keys()
 
 
-    def update(self):
-        self.state.update_pause_state(self.resume_button.is_activated())
+    def update(self) -> None:
+        """ Updates the game state based on the current inputs and events.
+        
+        """
+        
+        self.state.update_pause_state(self.resume_button_.is_activated())
         if not self.state.is_game_paused():  
-            self.tile.update_position(self.state)
+            self.tile_.update_position(self.state)
             self.state.delete_completed_rows()
             self.state.game_over_check()
+
 
     def event_handler(self) -> None:
         """ Processes in-game events.
@@ -94,15 +120,15 @@ class GameInterface:
             # pressing the "X" button terminates the application
             if event.type == pyg.QUIT:
                 self.state.game_running = False
-            if event.type == self.gravity_tick_ev:
-                self.tile.is_falling = True
-            if event.type == self.soft_drop_ev:
-                self.tile.can_soft_drop = True
+            if event.type == self.gravity_tick_ev_:
+                self.tile_.is_falling = True
+            if event.type == self.soft_drop_ev_:
+                self.tile_.can_soft_drop = True
             if event.type == pyg.KEYUP and event.key == par.PAUSE:
                 self.state.pause_key_released = True
 
 
-    def play_sfx_callback(self, event, data = None) -> None:
+    def play_sfx_callback(self, event: str, data: any = None) -> None:
         """ Callback function triggered to play sound effects.
 
         Parameters
@@ -132,7 +158,7 @@ class GameInterface:
             pass
 
 
-    def paused_state_callback(self, event, data = None) -> None:
+    def paused_state_callback(self, event: str, data: any = None) -> None:
         """ Callback function triggered when the game is paused or resumed.
         Parameters
         ----------
@@ -144,19 +170,19 @@ class GameInterface:
 
         if event == "game_paused":
             # Pause gravity
-            pyg.time.set_timer(self.gravity_tick_ev, 0)
+            pyg.time.set_timer(self.gravity_tick_ev_, 0)
             # Pause music
             pyg.mixer.music.pause()
         elif event == "game_resumed":
             # Resume gravity
-            pyg.time.set_timer(self.gravity_tick_ev, self.fall_time_interval_ms)
+            pyg.time.set_timer(self.gravity_tick_ev_, self.fall_time_interval_ms_)
             # Resume music
             pyg.mixer.music.unpause()
         else:
             pass
 
 
-    def level_up_callback(self, event, data = None) -> None: 
+    def level_up_callback(self, event: str, data: any = None) -> None: 
         """ Callback function triggered when leveling up.
         Parameters
         ----------
@@ -168,13 +194,13 @@ class GameInterface:
 
         if event == "level_up":
             # speed up tile descent
-            self.fall_time_interval_ms -= par.FALL_TIME_INTERVAL_DELTA_ms
-            pyg.time.set_timer(self.gravity_tick_ev, self.fall_time_interval_ms)
+            self.fall_time_interval_ms_ -= par.FALL_TIME_INTERVAL_DELTA_ms
+            pyg.time.set_timer(self.gravity_tick_ev_, self.fall_time_interval_ms_)
         else:
             pass
 
 
-    def play_sfx(self, sfx_type) -> None:
+    def play_sfx(self, sfx_type: str) -> None:
         """ Plays the specified sound effect.
 
         Parameters
@@ -184,15 +210,15 @@ class GameInterface:
         """
 
         if sfx_type == "rotation":
-            self.rotation_sfx.play()
+            self.rotation_sfx_.play()
         elif sfx_type == "single":
-            self.single_sfx.play()
+            self.single_sfx_.play()
         elif sfx_type == "double":
-            self.double_sfx.play()
+            self.double_sfx_.play()
         elif sfx_type == "triple":
-            self.triple_sfx.play()
+            self.triple_sfx_.play()
         elif sfx_type == "tetris":
-            self.tetris_sfx.play()
+            self.tetris_sfx_.play()
         elif sfx_type == "soft_drop":
             pass  # TODO: add soft drop sfx
         elif sfx_type == "hard_drop":
@@ -209,7 +235,7 @@ class GameInterface:
         pyg.mixer.music.set_volume(par.MUSIC_VOLUME)
 
 
-    def draw_grid(self, nr_of_rows, nr_of_cols, TLC_coords, color=par.DEFAULT_GRID_COLOR) -> None:
+    def draw_grid(self, nr_of_rows: int, nr_of_cols: int, TLC_coords: pyg.Vector2, color: tuple = par.DEFAULT_GRID_COLOR) -> None:
         """ Draws a grid at the specified position with the specified dimensions.
 
         Parameters
@@ -220,6 +246,8 @@ class GameInterface:
             Numer of columns of the grid.
         TLC_coords: pygame.Vector2
             Coordinates of the top left corner of the grid.
+        color: tuple
+            RGB color of the grid lines.
         """
 
         # draw horizontal lines
@@ -227,7 +255,7 @@ class GameInterface:
             start_coords = (TLC_coords.x, TLC_coords.y + row_idx * par.GRID_ELEM_SIZE)
             end_coords = (TLC_coords.x + nr_of_cols * par.GRID_ELEM_SIZE, 
                         TLC_coords.y + row_idx * par.GRID_ELEM_SIZE)
-            pyg.draw.line(surface=self.game_window, color=color, 
+            pyg.draw.line(surface=self.game_window_, color=color, 
                         start_pos=start_coords, end_pos=end_coords,
                         width=par.GRID_THICKNESS)
         # draw vertical lines    
@@ -235,12 +263,12 @@ class GameInterface:
             start_coords = (TLC_coords.x + col_idx * par.GRID_ELEM_SIZE, TLC_coords.y)
             end_coords = (TLC_coords.x + col_idx * par.GRID_ELEM_SIZE, 
                          TLC_coords.y + par.GRID_ELEM_SIZE * nr_of_rows)
-            pyg.draw.line(surface=self.game_window, color=color, 
+            pyg.draw.line(surface=self.game_window_, color=color, 
                         start_pos=start_coords, end_pos=end_coords,
                         width=par.GRID_THICKNESS)
 
 
-    def draw_block_with_borders(self, TLC_x, TLC_y, size, color, border_color) -> None:
+    def draw_block_with_borders(self, TLC_x: int, TLC_y: int, size: int, color: tuple, border_color: tuple) -> None:
         """ Draws a block with borders of the specified color at the specified position.
         
         Parameters
@@ -258,12 +286,12 @@ class GameInterface:
         """
 
         block = pyg.Rect(TLC_x, TLC_y, size, size)
-        pyg.draw.rect(self.game_window, color, block)
+        pyg.draw.rect(self.game_window_, color, block)
         top_left = (TLC_x, TLC_y) 
         down_left = (top_left[0], top_left[1] + size)
         down_right = (down_left[0] + size, down_left[1])
         top_right = (down_right[0], down_right[1] - size)
-        pyg.draw.lines(surface=self.game_window, color=border_color, closed=True,
+        pyg.draw.lines(surface=self.game_window_, color=border_color, closed=True,
                     points=[top_left, down_left, down_right, top_right],
                     width=par.BLOCK_BORDER_THICKNESS)
 
@@ -282,7 +310,7 @@ class GameInterface:
                                                  par.WHITE)
 
 
-    def draw_tile(self, tile_type, cfg_mat, pos_x, pos_y, border_color = par.WHITE) -> None:
+    def draw_tile(self, tile_type: str, cfg_mat: list, pos_x: int, pos_y: int, border_color: tuple = par.WHITE) -> None:
         """ Draws a tile at the specified position.
         
         Parameters
@@ -319,42 +347,42 @@ class GameInterface:
             RGB color of the outline.
         """
 
-        drop_distance = self.tile.compute_smallest_drop_distance(self.state)
+        drop_distance = self.tile_.compute_smallest_drop_distance(self.state)
         # draw tile outer border at drop distance
         for row in range (0, par.TILE_CONFIG_IDX_MAX):
             for col in range (0, par.TILE_CONFIG_IDX_MAX):
-                if self.tile._configuration_matrix[row][col] == 1:                  
-                    if row == 0 or self.tile._configuration_matrix[row - 1][col] == 0: # lazy OR eval allows to avoid idx overflow (same below)
-                        pyg.draw.line(self.game_window, 
+                if self.tile_._configuration_matrix[row][col] == 1:                  
+                    if row == 0 or self.tile_._configuration_matrix[row - 1][col] == 0: # lazy OR eval allows to avoid idx overflow (same below)
+                        pyg.draw.line(self.game_window_, 
                                         color, 
-                                        pyg.Vector2(self.tile.position.x + par.GRID_ELEM_SIZE * col, 
-                                                    self.tile.position.y + par.GRID_ELEM_SIZE * (row + drop_distance)),
-                                        pyg.Vector2(self.tile.position.x + par.GRID_ELEM_SIZE * (col + 1), 
-                                                    self.tile.position.y + par.GRID_ELEM_SIZE * (row + drop_distance)),
+                                        pyg.Vector2(self.tile_.position.x + par.GRID_ELEM_SIZE * col, 
+                                                    self.tile_.position.y + par.GRID_ELEM_SIZE * (row + drop_distance)),
+                                        pyg.Vector2(self.tile_.position.x + par.GRID_ELEM_SIZE * (col + 1), 
+                                                    self.tile_.position.y + par.GRID_ELEM_SIZE * (row + drop_distance)),
                                         par.DROPPED_BLOCK_PREVIEW_BORDER)
-                    if col == 0 or self.tile._configuration_matrix[row][col - 1] == 0:
-                        pyg.draw.line(self.game_window, 
+                    if col == 0 or self.tile_._configuration_matrix[row][col - 1] == 0:
+                        pyg.draw.line(self.game_window_, 
                                         color, 
-                                        pyg.Vector2(self.tile.position.x + par.GRID_ELEM_SIZE * col, 
-                                                    self.tile.position.y + par.GRID_ELEM_SIZE * (row + drop_distance)),
-                                        pyg.Vector2(self.tile.position.x + par.GRID_ELEM_SIZE * col, 
-                                                    self.tile.position.y + par.GRID_ELEM_SIZE * (row + 1 + drop_distance)),
+                                        pyg.Vector2(self.tile_.position.x + par.GRID_ELEM_SIZE * col, 
+                                                    self.tile_.position.y + par.GRID_ELEM_SIZE * (row + drop_distance)),
+                                        pyg.Vector2(self.tile_.position.x + par.GRID_ELEM_SIZE * col, 
+                                                    self.tile_.position.y + par.GRID_ELEM_SIZE * (row + 1 + drop_distance)),
                                         par.DROPPED_BLOCK_PREVIEW_BORDER)                            
-                    if row == par.TILE_CONFIG_IDX_MAX - 1 or self.tile._configuration_matrix[row + 1][col] == 0:
-                        pyg.draw.line(self.game_window, 
+                    if row == par.TILE_CONFIG_IDX_MAX - 1 or self.tile_._configuration_matrix[row + 1][col] == 0:
+                        pyg.draw.line(self.game_window_, 
                                         color, 
-                                        pyg.Vector2(self.tile.position.x + par.GRID_ELEM_SIZE * col, 
-                                                    self.tile.position.y + par.GRID_ELEM_SIZE * (row + 1 + drop_distance)),
-                                        pyg.Vector2(self.tile.position.x + par.GRID_ELEM_SIZE * (col + 1), 
-                                                    self.tile.position.y + par.GRID_ELEM_SIZE * (row + 1 + drop_distance)),
+                                        pyg.Vector2(self.tile_.position.x + par.GRID_ELEM_SIZE * col, 
+                                                    self.tile_.position.y + par.GRID_ELEM_SIZE * (row + 1 + drop_distance)),
+                                        pyg.Vector2(self.tile_.position.x + par.GRID_ELEM_SIZE * (col + 1), 
+                                                    self.tile_.position.y + par.GRID_ELEM_SIZE * (row + 1 + drop_distance)),
                                         par.DROPPED_BLOCK_PREVIEW_BORDER)  
-                    if col == par.TILE_CONFIG_IDX_MAX - 1 or self.tile._configuration_matrix[row][col + 1] == 0:
-                        pyg.draw.line(self.game_window, 
+                    if col == par.TILE_CONFIG_IDX_MAX - 1 or self.tile_._configuration_matrix[row][col + 1] == 0:
+                        pyg.draw.line(self.game_window_, 
                                         color, 
-                                        pyg.Vector2(self.tile.position.x + par.GRID_ELEM_SIZE * (col + 1), 
-                                                    self.tile.position.y + par.GRID_ELEM_SIZE * (row + drop_distance)),
-                                        pyg.Vector2(self.tile.position.x + par.GRID_ELEM_SIZE * (col + 1), 
-                                                    self.tile.position.y + par.GRID_ELEM_SIZE * (row + 1 + drop_distance)),
+                                        pyg.Vector2(self.tile_.position.x + par.GRID_ELEM_SIZE * (col + 1), 
+                                                    self.tile_.position.y + par.GRID_ELEM_SIZE * (row + drop_distance)),
+                                        pyg.Vector2(self.tile_.position.x + par.GRID_ELEM_SIZE * (col + 1), 
+                                                    self.tile_.position.y + par.GRID_ELEM_SIZE * (row + 1 + drop_distance)),
                                         par.DROPPED_BLOCK_PREVIEW_BORDER)
 
 
@@ -364,9 +392,9 @@ class GameInterface:
         """
 
         # Draw transparent grey overlay
-        pyg.draw.rect(self.transparent_overlay, par.TRANSPARENT_GREY, (pyg.Vector2(0,0), pyg.Vector2(par.GAME_WINDOW_WIDTH, par.GAME_WINDOW_HEIGHT)))
-        self.game_window.blit(self.transparent_overlay, par.PAUSE_MENU_TRANSPARENT_OVERLAY_POS)
-        self.resume_button.draw(self.game_window)
+        pyg.draw.rect(self.transparent_overlay_, par.TRANSPARENT_GREY, (pyg.Vector2(0,0), pyg.Vector2(par.GAME_WINDOW_WIDTH, par.GAME_WINDOW_HEIGHT)))
+        self.game_window_.blit(self.transparent_overlay_, par.PAUSE_MENU_TRANSPARENT_OVERLAY_POS)
+        self.resume_button_.draw(self.game_window_)
         pyg.display.update()
 
 
@@ -377,33 +405,33 @@ class GameInterface:
 
         # TODO: only draw tile and board each time not the entire thing
         # color background such that older tile positions do not appear
-        self.game_window.fill(par.BLACK)
-        self.game_window.blit(self.logo, par.LOGO_POS)
+        self.game_window_.fill(par.BLACK)
+        self.game_window_.blit(self.logo_, par.LOGO_POS)
 
-        score_text_surface, _ = self.text_font_1.render(f'Score:  {self.state.get_score()}', par.WHITE)
-        level_text_surface, _ = self.text_font_1.render(f'Level:   {self.state.get_level()}', par.WHITE)
-        lines_text_surface, _ = self.text_font_1.render(f'Lines:   {self.state.get_lines()}', par.WHITE)
+        score_text_surface, _ = self.text_font_1_.render(f'Score:  {self.state.get_score()}', par.WHITE)
+        level_text_surface, _ = self.text_font_1_.render(f'Level:   {self.state.get_level()}', par.WHITE)
+        lines_text_surface, _ = self.text_font_1_.render(f'Lines:   {self.state.get_lines()}', par.WHITE)
 
 
-        self.game_window.blit(score_text_surface, par.STATS_POS)
-        self.game_window.blit(level_text_surface, (self.x_level, self.y_level))
-        self.game_window.blit(lines_text_surface, (self.x_lines, self.y_lines))
-        self.game_window.blit(self.next_piece_text_surface, par.NEXT_PIECE_TEXT_POS)
+        self.game_window_.blit(score_text_surface, par.STATS_POS)
+        self.game_window_.blit(level_text_surface, self.level_text_pos_)
+        self.game_window_.blit(lines_text_surface, self.lines_text_pos_)
+        self.game_window_.blit(self.next_piece_text_surface_, par.NEXT_PIECE_TEXT_POS)
 
-        self.game_window.blit(self.pause_info_text_surface, par.PAUSE_INFO_TEXT_POS)
+        self.game_window_.blit(self.pause_info_text_surface_, par.PAUSE_INFO_TEXT_POS)
         
         # draw next piece preview grid
         self.draw_grid(par.TILE_CONFIG_IDX_MAX, par.TILE_CONFIG_IDX_MAX, par.NEXT_PIECE_GRID_POS, par.GREY)
         # draw board grid
         self.draw_grid(par.GRID_NR_OF_ROWS, par.GRID_NR_OF_COLS, pyg.Vector2(par.GRID_TLC_x, par.GRID_TLC_y), par.GREY)
         self.draw_board()
-        self.draw_tile(self.tile.get_current_type(), 
-                       self.tile._configuration_matrix,
-                       self.tile.position.x,
-                       self.tile.position.y)
+        self.draw_tile(self.tile_.get_current_type(), 
+                       self.tile_._configuration_matrix,
+                       self.tile_.position.x,
+                       self.tile_.position.y)
         # draw next tile preview
-        self.draw_tile(self.tile.get_next_type(),
-                       par.TILE_SHAPES[self.tile.get_next_type()][0],
+        self.draw_tile(self.tile_.get_next_type(),
+                       par.TILE_SHAPES[self.tile_.get_next_type()][0],
                        par.NEXT_PIECE_GRID_POS.x,
                        par.NEXT_PIECE_GRID_POS.y)
         self.draw_dropped_tile_preview()
