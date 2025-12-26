@@ -2,59 +2,58 @@ import parameters as par
 import pygame as pyg
 import random
 from queue import Queue
+from state import GameState
+
 
 class Tile:
-    """ Class representing a Tetris tetromino tile.
-    
-    Attributes
-    ----------
-    is_falling : bool
-        Indicates whether the tile is currently falling due to gravity.
-    can_soft_drop : bool
-        Indicates whether the tile can perform a soft drop.
-    position : pyg.Vector2  
-        The current position of the tile on the game board.
-        
+    """Class representing a Tetris tetromino (tile).
+
+    The tetromino is defined by its type (I, O, T, S, Z, J, L), configuration (which is stored as a 4x4 matrix
+    indicating filled and empty cells), position on the game board and event-driven state variables allowing it to fall
+    or soft drop.
+
     """
-    
-    def __init__(self, game_state) -> None:
-        """ Initializes the Tile object.
+
+
+    def __init__(self, game_state: GameState) -> None:
+        """Initializes the Tile object.
         
-        Parameters
-        ----------
-        game_state : GameState
-            The current game state.
+        @param game_state The current game state.
 
         """
 
+        ## Listeners to events emitted by the tile class.
         self._listeners = {}
-        # Down contact timer -> used to check how long the tile has been in contact with the ground
+        ## Down contact timer, used to check how long the tile has been in contact with the ground.
         self._down_contact_timer_ms = 0
-        # tile queue
+        ## Tile queue holding the upcoming tile types.
         self._tile_queue = Queue(maxsize=par.TILE_QUEUE_SIZE)
         for _ in range(par.TILE_QUEUE_SIZE):
             self._tile_queue.put(Tile.get_random_tile_type())
         self.reset(game_state)
 
 
-    def reset(self, game_state):
-        """ Resets the tile to the next type in the queue and initializes its position and state.
-        
-        Parameters
-        ----------
-        game_state : GameState
-            The current game state.
+    def reset(self, game_state: GameState):
+        """Resets the tile to the next type in the queue and initializes its position and state.
+
+        @param game_state The current game state.
 
         """
-
+        ## Current tile type.
         self._type = self._tile_queue.queue[0]
+        ## Next tile type.
         self._next_type = self._tile_queue.queue[1]
+        ## Flag indicating if tile rotation is allowed.
         self._rotation_allowed = False
+        ## Current configuration index of the tile, used for rotation purposes.
         self._configuration_idx = 0
+        ## Current configuration matrix of the tile, a 4x4 matrix where a entry of 1 indicates a filled cell and 0 an empty cell.
         self._configuration_matrix = par.TILE_SHAPES[self._type][self._configuration_idx]
-
+        ## Flag indicating if the tile is falling (this frame) due to gravity.
         self.is_falling = False
+        ## Flag indicating if the tile can perform a soft drop this frame.
         self.can_soft_drop = False
+        ## Current position of the tile (top-left corner) in pixels.
         self.position = self.get_initial_position()
         
         # Check for contact and if occurred end the game
@@ -63,16 +62,11 @@ class Tile:
             game_state.game_running = False
 
 
-    def on(self, event, callback):
-        """ Subscribe a callback to a named event.
+    def on(self, event: str, callback: callable) -> None:
+        """Subscribes a callback to a named event.
 
-        Parameters
-        ----------
-        event : str
-            The name of the event to listen for.
-
-        callback : function
-            The function to call when the event is emitted.
+        @param event The name of the event to subscribe to.
+        @param callback The callback function to be called when the event is emitted.
 
         """
 
@@ -81,16 +75,12 @@ class Tile:
         self._listeners[event].append(callback)
 
 
-    def emit(self, event, data = None):
+    def emit(self, event: str, data: any = None) -> None:
         """Emit an event and notify listeners.
 
-        Parameters
-        ----------
-        event : str
-            The name of the event to emit.
+        @param event The name of the event to emit.
+        @param data Data to pass to the listeners.
 
-        data : any, optional
-            Additional data to pass to the event listeners.
         """
 
         if event in self._listeners:
@@ -100,7 +90,8 @@ class Tile:
 
     @staticmethod
     def get_random_tile_type() -> str:
-        """ Returns a random tile type from the available tile shapes.
+        """
+        @return A random tile type from the available tile shapes.
         
         """
 
@@ -110,7 +101,8 @@ class Tile:
     
 
     def get_current_type(self) -> str:
-        """ Returns the current tile type.
+        """
+        @return The current tile type.
         
         """
 
@@ -118,7 +110,8 @@ class Tile:
     
 
     def get_next_type(self) -> str:
-        """ Returns the next tile type in the queue.
+        """
+        @return The next tile type in the queue.
         
         """
 
@@ -126,20 +119,19 @@ class Tile:
     
 
     def get_cfg_matrix(self) -> list:
-        """ Returns the current configuration matrix of the tile.
+        """
+        @return The current configuration matrix of the tile.
         
         """
 
         return self._configuration_matrix
     
     
-    def rotate(self, direction) -> None:
-        """ Rotates the tile in the specified direction.
-        
-        Parameters
-        ----------
-        direction : str
-            The direction to rotate the tile ('CW' for clockwise, 'CCW' for counter-clockwise).
+    def rotate(self, direction: str) -> None:
+        """Rotates the tile in the specified direction.
+
+        @param direction The rotation direction ('CW' for clockwise, 'CCW' for counter-clockwise).
+
         """
 
         if direction == 'CCW':
@@ -152,7 +144,8 @@ class Tile:
 
 
     def get_initial_position(self) -> pyg.Vector2:
-        """ Returns the initial position of the tile based on its type.
+        """
+        @return The initial position of the tile based on its type.
 
         """
 
@@ -165,15 +158,12 @@ class Tile:
         return pos
 
 
-    def is_out_of_bounds(self, x, y) -> bool:
-        """ Checks if the given (x, y) position is out of the game board bounds.
+    def is_out_of_bounds(self, x: int, y: int) -> bool:
+        """Checks if the given (x, y) position is out of the game board bounds.
 
-        Parameters
-        ----------
-        x : int
-            The x coordinate to check.
-        y : int
-            The y coordinate to check.
+        @param x The x coordinate to check.
+        @param y The y coordinate to check.
+        @return True if the position is out of bounds, False otherwise.
 
         """
 
@@ -186,14 +176,12 @@ class Tile:
             return False
 
 
-    def compute_smallest_drop_distance(self, game_state) -> int:
-        """ Computes the smallest distance (number of cells) that the tile can drop until it hits another tile
+    def compute_smallest_drop_distance(self, game_state: GameState) -> int:
+        """Computes the smallest distance (number of cells) that the tile can drop until it hits another tile
         or the bottom of the board.
 
-        Parameters
-        ----------
-        game_state: GameState
-            The current game state.
+        @param game_state The current game state.
+        @return The smallest drop distance in number of cells.
 
         """
          
@@ -214,13 +202,12 @@ class Tile:
         return min(drop_distances)
 
 
-    def is_position_permitted(self, game_state) -> bool:
-        """ Checks if the current tile position is permitted (i.e., within bounds and not overlapping with the board).
+    def is_position_permitted(self, game_state: GameState) -> bool:
+        """Checks if the current tile position is permitted (i.e., within bounds and not overlapping with the board).
         
-        Parameters
-        ----------
-        game_state : GameState
-            The current game state.
+        @param game_state The current game state.
+        @return True if the position is permitted, False otherwise.
+
         """
 
         for row in range(0, len(self._configuration_matrix)):
@@ -241,15 +228,12 @@ class Tile:
         return True
     
 
-    def rotation_allowed_check(self, game_state, step) -> bool:
-        """ Checks if rotation is allowed following the wall kick rules.
-        
-        Parameters
-        ----------
-        game_state : GameState
-            The current game state.
-        step : int
-            The current step in the wall kick check process.
+    def rotation_allowed_check(self, game_state: GameState, step: int) -> bool:
+        """Checks if rotation is allowed following the wall kick rules.
+
+        @param game_state The current game state.
+        @param step The current step in the wall kick check process.
+        @return True if rotation is allowed, False otherwise.
 
         """
 
@@ -279,14 +263,12 @@ class Tile:
                 else:
                     self.rotation_allowed_check(game_state, step + 1)
                     
-                    
-    def update_position(self, game_state) -> None:
-        """ Update the tile position based on the current game state and user input.
 
-        Parameters
-        ----------
-        game_state : GameState
-            The current game state.
+    def update_position(self, game_state: GameState) -> None:
+        """Updates the tile position based on the current game state and user input.
+
+        @param game_state The current game state.
+        
         """
 
         # Check if lateral movement is disabled/enabled
