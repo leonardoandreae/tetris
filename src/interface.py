@@ -101,7 +101,7 @@ class GameInterface:
 
 
     def update(self) -> None:
-        """ Updates the game state based on the current inputs and events.
+        """ Updates the game and tile states based on the current inputs and events.
         
         """
         
