@@ -9,6 +9,5 @@ var searchData=
   ['down_5fcontact_5ftimeout_5fms_6',['DOWN_CONTACT_TIMEOUT_ms',['../namespaceparameters.html#a79019b7391ba56f1f33fb1d4f9c0dc97',1,'parameters']]],
   ['draw_7',['draw',['../classbutton_1_1Button.html#ac76c3385b139f2d47bb0545fa5b4f445',1,'button::Button']]],
   ['draw_5fframe_8',['draw_frame',['../classinterface_1_1GameInterface.html#aaa9067a1ad1471b396ecdbdb2126d0d5',1,'interface::GameInterface']]],
-  ['drop_5fblock_9',['drop_block',['../classstate_1_1GameState.html#a411980b12255b885fd8afe570f56cb01',1,'state::GameState']]],
-  ['dropped_5fblock_5fpreview_5fborder_10',['DROPPED_BLOCK_PREVIEW_BORDER',['../namespaceparameters.html#acc0b31796d4fc9066d69e6becdb5ee7c',1,'parameters']]]
+  ['dropped_5fblock_5fpreview_5fborder_9',['DROPPED_BLOCK_PREVIEW_BORDER',['../namespaceparameters.html#acc0b31796d4fc9066d69e6becdb5ee7c',1,'parameters']]]
 ];

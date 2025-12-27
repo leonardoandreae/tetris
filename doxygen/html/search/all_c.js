@@ -1,6 +1,5 @@
 var searchData=
 [
-  ['next_5fpiece_5fgrid_5fpos_0',['NEXT_PIECE_GRID_POS',['../namespaceparameters.html#a3a08af4d657055b484de7b7f34155841',1,'parameters']]],
-  ['next_5fpiece_5ftext_5fpos_1',['NEXT_PIECE_TEXT_POS',['../namespaceparameters.html#a1e37216a128950adccb334481424e805',1,'parameters']]],
-  ['nr_5fof_5ftiles_2',['NR_OF_TILES',['../namespaceparameters.html#a79d983100bb97713be7ee5b28be69413',1,'parameters']]]
+  ['on_0',['on',['../classstate_1_1GameState.html#aa43f195901cc78ca4946cc1e6798b01b',1,'state.GameState.on()'],['../classtile_1_1Tile.html#a10f5f378ef05915288fa2884fc24a89a',1,'tile.Tile.on()']]],
+  ['orange_1',['ORANGE',['../namespaceparameters.html#ad318305e28228eebdc2ee0743830c82e',1,'parameters']]]
 ];

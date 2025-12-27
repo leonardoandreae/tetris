@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['on_0',['on',['../classstate_1_1GameState.html#aa43f195901cc78ca4946cc1e6798b01b',1,'state.GameState.on()'],['../classtile_1_1Tile.html#a10f5f378ef05915288fa2884fc24a89a',1,'tile.Tile.on()']]]
+  ['process_5fevents_5fand_5finputs_0',['process_events_and_inputs',['../classinterface_1_1GameInterface.html#a09481534a4eb11d8aa0329c4b3824a1e',1,'interface::GameInterface']]]
 ];

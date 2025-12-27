@@ -99,6 +99,7 @@ $(document).ready(function(){initNavTree('classstate_1_1GameState.html',''); ini
   <div class="summary">
 <a href="#pub-methods">Public Member Functions</a> &#124;
 <a href="#pub-attribs">Public Attributes</a> &#124;
+<a href="#pro-methods">Protected Member Functions</a> &#124;
 <a href="#pro-attribs">Protected Attributes</a> &#124;
 <a href="classstate_1_1GameState-members.html">List of all members</a>  </div>
   <div class="headertitle"><div class="title">GameState Class Reference</div></div>
@@ -119,12 +120,6 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a251dd3bf77cf754272b839fa6d45a4c7" id="r_a251dd3bf77cf754272b839fa6d45a4c7"><td class="memItemLeft" align="right" valign="top">None&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classstate_1_1GameState.html#a251dd3bf77cf754272b839fa6d45a4c7">delete_completed_rows</a> (self)</td></tr>
 <tr class="memdesc:a251dd3bf77cf754272b839fa6d45a4c7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Deletes completed rows, updates score and level accordingly, and drops blocks above the deleted rows downwards.  <br /></td></tr>
 <tr class="separator:a251dd3bf77cf754272b839fa6d45a4c7"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a411980b12255b885fd8afe570f56cb01" id="r_a411980b12255b885fd8afe570f56cb01"><td class="memItemLeft" align="right" valign="top">None&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classstate_1_1GameState.html#a411980b12255b885fd8afe570f56cb01">drop_block</a> (self, int row_start, int row_end, int drop_distance)</td></tr>
-<tr class="memdesc:a411980b12255b885fd8afe570f56cb01"><td class="mdescLeft">&#160;</td><td class="mdescRight">Drops a block of rows downwards by the specified distance.  <br /></td></tr>
-<tr class="separator:a411980b12255b885fd8afe570f56cb01"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a0c6383215aa12355e84d5fcac6633d3e" id="r_a0c6383215aa12355e84d5fcac6633d3e"><td class="memItemLeft" align="right" valign="top">None&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classstate_1_1GameState.html#a0c6383215aa12355e84d5fcac6633d3e">emit</a> (self, event, data=None)</td></tr>
-<tr class="memdesc:a0c6383215aa12355e84d5fcac6633d3e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Emits an event and notifies listeners.  <br /></td></tr>
-<tr class="separator:a0c6383215aa12355e84d5fcac6633d3e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a72b23ecdfb095f676193000ced556ca8" id="r_a72b23ecdfb095f676193000ced556ca8"><td class="memItemLeft" align="right" valign="top">None&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classstate_1_1GameState.html#a72b23ecdfb095f676193000ced556ca8">game_over_check</a> (self)</td></tr>
 <tr class="memdesc:a72b23ecdfb095f676193000ced556ca8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Checks if the game is over by verifying if there are any occupied cells in the top row of the board.  <br /></td></tr>
 <tr class="separator:a72b23ecdfb095f676193000ced556ca8"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -133,8 +128,6 @@ Public Member Functions</h2></td></tr>
 <tr class="separator:a48349a8378420cdca19245feb1f1b6ec"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a3755fce58e398d987045be7a62b4b3f9" id="r_a3755fce58e398d987045be7a62b4b3f9"><td class="memItemLeft" align="right" valign="top">pyg.time.Clock&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classstate_1_1GameState.html#a3755fce58e398d987045be7a62b4b3f9">get_clock</a> (self)</td></tr>
 <tr class="separator:a3755fce58e398d987045be7a62b4b3f9"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aeb3d35be7e8a1909e9298db21c0bfb80" id="r_aeb3d35be7e8a1909e9298db21c0bfb80"><td class="memItemLeft" align="right" valign="top">list&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classstate_1_1GameState.html#aeb3d35be7e8a1909e9298db21c0bfb80">get_completed_rows_list</a> (self)</td></tr>
-<tr class="separator:aeb3d35be7e8a1909e9298db21c0bfb80"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ab50a20ff35936cd6278dc30e623b6735" id="r_ab50a20ff35936cd6278dc30e623b6735"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classstate_1_1GameState.html#ab50a20ff35936cd6278dc30e623b6735">get_contact_flags</a> (self, str direction)</td></tr>
 <tr class="memdesc:ab50a20ff35936cd6278dc30e623b6735"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the contact flag for the specified direction.  <br /></td></tr>
 <tr class="separator:ab50a20ff35936cd6278dc30e623b6735"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -147,9 +140,6 @@ Public Member Functions</h2></td></tr>
 <tr class="separator:a6ebc9417bd8855bbd7e598468621b64a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ad6ab3e1937cc0a8397e87e1dd2e7b012" id="r_ad6ab3e1937cc0a8397e87e1dd2e7b012"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classstate_1_1GameState.html#ad6ab3e1937cc0a8397e87e1dd2e7b012">get_score</a> (self)</td></tr>
 <tr class="separator:ad6ab3e1937cc0a8397e87e1dd2e7b012"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a66644544bdb529fa65628234cbb64f4d" id="r_a66644544bdb529fa65628234cbb64f4d"><td class="memItemLeft" align="right" valign="top">None&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classstate_1_1GameState.html#a66644544bdb529fa65628234cbb64f4d">increase_level</a> (self)</td></tr>
-<tr class="memdesc:a66644544bdb529fa65628234cbb64f4d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Increases the game level by 1, up to the maximum level, and speeds up the tile descent.  <br /></td></tr>
-<tr class="separator:a66644544bdb529fa65628234cbb64f4d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ae8261ef3475abf86b23d21a85a45cc1d" id="r_ae8261ef3475abf86b23d21a85a45cc1d"><td class="memItemLeft" align="right" valign="top">None&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classstate_1_1GameState.html#ae8261ef3475abf86b23d21a85a45cc1d">increase_score</a> (self, str event, int nr_of_completed_rows=None, int drop_distance=None)</td></tr>
 <tr class="memdesc:ae8261ef3475abf86b23d21a85a45cc1d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Increases the score based on the scoring event type and notifies listeners.  <br /></td></tr>
 <tr class="separator:ae8261ef3475abf86b23d21a85a45cc1d"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -158,15 +148,9 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a58afa6b7a889f277933f9713a1ee34ff" id="r_a58afa6b7a889f277933f9713a1ee34ff"><td class="memItemLeft" align="right" valign="top">None&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classstate_1_1GameState.html#a58afa6b7a889f277933f9713a1ee34ff">lateral_movement_check</a> (self)</td></tr>
 <tr class="memdesc:a58afa6b7a889f277933f9713a1ee34ff"><td class="mdescLeft">&#160;</td><td class="mdescRight">Checks if lateral movement keys have been released to re-enable lateral movement.  <br /></td></tr>
 <tr class="separator:a58afa6b7a889f277933f9713a1ee34ff"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a596081957eeb399d14b434d60940508a" id="r_a596081957eeb399d14b434d60940508a"><td class="memItemLeft" align="right" valign="top">None&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classstate_1_1GameState.html#a596081957eeb399d14b434d60940508a">level_up_check</a> (self)</td></tr>
-<tr class="memdesc:a596081957eeb399d14b434d60940508a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Checks if the level needs to be increased based on the number of lines cleared.  <br /></td></tr>
-<tr class="separator:a596081957eeb399d14b434d60940508a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aa43f195901cc78ca4946cc1e6798b01b" id="r_aa43f195901cc78ca4946cc1e6798b01b"><td class="memItemLeft" align="right" valign="top">None&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classstate_1_1GameState.html#aa43f195901cc78ca4946cc1e6798b01b">on</a> (self, event, callback)</td></tr>
 <tr class="memdesc:aa43f195901cc78ca4946cc1e6798b01b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Subscribes a callback to an event.  <br /></td></tr>
 <tr class="separator:aa43f195901cc78ca4946cc1e6798b01b"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a374997975a921536d1bf19afc519e029" id="r_a374997975a921536d1bf19afc519e029"><td class="memItemLeft" align="right" valign="top">None&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classstate_1_1GameState.html#a374997975a921536d1bf19afc519e029">post_deletion_drop</a> (self, list completed_rows_list)</td></tr>
-<tr class="memdesc:a374997975a921536d1bf19afc519e029"><td class="mdescLeft">&#160;</td><td class="mdescRight">Drops the blocks above the deleted rows downwards to fill the gaps.  <br /></td></tr>
-<tr class="separator:a374997975a921536d1bf19afc519e029"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ac151b2a501210dbe1f4f90138a622abc" id="r_ac151b2a501210dbe1f4f90138a622abc"><td class="memItemLeft" align="right" valign="top">None&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classstate_1_1GameState.html#ac151b2a501210dbe1f4f90138a622abc">rotation_check</a> (self)</td></tr>
 <tr class="memdesc:ac151b2a501210dbe1f4f90138a622abc"><td class="mdescLeft">&#160;</td><td class="mdescRight">Checks if rotation key has been released to re-enable rotation.  <br /></td></tr>
 <tr class="separator:ac151b2a501210dbe1f4f90138a622abc"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -193,6 +177,26 @@ Public Attributes</h2></td></tr>
 <tr class="memitem:abea40cdce7b46421593561c0eda4b206" id="r_abea40cdce7b46421593561c0eda4b206"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classstate_1_1GameState.html#abea40cdce7b46421593561c0eda4b206">rotation_disabled</a></td></tr>
 <tr class="memdesc:abea40cdce7b46421593561c0eda4b206"><td class="mdescLeft">&#160;</td><td class="mdescRight">Debounce flag to prevent continuous rotation.  <br /></td></tr>
 <tr class="separator:abea40cdce7b46421593561c0eda4b206"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pro-methods" name="pro-methods"></a>
+Protected Member Functions</h2></td></tr>
+<tr class="memitem:a2c39836147f0b1fd03fb85f0e095dd03" id="r_a2c39836147f0b1fd03fb85f0e095dd03"><td class="memItemLeft" align="right" valign="top">None&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classstate_1_1GameState.html#a2c39836147f0b1fd03fb85f0e095dd03">_drop_block</a> (self, int row_start, int row_end, int drop_distance)</td></tr>
+<tr class="memdesc:a2c39836147f0b1fd03fb85f0e095dd03"><td class="mdescLeft">&#160;</td><td class="mdescRight">Drops a block of rows downwards by the specified distance.  <br /></td></tr>
+<tr class="separator:a2c39836147f0b1fd03fb85f0e095dd03"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a81dad030b33a74716ca014b57b4dd224" id="r_a81dad030b33a74716ca014b57b4dd224"><td class="memItemLeft" align="right" valign="top">None&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classstate_1_1GameState.html#a81dad030b33a74716ca014b57b4dd224">_emit</a> (self, event, data=None)</td></tr>
+<tr class="memdesc:a81dad030b33a74716ca014b57b4dd224"><td class="mdescLeft">&#160;</td><td class="mdescRight">Emits an event and notifies listeners.  <br /></td></tr>
+<tr class="separator:a81dad030b33a74716ca014b57b4dd224"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa905e42635e4c8eb6a7a7fc912daf047" id="r_aa905e42635e4c8eb6a7a7fc912daf047"><td class="memItemLeft" align="right" valign="top">list&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classstate_1_1GameState.html#aa905e42635e4c8eb6a7a7fc912daf047">_get_completed_rows_list</a> (self)</td></tr>
+<tr class="separator:aa905e42635e4c8eb6a7a7fc912daf047"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8846673919433d313802e34fd01df61c" id="r_a8846673919433d313802e34fd01df61c"><td class="memItemLeft" align="right" valign="top">None&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classstate_1_1GameState.html#a8846673919433d313802e34fd01df61c">_increase_level</a> (self)</td></tr>
+<tr class="memdesc:a8846673919433d313802e34fd01df61c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Increases the game level by 1, up to the maximum level, and speeds up the tile descent.  <br /></td></tr>
+<tr class="separator:a8846673919433d313802e34fd01df61c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad568a4137e350f8315c145ecc7636cc7" id="r_ad568a4137e350f8315c145ecc7636cc7"><td class="memItemLeft" align="right" valign="top">None&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classstate_1_1GameState.html#ad568a4137e350f8315c145ecc7636cc7">_level_up_check</a> (self)</td></tr>
+<tr class="memdesc:ad568a4137e350f8315c145ecc7636cc7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Checks if the level needs to be increased based on the number of lines cleared.  <br /></td></tr>
+<tr class="separator:ad568a4137e350f8315c145ecc7636cc7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6d47d8428feac0b1cf69ddb7478c871e" id="r_a6d47d8428feac0b1cf69ddb7478c871e"><td class="memItemLeft" align="right" valign="top">None&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classstate_1_1GameState.html#a6d47d8428feac0b1cf69ddb7478c871e">_post_deletion_drop</a> (self, list completed_rows_list)</td></tr>
+<tr class="memdesc:a6d47d8428feac0b1cf69ddb7478c871e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Drops the blocks above the deleted rows downwards to fill the gaps.  <br /></td></tr>
+<tr class="separator:a6d47d8428feac0b1cf69ddb7478c871e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pro-attribs" name="pro-attribs"></a>
 Protected Attributes</h2></td></tr>
@@ -255,6 +259,245 @@ Protected Attributes</h2></td></tr>
 </div>
 </div>
 <h2 class="groupheader">Member Function Documentation</h2>
+<a id="a2c39836147f0b1fd03fb85f0e095dd03" name="a2c39836147f0b1fd03fb85f0e095dd03"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a2c39836147f0b1fd03fb85f0e095dd03">&#9670;&#160;</a></span>_drop_block()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"> None _drop_block </td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>self</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>row_start</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>row_end</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>drop_distance</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">protected</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Drops a block of rows downwards by the specified distance. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">row_start</td><td>Lower row index (inclusive). </td></tr>
+    <tr><td class="paramname">row_end</td><td>Higher row index (inclusive). </td></tr>
+    <tr><td class="paramname">drop_distance</td><td>Number of rows to drop. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>None. </dd></dl>
+
+</div>
+</div>
+<a id="a81dad030b33a74716ca014b57b4dd224" name="a81dad030b33a74716ca014b57b4dd224"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a81dad030b33a74716ca014b57b4dd224">&#9670;&#160;</a></span>_emit()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"> None _emit </td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>self</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>event</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>data</em> = <code>None</code>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">protected</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Emits an event and notifies listeners. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">event</td><td>Event name to emit. </td></tr>
+    <tr><td class="paramname">data</td><td>Optional data passed to callbacks. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>None. </dd></dl>
+
+</div>
+</div>
+<a id="aa905e42635e4c8eb6a7a7fc912daf047" name="aa905e42635e4c8eb6a7a7fc912daf047"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa905e42635e4c8eb6a7a7fc912daf047">&#9670;&#160;</a></span>_get_completed_rows_list()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"> list _get_completed_rows_list </td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>self</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">protected</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<dl class="section return"><dt>Returns</dt><dd>A list of row indices that are completely filled (i.e. no None values) in the board occupancy matrix. </dd></dl>
+
+</div>
+</div>
+<a id="a8846673919433d313802e34fd01df61c" name="a8846673919433d313802e34fd01df61c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8846673919433d313802e34fd01df61c">&#9670;&#160;</a></span>_increase_level()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"> None _increase_level </td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>self</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">protected</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Increases the game level by 1, up to the maximum level, and speeds up the tile descent. </p>
+
+</div>
+</div>
+<a id="ad568a4137e350f8315c145ecc7636cc7" name="ad568a4137e350f8315c145ecc7636cc7"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad568a4137e350f8315c145ecc7636cc7">&#9670;&#160;</a></span>_level_up_check()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"> None _level_up_check </td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>self</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">protected</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Checks if the level needs to be increased based on the number of lines cleared. </p>
+
+</div>
+</div>
+<a id="a6d47d8428feac0b1cf69ddb7478c871e" name="a6d47d8428feac0b1cf69ddb7478c871e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6d47d8428feac0b1cf69ddb7478c871e">&#9670;&#160;</a></span>_post_deletion_drop()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"> None _post_deletion_drop </td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>self</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">list&#160;</td>
+          <td class="paramname"><em>completed_rows_list</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">protected</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Drops the blocks above the deleted rows downwards to fill the gaps. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">completed_rows_list</td><td>List of deleted row indices (in descending order). </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>None. </dd></dl>
+
+</div>
+</div>
 <a id="aa1d1c75e4494a4e69ed1cb7819975c24" name="aa1d1c75e4494a4e69ed1cb7819975c24"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#aa1d1c75e4494a4e69ed1cb7819975c24">&#9670;&#160;</a></span>contact_detection()</h2>
 
@@ -309,101 +552,6 @@ Protected Attributes</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Deletes completed rows, updates score and level accordingly, and drops blocks above the deleted rows downwards. </p>
-
-</div>
-</div>
-<a id="a411980b12255b885fd8afe570f56cb01" name="a411980b12255b885fd8afe570f56cb01"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a411980b12255b885fd8afe570f56cb01">&#9670;&#160;</a></span>drop_block()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname"> None drop_block </td>
-          <td>(</td>
-          <td class="paramtype">&#160;</td>
-          <td class="paramname"><em>self</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">int&#160;</td>
-          <td class="paramname"><em>row_start</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">int&#160;</td>
-          <td class="paramname"><em>row_end</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">int&#160;</td>
-          <td class="paramname"><em>drop_distance</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Drops a block of rows downwards by the specified distance. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">row_start</td><td>Lower row index (inclusive). </td></tr>
-    <tr><td class="paramname">row_end</td><td>Higher row index (inclusive). </td></tr>
-    <tr><td class="paramname">drop_distance</td><td>Number of rows to drop. </td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>None. </dd></dl>
-
-</div>
-</div>
-<a id="a0c6383215aa12355e84d5fcac6633d3e" name="a0c6383215aa12355e84d5fcac6633d3e"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a0c6383215aa12355e84d5fcac6633d3e">&#9670;&#160;</a></span>emit()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname"> None emit </td>
-          <td>(</td>
-          <td class="paramtype">&#160;</td>
-          <td class="paramname"><em>self</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">&#160;</td>
-          <td class="paramname"><em>event</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">&#160;</td>
-          <td class="paramname"><em>data</em> = <code>None</code>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Emits an event and notifies listeners. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">event</td><td>Event name to emit. </td></tr>
-    <tr><td class="paramname">data</td><td>Optional data passed to callbacks. </td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>None. </dd></dl>
 
 </div>
 </div>
@@ -488,25 +636,6 @@ Protected Attributes</h2></td></tr>
       </table>
 </div><div class="memdoc">
 <dl class="section return"><dt>Returns</dt><dd>The game clock. </dd></dl>
-
-</div>
-</div>
-<a id="aeb3d35be7e8a1909e9298db21c0bfb80" name="aeb3d35be7e8a1909e9298db21c0bfb80"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aeb3d35be7e8a1909e9298db21c0bfb80">&#9670;&#160;</a></span>get_completed_rows_list()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname"> list get_completed_rows_list </td>
-          <td>(</td>
-          <td class="paramtype">&#160;</td>
-          <td class="paramname"><em>self</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-<dl class="section return"><dt>Returns</dt><dd>A list of row indices that are completely filled (i.e. no None values) in the board occupancy matrix. </dd></dl>
 
 </div>
 </div>
@@ -625,26 +754,6 @@ Protected Attributes</h2></td></tr>
 
 </div>
 </div>
-<a id="a66644544bdb529fa65628234cbb64f4d" name="a66644544bdb529fa65628234cbb64f4d"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a66644544bdb529fa65628234cbb64f4d">&#9670;&#160;</a></span>increase_level()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname"> None increase_level </td>
-          <td>(</td>
-          <td class="paramtype">&#160;</td>
-          <td class="paramname"><em>self</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Increases the game level by 1, up to the maximum level, and speeds up the tile descent. </p>
-
-</div>
-</div>
 <a id="ae8261ef3475abf86b23d21a85a45cc1d" name="ae8261ef3475abf86b23d21a85a45cc1d"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#ae8261ef3475abf86b23d21a85a45cc1d">&#9670;&#160;</a></span>increase_score()</h2>
 
@@ -736,26 +845,6 @@ Protected Attributes</h2></td></tr>
 
 </div>
 </div>
-<a id="a596081957eeb399d14b434d60940508a" name="a596081957eeb399d14b434d60940508a"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a596081957eeb399d14b434d60940508a">&#9670;&#160;</a></span>level_up_check()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname"> None level_up_check </td>
-          <td>(</td>
-          <td class="paramtype">&#160;</td>
-          <td class="paramname"><em>self</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Checks if the level needs to be increased based on the number of lines cleared. </p>
-
-</div>
-</div>
 <a id="aa43f195901cc78ca4946cc1e6798b01b" name="aa43f195901cc78ca4946cc1e6798b01b"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#aa43f195901cc78ca4946cc1e6798b01b">&#9670;&#160;</a></span>on()</h2>
 
@@ -793,43 +882,6 @@ Protected Attributes</h2></td></tr>
   <table class="params">
     <tr><td class="paramname">event</td><td>Event name to subscribe to. </td></tr>
     <tr><td class="paramname">callback</td><td>Callable to be invoked when the event is emitted. </td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>None. </dd></dl>
-
-</div>
-</div>
-<a id="a374997975a921536d1bf19afc519e029" name="a374997975a921536d1bf19afc519e029"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a374997975a921536d1bf19afc519e029">&#9670;&#160;</a></span>post_deletion_drop()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname"> None post_deletion_drop </td>
-          <td>(</td>
-          <td class="paramtype">&#160;</td>
-          <td class="paramname"><em>self</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">list&#160;</td>
-          <td class="paramname"><em>completed_rows_list</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Drops the blocks above the deleted rows downwards to fill the gaps. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">completed_rows_list</td><td>List of deleted row indices (in descending order). </td></tr>
   </table>
   </dd>
 </dl>

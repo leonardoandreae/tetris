@@ -1,7 +1,7 @@
 var searchData=
 [
-  ['reset_0',['reset',['../classtile_1_1Tile.html#a8e251288dc988e3af414cd39b83674dc',1,'tile::Tile']]],
-  ['rotate_1',['rotate',['../classtile_1_1Tile.html#ab66c43073322c6dd3e1a58d2139f72fa',1,'tile::Tile']]],
-  ['rotation_5fallowed_5fcheck_2',['rotation_allowed_check',['../classtile_1_1Tile.html#a45d5b750ca421d04721b17a9162fcccc',1,'tile::Tile']]],
-  ['rotation_5fcheck_3',['rotation_check',['../classstate_1_1GameState.html#ac151b2a501210dbe1f4f90138a622abc',1,'state::GameState']]]
+  ['update_0',['update',['../classinterface_1_1GameInterface.html#ad8434a4eb9678cb12dac0a47624c8c02',1,'interface::GameInterface']]],
+  ['update_5foccupancy_5fmatrix_1',['update_occupancy_matrix',['../classstate_1_1GameState.html#a5e6cb40c961163cf7d5f0e0c0911e14a',1,'state::GameState']]],
+  ['update_5fpause_5fstate_2',['update_pause_state',['../classstate_1_1GameState.html#a0691f1b573dfb2c3f6910bf582c69274',1,'state::GameState']]],
+  ['update_5fposition_3',['update_position',['../classtile_1_1Tile.html#abbe47e0fc40fd59905db9d9a34943059',1,'tile::Tile']]]
 ];

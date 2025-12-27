@@ -1,5 +1,4 @@
 var searchData=
 [
-  ['lateral_5fmovement_5fcheck_0',['lateral_movement_check',['../classstate_1_1GameState.html#a58afa6b7a889f277933f9713a1ee34ff',1,'state::GameState']]],
-  ['level_5fup_5fcheck_1',['level_up_check',['../classstate_1_1GameState.html#a596081957eeb399d14b434d60940508a',1,'state::GameState']]]
+  ['on_0',['on',['../classstate_1_1GameState.html#aa43f195901cc78ca4946cc1e6798b01b',1,'state.GameState.on()'],['../classtile_1_1Tile.html#a10f5f378ef05915288fa2884fc24a89a',1,'tile.Tile.on()']]]
 ];
