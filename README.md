@@ -51,6 +51,16 @@ Controls are mapped in `src/parameters.py` (default: arrow keys for movement/rot
 python3 -m py_compile app.py src/*.py
 ```
 
+## Doxygen
+
+This repository includes a `doxygen/Doxyfile`. To regenerate the HTML documentation install Doxygen and locally run:
+
+```bash
+doxygen doxygen/Doxyfile
+```
+
+Generated HTML is written to `doxygen/html/`. To view the documentation open the `index.html` file using a browser.
+
 ## References
 
 - Pygame documentation: https://www.pygame.org/docs/
