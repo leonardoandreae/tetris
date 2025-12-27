@@ -1,4 +1,4 @@
-# Tetris (minimal Python implementation)
+# Tetris
 
 A small Tetris implementation written in Python (3.12) using [pygame](https://www.pygame.org). This repository contains the game logic, rendering, and configuration used to run a playable Tetris game.
 
