@@ -77,10 +77,10 @@ PAUSE_INFO_TEXT_POS = pyg.Vector2(450, 600)
 RED = (255, 0, 0)
 ## Black color (RGB).
 BLACK = (0, 0, 0)
-## White color (RGB) used as primary foreground.
+## White color (RGB).
 WHITE = (255, 255, 255)
 ## Grey color used for grid lines and outlines.
-GREY = (128,128,128)
+GREY = (51,51,51)
 ## Cyan color used for the I tetromino.
 CYAN = (0, 255, 255)
 ## Yellow color used for the O tetromino.
