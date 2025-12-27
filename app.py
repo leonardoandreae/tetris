@@ -3,6 +3,7 @@ sys.path.append(os.path.join(sys.path[0], 'src'))
 import parameters as par
 from interface import *
 
+# test
 def main() -> None:
     """Main function to run the game loop.
     
