@@ -15,7 +15,7 @@ class GameState:
 
     """
 
-    def __init__(self) -> None:
+    def __init__(sleff) -> None:
         """ Initializes the game state.
         
         """
