@@ -1,2 +1,6 @@
 __pycache__/
-test.py
+
+# Ignore Doxygen generated HTML documentation
+/doxygen/html/
+doxygen/html/**
+
