@@ -1,6 +1,10 @@
 from __future__ import annotations # for type hinting of Tile within GameState
 import pygame as pyg
 import parameters as par
+from typing import TYPE_CHECKING
+
+if TYPE_CHECKING:
+    from tile import Tile # type-only import for annotations / linters
 
 
 
