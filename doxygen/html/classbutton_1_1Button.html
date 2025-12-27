@@ -98,7 +98,8 @@ $(document).ready(function(){initNavTree('classbutton_1_1Button.html',''); initR
 <div class="header">
   <div class="summary">
 <a href="#pub-methods">Public Member Functions</a> &#124;
-<a href="#pub-attribs">Public Attributes</a> &#124;
+<a href="#pro-methods">Protected Member Functions</a> &#124;
+<a href="#pro-attribs">Protected Attributes</a> &#124;
 <a href="classbutton_1_1Button-members.html">List of all members</a>  </div>
   <div class="headertitle"><div class="title">Button Class Reference</div></div>
 </div><!--header-->
@@ -110,32 +111,41 @@ $(document).ready(function(){initNavTree('classbutton_1_1Button.html',''); initR
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-methods" name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
 <tr class="memitem:afc8ec5a2b3be277dee6eceebbce20a54" id="r_afc8ec5a2b3be277dee6eceebbce20a54"><td class="memItemLeft" align="right" valign="top">None&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classbutton_1_1Button.html#afc8ec5a2b3be277dee6eceebbce20a54">__init__</a> (self, tuple TLC_coords, str text='', int font_size=par.DEFAULT_BUTTON_FONT_SIZE, tuple text_color=par.BLACK)</td></tr>
-<tr class="memdesc:afc8ec5a2b3be277dee6eceebbce20a54"><td class="mdescLeft">&#160;</td><td class="mdescRight">Initializes the button.  <br /></td></tr>
+<tr class="memdesc:afc8ec5a2b3be277dee6eceebbce20a54"><td class="mdescLeft">&#160;</td><td class="mdescRight">Initializes the Button.  <br /></td></tr>
 <tr class="separator:afc8ec5a2b3be277dee6eceebbce20a54"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ad2aed996abf5fb1eea2afc972dc269c2" id="r_ad2aed996abf5fb1eea2afc972dc269c2"><td class="memItemLeft" align="right" valign="top">None&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classbutton_1_1Button.html#ad2aed996abf5fb1eea2afc972dc269c2">draw</a> (self, surface, dict colors=par.DEFAULT_BUTTON_COLORS, int border_radius=par.DEFAULT_BUTTON_BORDER_RADIUS)</td></tr>
-<tr class="memdesc:ad2aed996abf5fb1eea2afc972dc269c2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Draws the button on the given surface.  <br /></td></tr>
-<tr class="separator:ad2aed996abf5fb1eea2afc972dc269c2"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac76c3385b139f2d47bb0545fa5b4f445" id="r_ac76c3385b139f2d47bb0545fa5b4f445"><td class="memItemLeft" align="right" valign="top">None&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classbutton_1_1Button.html#ac76c3385b139f2d47bb0545fa5b4f445">draw</a> (self, pyg.Surface surface, dict colors=par.DEFAULT_BUTTON_COLORS, int border_radius=par.DEFAULT_BUTTON_BORDER_RADIUS)</td></tr>
+<tr class="memdesc:ac76c3385b139f2d47bb0545fa5b4f445"><td class="mdescLeft">&#160;</td><td class="mdescRight">Draws the button on the provided surface.  <br /></td></tr>
+<tr class="separator:ac76c3385b139f2d47bb0545fa5b4f445"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a283a25dbf27a867916274e91ac0d9b28" id="r_a283a25dbf27a867916274e91ac0d9b28"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classbutton_1_1Button.html#a283a25dbf27a867916274e91ac0d9b28">is_activated</a> (self)</td></tr>
-<tr class="memdesc:a283a25dbf27a867916274e91ac0d9b28"><td class="mdescLeft">&#160;</td><td class="mdescRight">Checks if the button has been clicked.  <br /></td></tr>
+<tr class="memdesc:a283a25dbf27a867916274e91ac0d9b28"><td class="mdescLeft">&#160;</td><td class="mdescRight">Checks if the button has been activated (by clicking and releasing).  <br /></td></tr>
 <tr class="separator:a283a25dbf27a867916274e91ac0d9b28"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:abb769f49cf51d429abcb2ec709deab17" id="r_abb769f49cf51d429abcb2ec709deab17"><td class="memItemLeft" align="right" valign="top">None&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classbutton_1_1Button.html#abb769f49cf51d429abcb2ec709deab17">update_button_state</a> (self)</td></tr>
-<tr class="memdesc:abb769f49cf51d429abcb2ec709deab17"><td class="mdescLeft">&#160;</td><td class="mdescRight">Updates the button state based on mouse position and clicks.  <br /></td></tr>
-<tr class="separator:abb769f49cf51d429abcb2ec709deab17"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-attribs" name="pub-attribs"></a>
-Public Attributes</h2></td></tr>
-<tr class="memitem:ad69984bb42c79a2689639b762d28b526" id="r_ad69984bb42c79a2689639b762d28b526"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classbutton_1_1Button.html#ad69984bb42c79a2689639b762d28b526">clicked</a></td></tr>
-<tr class="separator:ad69984bb42c79a2689639b762d28b526"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a47bbd219abe4c1a11690e32019cc5a85" id="r_a47bbd219abe4c1a11690e32019cc5a85"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classbutton_1_1Button.html#a47bbd219abe4c1a11690e32019cc5a85">mouse_over</a></td></tr>
-<tr class="separator:a47bbd219abe4c1a11690e32019cc5a85"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aea8f6815d9a63491fc422c5572c6b3c3" id="r_aea8f6815d9a63491fc422c5572c6b3c3"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classbutton_1_1Button.html#aea8f6815d9a63491fc422c5572c6b3c3">rect</a></td></tr>
-<tr class="separator:aea8f6815d9a63491fc422c5572c6b3c3"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a96fcf2fbebb394fb1bc7fa02e54be1e6" id="r_a96fcf2fbebb394fb1bc7fa02e54be1e6"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classbutton_1_1Button.html#a96fcf2fbebb394fb1bc7fa02e54be1e6">text_surface</a></td></tr>
-<tr class="separator:a96fcf2fbebb394fb1bc7fa02e54be1e6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pro-methods" name="pro-methods"></a>
+Protected Member Functions</h2></td></tr>
+<tr class="memitem:a83e6ab7f8e4481b8aa4eb281e159ea85" id="r_a83e6ab7f8e4481b8aa4eb281e159ea85"><td class="memItemLeft" align="right" valign="top">None&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classbutton_1_1Button.html#a83e6ab7f8e4481b8aa4eb281e159ea85">_update_button_state</a> (self)</td></tr>
+<tr class="memdesc:a83e6ab7f8e4481b8aa4eb281e159ea85"><td class="mdescLeft">&#160;</td><td class="mdescRight">Updates the mouse-over and clicked states.  <br /></td></tr>
+<tr class="separator:a83e6ab7f8e4481b8aa4eb281e159ea85"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pro-attribs" name="pro-attribs"></a>
+Protected Attributes</h2></td></tr>
+<tr class="memitem:a3ff5f3f3a73c4bdf989e0654263d2a56" id="r_a3ff5f3f3a73c4bdf989e0654263d2a56"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classbutton_1_1Button.html#a3ff5f3f3a73c4bdf989e0654263d2a56">_clicked</a></td></tr>
+<tr class="memdesc:a3ff5f3f3a73c4bdf989e0654263d2a56"><td class="mdescLeft">&#160;</td><td class="mdescRight">True if the button is currently clicked.  <br /></td></tr>
+<tr class="separator:a3ff5f3f3a73c4bdf989e0654263d2a56"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a768e46ed40bd5ec2bb204c52aa62aeea" id="r_a768e46ed40bd5ec2bb204c52aa62aeea"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classbutton_1_1Button.html#a768e46ed40bd5ec2bb204c52aa62aeea">_mouse_over</a></td></tr>
+<tr class="memdesc:a768e46ed40bd5ec2bb204c52aa62aeea"><td class="mdescLeft">&#160;</td><td class="mdescRight">True if the mouse is currently over the button.  <br /></td></tr>
+<tr class="separator:a768e46ed40bd5ec2bb204c52aa62aeea"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af132dfb16a91566315dbbfe85c82eea1" id="r_af132dfb16a91566315dbbfe85c82eea1"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classbutton_1_1Button.html#af132dfb16a91566315dbbfe85c82eea1">_rect</a></td></tr>
+<tr class="memdesc:af132dfb16a91566315dbbfe85c82eea1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Bounding rect of the button.  <br /></td></tr>
+<tr class="separator:af132dfb16a91566315dbbfe85c82eea1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a09eaf5db976397af1794e36787cabeaf" id="r_a09eaf5db976397af1794e36787cabeaf"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classbutton_1_1Button.html#a09eaf5db976397af1794e36787cabeaf">_text_surface</a></td></tr>
+<tr class="memdesc:a09eaf5db976397af1794e36787cabeaf"><td class="mdescLeft">&#160;</td><td class="mdescRight">Rendered pygame Surface for the button text.  <br /></td></tr>
+<tr class="separator:a09eaf5db976397af1794e36787cabeaf"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Class representing a clickable button. </p>
-</div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
+<pre class="fragment">Stores rendered text, rectangle bounds and mouse state. Provides helpers
+to update input state, draw the button and check its activation.
+</pre> </div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
 <a id="afc8ec5a2b3be277dee6eceebbce20a54" name="afc8ec5a2b3be277dee6eceebbce20a54"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#afc8ec5a2b3be277dee6eceebbce20a54">&#9670;&#160;</a></span>__init__()</h2>
 
@@ -180,16 +190,47 @@ Public Attributes</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Initializes the button. </p>
-<h2><a class="anchor" id="autotoc_md0"></a>
-Parameters</h2>
-<p>TLC_coords : tuple Coordinates of the top-left corner of the button. text : str, optional Text to display on the button. font_size : int, optional Font size of the button text. text_color : tuple, optional Color of the button text. </p>
-
+<p>Initializes the Button. </p>
+<pre class="fragment">@param TLC_coords Coordinates of the top-left corner of the button.
+@param text Text to display on the button.
+@param font_size Font size of the button text.
+@param text_color Color of the button text.
+@returns None.
+</pre> 
 </div>
 </div>
 <h2 class="groupheader">Member Function Documentation</h2>
-<a id="ad2aed996abf5fb1eea2afc972dc269c2" name="ad2aed996abf5fb1eea2afc972dc269c2"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ad2aed996abf5fb1eea2afc972dc269c2">&#9670;&#160;</a></span>draw()</h2>
+<a id="a83e6ab7f8e4481b8aa4eb281e159ea85" name="a83e6ab7f8e4481b8aa4eb281e159ea85"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a83e6ab7f8e4481b8aa4eb281e159ea85">&#9670;&#160;</a></span>_update_button_state()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"> None _update_button_state </td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>self</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">protected</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Updates the mouse-over and clicked states. </p>
+<pre class="fragment">@returns None.
+</pre> 
+</div>
+</div>
+<a id="ac76c3385b139f2d47bb0545fa5b4f445" name="ac76c3385b139f2d47bb0545fa5b4f445"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac76c3385b139f2d47bb0545fa5b4f445">&#9670;&#160;</a></span>draw()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -203,7 +244,7 @@ Parameters</h2>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">&#160;</td>
+          <td class="paramtype">pyg.Surface&#160;</td>
           <td class="paramname"><em>surface</em>, </td>
         </tr>
         <tr>
@@ -226,11 +267,12 @@ Parameters</h2>
       </table>
 </div><div class="memdoc">
 
-<p>Draws the button on the given surface. </p>
-<h2><a class="anchor" id="autotoc_md1"></a>
-Parameters</h2>
-<p>surface : pygame.Surface The surface to draw the button on. colors : dict, optional Dictionary containing colors for different button states. border_radius : int, optional Border radius for the button corners. </p>
-
+<p>Draws the button on the provided surface. </p>
+<pre class="fragment">@param surface Surface where the button will be drawn.
+@param colors button colors (state dependent).
+@param border_radius Corner radius for the rounded rect.
+@returns None.
+</pre> 
 </div>
 </div>
 <a id="a283a25dbf27a867916274e91ac0d9b28" name="a283a25dbf27a867916274e91ac0d9b28"></a>
@@ -249,84 +291,106 @@ Parameters</h2>
       </table>
 </div><div class="memdoc">
 
-<p>Checks if the button has been clicked. </p>
-
-</div>
-</div>
-<a id="abb769f49cf51d429abcb2ec709deab17" name="abb769f49cf51d429abcb2ec709deab17"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#abb769f49cf51d429abcb2ec709deab17">&#9670;&#160;</a></span>update_button_state()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname"> None update_button_state </td>
-          <td>(</td>
-          <td class="paramtype">&#160;</td>
-          <td class="paramname"><em>self</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Updates the button state based on mouse position and clicks. </p>
-
+<p>Checks if the button has been activated (by clicking and releasing). </p>
+<pre class="fragment">@returns True if activated, False otherwise.
+</pre> 
 </div>
 </div>
 <h2 class="groupheader">Member Data Documentation</h2>
-<a id="ad69984bb42c79a2689639b762d28b526" name="ad69984bb42c79a2689639b762d28b526"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ad69984bb42c79a2689639b762d28b526">&#9670;&#160;</a></span>clicked</h2>
+<a id="a3ff5f3f3a73c4bdf989e0654263d2a56" name="a3ff5f3f3a73c4bdf989e0654263d2a56"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3ff5f3f3a73c4bdf989e0654263d2a56">&#9670;&#160;</a></span>_clicked</h2>
 
 <div class="memitem">
 <div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">clicked</td>
+          <td class="memname">_clicked</td>
         </tr>
       </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">protected</span></span>  </td>
+  </tr>
+</table>
 </div><div class="memdoc">
+
+<p>True if the button is currently clicked. </p>
 
 </div>
 </div>
-<a id="a47bbd219abe4c1a11690e32019cc5a85" name="a47bbd219abe4c1a11690e32019cc5a85"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a47bbd219abe4c1a11690e32019cc5a85">&#9670;&#160;</a></span>mouse_over</h2>
+<a id="a768e46ed40bd5ec2bb204c52aa62aeea" name="a768e46ed40bd5ec2bb204c52aa62aeea"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a768e46ed40bd5ec2bb204c52aa62aeea">&#9670;&#160;</a></span>_mouse_over</h2>
 
 <div class="memitem">
 <div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">mouse_over</td>
+          <td class="memname">_mouse_over</td>
         </tr>
       </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">protected</span></span>  </td>
+  </tr>
+</table>
 </div><div class="memdoc">
+
+<p>True if the mouse is currently over the button. </p>
 
 </div>
 </div>
-<a id="aea8f6815d9a63491fc422c5572c6b3c3" name="aea8f6815d9a63491fc422c5572c6b3c3"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aea8f6815d9a63491fc422c5572c6b3c3">&#9670;&#160;</a></span>rect</h2>
+<a id="af132dfb16a91566315dbbfe85c82eea1" name="af132dfb16a91566315dbbfe85c82eea1"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af132dfb16a91566315dbbfe85c82eea1">&#9670;&#160;</a></span>_rect</h2>
 
 <div class="memitem">
 <div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">rect</td>
+          <td class="memname">_rect</td>
         </tr>
       </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">protected</span></span>  </td>
+  </tr>
+</table>
 </div><div class="memdoc">
+
+<p>Bounding rect of the button. </p>
 
 </div>
 </div>
-<a id="a96fcf2fbebb394fb1bc7fa02e54be1e6" name="a96fcf2fbebb394fb1bc7fa02e54be1e6"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a96fcf2fbebb394fb1bc7fa02e54be1e6">&#9670;&#160;</a></span>text_surface</h2>
+<a id="a09eaf5db976397af1794e36787cabeaf" name="a09eaf5db976397af1794e36787cabeaf"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a09eaf5db976397af1794e36787cabeaf">&#9670;&#160;</a></span>_text_surface</h2>
 
 <div class="memitem">
 <div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">text_surface</td>
+          <td class="memname">_text_surface</td>
         </tr>
       </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">protected</span></span>  </td>
+  </tr>
+</table>
 </div><div class="memdoc">
+
+<p>Rendered pygame Surface for the button text. </p>
+<p>Used when blitting the label. </p>
 
 </div>
 </div>

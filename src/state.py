@@ -1,21 +1,14 @@
+from __future__ import annotations # for type hinting of Tile within GameState
 import pygame as pyg
 import parameters as par
-from tile import *
+
 
 
 class GameState:
-    """ Class representing the game state.
+    """Class representing the current game state.
 
-    Attributes
-    ----------
-    game_running : bool
-        Indicates whether the game is currently running.
-    pause_key_released : bool
-        Indicates whether the pause key has been released. Used to prevent multiple toggles on a single key press.
-    lateral_movement_disabled : bool
-        Indicates whether lateral movement is currently disabled. Used to prevent multiple movements on a single key press.
-    rotation_disabled : bool
-        Indicates whether rotation is currently disabled. Used to prevent multiple rotations on a single key press.
+    Tracks board occupancy, time, input cooldowns, contact conditions and game statistics such as
+    score, lines and level.
 
     """
 
@@ -23,41 +16,52 @@ class GameState:
         """ Initializes the game state.
         
         """
-
-        # ---private attributes---
+        
+        ## Event listeners.
         self._listeners = {}
+        ## Whether the game is currently paused.
         self._game_paused = False
+        ## Milliseconds since last resume command used for pause cooldowns.
         self._game_resumed_timer_ms = 0
+        ## 2D board occupancy matrix (rows x cols), storing colors or None.
         self._board_occupancy_matrix = [[None for _ in range(par.GRID_NR_OF_COLS)] 
                                         for _ in range(par.GRID_NR_OF_ROWS)]
+        ## pygame Clock used for frame timing.
         self._clock = pyg.time.Clock()
+
         # Contact flags
+        ## True when the current tile contacts the left side or an occupied cell.
         self._left_contact = False
+        ## True when the current tile contacts the right side or an occupied cell.
         self._right_contact = False
+        ## True when the current tile contacts the bottom or an occupied cell.
         self._down_contact = False
+
         # Game stats
+        ## Total lines cleared.
         self._lines = 0
+        ## Current score.
         self._score = 0
+        ## Current level.
         self._level = 1
-    
-        # ---public attributes---
+        
+        ## Whether the main loop should keep running.
         self.game_running = True
+        ## Debounce flag for the pause key.
         self.pause_key_released = False
+        ## Debounce flag to prevent continuous lateral movement.
         self.lateral_movement_disabled = False
+        ## Debounce flag to prevent continuous rotation.
         self.rotation_disabled = False 
         
         
     def on(self, event, callback) -> None:
-        """ Subscribe a callback to a named event.
+        """Subscribes a callback to an event.
 
-        Parameters
-        ----------
-        event : str
-            The name of the event to listen for.
-
-        callback : function
-            The function to call when the event is emitted.
-
+        @param event Event name to subscribe to.
+        @param callback Callable to be invoked when the event is emitted.
+        @returns None.
+        
         """
 
         if event not in self._listeners:
@@ -65,16 +69,13 @@ class GameState:
         self._listeners[event].append(callback)
 
 
-    def emit(self, event, data = None) -> None:
-        """Emit an event and notify listeners.
+    def _emit(self, event, data = None) -> None:
+        """Emits an event and notifies listeners.
 
-        Parameters
-        ----------
-        event : str
-            The name of the event to emit.
+        @param event Event name to emit.
+        @param data Optional data passed to callbacks.
+        @returns None.
 
-        data : any, optional
-            Additional data to pass to the event listeners.
         """
 
         if event in self._listeners:
@@ -83,7 +84,9 @@ class GameState:
     
 
     def is_game_paused(self) -> bool:
-        """ Returns whether the game is currently paused.
+        """
+        
+        @returns Whether the game is currently paused.
         
         """
 
@@ -91,35 +94,32 @@ class GameState:
     
 
     def get_BOM_element(self, row: int, col: int) -> tuple:
-        """ Returns the board occupancy matrix element at the specified row and column.
+        """Returns the board occupancy matrix element at the given indices.
 
-        Parameters
-        ----------
-        row : int
-            The row index.
-        col : int
-            The column index.
-        
+        @param row Row index.
+        @param col Column index.
+        @returns The stored value (color tuple) or None.
+
         """
 
         return self._board_occupancy_matrix[row][col]
     
     
     def get_clock(self) -> pyg.time.Clock:
-        """ Returns the game clock.
-        
+        """
+
+        @returns The game clock.
+
         """
 
         return self._clock
     
 
     def get_contact_flags(self, direction: str) -> bool:
-        """ Returns the contact flag for the specified direction.
+        """Returns the contact flag for the specified direction.
 
-        Parameters
-        ----------
-        direction : str
-            The direction to check contact for ("left", "right", "down").
+        @param direction One of "left", "right", "down".
+        @returns The contact flag (True/False).
         
         """
 
@@ -134,31 +134,39 @@ class GameState:
         
 
     def get_lines(self) -> int:
-        """ Returns the total number of lines cleared.
-        
+        """
+
+        @returns The total number of lines cleared.
+
         """
 
         return self._lines
     
 
     def get_score(self) -> int:
-        """ Returns the current score.
+        """
         
+        @returns The current score.
+
         """
 
         return self._score
     
 
     def get_level(self) -> int:
-        """ Returns the current level.
+        """
         
+        @returns The current level.
+
         """
 
         return self._level
 
 
     def get_current_keys(self) -> None:
-        """ Updates the current keys pressed state.
+        """Updates the current keys pressed state.
+
+        @returns None.
         
         """
         
@@ -166,7 +174,9 @@ class GameState:
     
 
     def lateral_movement_check(self) -> None:
-        """ Checks if lateral movement keys have been released to re-enable lateral movement.
+        """Checks if lateral movement keys have been released to re-enable lateral movement.
+
+        @returns None.
         
         """
 
@@ -176,7 +186,9 @@ class GameState:
 
 
     def rotation_check(self) -> None:
-        """ Checks if rotation key has been released to re-enable rotation.
+        """Checks if rotation key has been released to re-enable rotation.
+
+        @returns None.
         
         """
 
@@ -184,13 +196,12 @@ class GameState:
             self.rotation_disabled = False
 
 
-    def update_occupancy_matrix(self, tile) -> None:
-        """ Updates the board occupancy matrix with the current tile's position and configuration.
+    def update_occupancy_matrix(self, tile: Tile) -> None:
+        """Updates the board occupancy matrix with the current tile's position and configuration.
 
-        Parameters
-        ----------
-        tile : Tile
-            The tile to place on the board.
+        @param tile Tile instance to place on the board.
+        @returns None.
+
         """
 
         for row in range(0, len(tile.get_cfg_matrix())):
@@ -201,13 +212,12 @@ class GameState:
                     self._board_occupancy_matrix[row_][col_] = par.TILE_COLORS[tile.get_current_type()]
 
 
-    def contact_detection(self, tile):
-        """ Detects contact of the tile with the board boundaries or occupied cells and updates contact flags.
+    def contact_detection(self, tile: Tile) -> None:
+        """Detects contact of the tile with the board boundaries or occupied cells and updates contact flags.
         
-        Parameters
-        ----------
-        tile : Tile
-            The tile to check for contact.
+        @param tile Tile instance to check for contact.
+        @returns None.
+
         """
 
         # Check contact on the left
@@ -253,8 +263,10 @@ class GameState:
                     break
 
 
-    def get_completed_rows_list(self) -> list:
-        """ Returns a list of row indices that are completely filled (i.e. no None values) in the board occupancy matrix.
+    def _get_completed_rows_list(self) -> list:
+        """
+        
+        @returns A list of row indices that are completely filled (i.e. no None values) in the board occupancy matrix.
         
         """
         col_completion_count = 0
@@ -273,49 +285,45 @@ class GameState:
    
 
     def increase_score(self, event : str, nr_of_completed_rows : int = None, drop_distance : int = None) -> None:
-        """ Increases the score based on the scoring event type and notifies listeners.
+        """Increases the score based on the scoring event type and notifies listeners.
 
-        Parameters
-        ----------
-        event : str
-            The type of scoring event.
-        nr_of_completed_rows : int, optional
-            The number of rows completed (required for "lines_completed" event).
-        drop_distance : int, optional
-            The drop distance (required for "hard_drop" event).
-        
+        @param event Event type.
+        @param nr_of_completed_rows Number of rows cleared.
+        @param drop_distance Drop distance.
+        @returns None.
+
         """
 
         if event == "lines_completed":
             self._score += par.LINE_CLEAR_SCORE_MULTIPLIERS[nr_of_completed_rows] * self._level
-            self.emit(event, nr_of_completed_rows)
+            self._emit(event, nr_of_completed_rows)
         elif event == "soft_drop":
             self._score += 1
-            self.emit(event)
+            self._emit(event)
         elif event == "hard_drop":
             self._score += par.SCORE_MULTIPLIER_HARD_DROP * drop_distance
-            self.emit(event, drop_distance)
+            self._emit(event, drop_distance)
         else:
             pass
 
 
-    def increase_level(self) -> None:
+    def _increase_level(self) -> None:
         """ Increases the game level by 1, up to the maximum level, and speeds up the tile descent.
         
         """
 
         if self._level < par.MAX_LEVEL:
             self._level += 1
-            self.emit("level_up")
+            self._emit("level_up")
 
 
-    def level_up_check(self) -> None:
+    def _level_up_check(self) -> None:
         """ Checks if the level needs to be increased based on the number of lines cleared.
         
         """
 
         if self._lines >= self._level * par.MAX_LINES_PER_LEVEL:
-            self.increase_level()
+            self._increase_level()
 
 
     def delete_completed_rows(self) -> None:
@@ -323,29 +331,26 @@ class GameState:
         
         """
 
-        completed_rows_list = self.get_completed_rows_list()
+        completed_rows_list = self._get_completed_rows_list()
         self._lines += len(completed_rows_list)
-        self.level_up_check()
+        self._level_up_check()
 
         if len(completed_rows_list) != 0:
             self.increase_score("lines_completed", nr_of_completed_rows=len(completed_rows_list))
             for col in range(0, par.GRID_NR_OF_COLS):
                 for row in completed_rows_list:
                     self._board_occupancy_matrix[row][col] = None
-            self.post_deletion_drop(completed_rows_list)
+            self._post_deletion_drop(completed_rows_list)
 
 
-    def drop_block(self, row_start: int, row_end: int, drop_distance: int) -> None:
-        """ Drops the blocks above the deleted rows downwards by the specified drop distance.
+    def _drop_block(self, row_start: int, row_end: int, drop_distance: int) -> None:
+        """Drops a block of rows downwards by the specified distance.
 
-        Parameters
-        ----------
-        row_start: int
-            The starting (lower) row index (inclusive).
-        row_end: int
-            The ending (higher) row index (inclusive).
-        drop_distance: int
-            The distance (in number of cells) to drop the blocks.
+        @param row_start Lower row index (inclusive).
+        @param row_end Higher row index (inclusive).
+        @param drop_distance Number of rows to drop.
+        @returns None.
+        
         """
 
         for row in range(row_end + 1, row_start - 1, -1): # in inverse order otherwise it does not work!
@@ -355,14 +360,12 @@ class GameState:
                         self._board_occupancy_matrix[row][col] = None
 
 
-    def post_deletion_drop(self, completed_rows_list: list) -> None:
-        """ Drops the blocks above the deleted rows downwards to fill the gaps.
+    def _post_deletion_drop(self, completed_rows_list: list) -> None:
+        """Drops the blocks above the deleted rows downwards to fill the gaps.
 
-        Parameters
-        ----------
-        completed_rows_list: list
-            A list of row indices that have been completed and deleted (in descending order), non-empty.
-        
+        @param completed_rows_list List of deleted row indices (in descending order).
+        @returns None.
+
         """
 
         idx  = 0
@@ -373,36 +376,39 @@ class GameState:
             else:
                 row_start = completed_rows_list[idx + distance] + 1
                 row_end = completed_rows_list[idx] - 1
-                self.drop_block(row_start, row_end, distance)
+                self._drop_block(row_start, row_end, distance)
                 idx += 1
                 distance = 1
-        self.drop_block(0, completed_rows_list[-1] - 1, distance)
+        self._drop_block(0, completed_rows_list[-1] - 1, distance)
 
 
     def update_pause_state(self, resume_button_activated: bool) -> None:
-        """ Updates the game pause state and notifies listeners.
+        """Updates the game pause state and notifies listeners.
         
-        Parameters
-        ----------
-        resume_button_activated: bool
-            Indicates if the resume button has been activated."""
+        @param resume_button_activated Indicates if the resume button has been activated.
+        @returns None.
+            
+        """
+
         self._game_resumed_timer_ms += self._clock.get_time()
         
         if not self._game_paused and self.keys_pressed[par.PAUSE] and self._game_resumed_timer_ms > par.PAUSE_COOLDOWN_ms:
             self._game_paused = True
             self.pause_key_released = False
-            self.emit("game_paused")
+            self._emit("game_paused")
 
         if (self._game_paused and resume_button_activated) or \
            (self._game_paused and self.keys_pressed[par.PAUSE] and self.pause_key_released):
             self._game_resumed_timer_ms = 0
             self._game_paused = False
-            self.emit("game_resumed")
+            self._emit("game_resumed")
             
 
 
     def game_over_check(self) -> None:
         """ Checks if the game is over by verifying if there are any occupied cells in the top row of the board.
+
+        @returns None.
         
         """
 

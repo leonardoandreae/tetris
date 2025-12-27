@@ -1,21 +1,4 @@
 var searchData=
 [
-  ['default_5fbutton_5fborder_5fradius_0',['DEFAULT_BUTTON_BORDER_RADIUS',['../namespaceparameters.html#ab2a96e3fbfd23b3498971226449d467a',1,'parameters']]],
-  ['default_5fbutton_5fcolors_1',['DEFAULT_BUTTON_COLORS',['../namespaceparameters.html#a74fcd28bd0df9140fb74260ba991f72c',1,'parameters']]],
-  ['default_5fbutton_5ffont_5fsize_2',['DEFAULT_BUTTON_FONT_SIZE',['../namespaceparameters.html#aaa193fc8b00a5ddd8c9510d426d07ae7',1,'parameters']]],
-  ['default_5fgrid_5fcolor_3',['DEFAULT_GRID_COLOR',['../namespaceparameters.html#a0ea0148da5db612b4b9994a1d3a25f85',1,'parameters']]],
-  ['delete_5fcompleted_5frows_4',['delete_completed_rows',['../classstate_1_1GameState.html#a251dd3bf77cf754272b839fa6d45a4c7',1,'state::GameState']]],
-  ['double_5fsfx_5f_5',['double_sfx_',['../classinterface_1_1GameInterface.html#ab8bad9459e4e4201f04ab1234c8a4d09',1,'interface::GameInterface']]],
-  ['down_6',['DOWN',['../namespaceparameters.html#a4ebb08896e48bdf5c496da779cbd955c',1,'parameters']]],
-  ['down_5fcontact_5ftimeout_5fms_7',['DOWN_CONTACT_TIMEOUT_ms',['../namespaceparameters.html#a79019b7391ba56f1f33fb1d4f9c0dc97',1,'parameters']]],
-  ['draw_8',['draw',['../classbutton_1_1Button.html#ad2aed996abf5fb1eea2afc972dc269c2',1,'button::Button']]],
-  ['draw_5fblock_5fwith_5fborders_9',['draw_block_with_borders',['../classinterface_1_1GameInterface.html#ae82445af089f7741e877e867cb05cc70',1,'interface::GameInterface']]],
-  ['draw_5fboard_10',['draw_board',['../classinterface_1_1GameInterface.html#a9330af4c4745e53d9f02126343650320',1,'interface::GameInterface']]],
-  ['draw_5fdropped_5ftile_5fpreview_11',['draw_dropped_tile_preview',['../classinterface_1_1GameInterface.html#ada186921fa42709a44e5120d3130397c',1,'interface::GameInterface']]],
-  ['draw_5fframe_12',['draw_frame',['../classinterface_1_1GameInterface.html#aaa9067a1ad1471b396ecdbdb2126d0d5',1,'interface::GameInterface']]],
-  ['draw_5fgrid_13',['draw_grid',['../classinterface_1_1GameInterface.html#a02e71335272640a9d5d7611893717402',1,'interface::GameInterface']]],
-  ['draw_5fpause_5fmenu_14',['draw_pause_menu',['../classinterface_1_1GameInterface.html#acce7d2715f08c2bb24b813464c227787',1,'interface::GameInterface']]],
-  ['draw_5ftile_15',['draw_tile',['../classinterface_1_1GameInterface.html#a0e8b3119969790d0d352b9d87b64c087',1,'interface::GameInterface']]],
-  ['drop_5fblock_16',['drop_block',['../classstate_1_1GameState.html#a411980b12255b885fd8afe570f56cb01',1,'state::GameState']]],
-  ['dropped_5fblock_5fpreview_5fborder_17',['DROPPED_BLOCK_PREVIEW_BORDER',['../namespaceparameters.html#acc0b31796d4fc9066d69e6becdb5ee7c',1,'parameters']]]
+  ['emit_0',['emit',['../classstate_1_1GameState.html#a0c6383215aa12355e84d5fcac6633d3e',1,'state.GameState.emit()'],['../classtile_1_1Tile.html#a3f2600dfbdb3208244aa65891abf090e',1,'tile.Tile.emit()']]]
 ];

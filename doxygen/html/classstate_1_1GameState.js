@@ -1,7 +1,7 @@
 var classstate_1_1GameState =
 [
     [ "__init__", "classstate_1_1GameState.html#abc1b785959b47505de72feabab160402", null ],
-    [ "contact_detection", "classstate_1_1GameState.html#ae4fb832b85e4fdcb7f0cbcbc8c78ef4d", null ],
+    [ "contact_detection", "classstate_1_1GameState.html#aa1d1c75e4494a4e69ed1cb7819975c24", null ],
     [ "delete_completed_rows", "classstate_1_1GameState.html#a251dd3bf77cf754272b839fa6d45a4c7", null ],
     [ "drop_block", "classstate_1_1GameState.html#a411980b12255b885fd8afe570f56cb01", null ],
     [ "emit", "classstate_1_1GameState.html#a0c6383215aa12355e84d5fcac6633d3e", null ],
@@ -22,7 +22,7 @@ var classstate_1_1GameState =
     [ "on", "classstate_1_1GameState.html#aa43f195901cc78ca4946cc1e6798b01b", null ],
     [ "post_deletion_drop", "classstate_1_1GameState.html#a374997975a921536d1bf19afc519e029", null ],
     [ "rotation_check", "classstate_1_1GameState.html#ac151b2a501210dbe1f4f90138a622abc", null ],
-    [ "update_occupancy_matrix", "classstate_1_1GameState.html#a374bc441db9d1c906c5bf61cc03308ce", null ],
+    [ "update_occupancy_matrix", "classstate_1_1GameState.html#a5e6cb40c961163cf7d5f0e0c0911e14a", null ],
     [ "update_pause_state", "classstate_1_1GameState.html#a0691f1b573dfb2c3f6910bf582c69274", null ],
     [ "_board_occupancy_matrix", "classstate_1_1GameState.html#a7b9c99647660673a6824b2e4d66fb255", null ],
     [ "_clock", "classstate_1_1GameState.html#a489844336ec70329e4b01c2088cdfd73", null ],

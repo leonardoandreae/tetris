@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['white_0',['WHITE',['../namespaceparameters.html#aa0a8e412645d58d87218f1659f5b8d4e',1,'parameters']]]
+  ['yellow_0',['YELLOW',['../namespaceparameters.html#a308c1e6c555345569b7eb5170809c2ac',1,'parameters']]]
 ];

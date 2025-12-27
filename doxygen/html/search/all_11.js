@@ -1,11 +1,12 @@
 var searchData=
 [
-  ['score_5fmultiplier_5fhard_5fdrop_0',['SCORE_MULTIPLIER_HARD_DROP',['../namespaceparameters.html#af01072c65121af4d6e370a9e08538495',1,'parameters']]],
-  ['single_5fsfx_5f_1',['single_sfx_',['../classinterface_1_1GameInterface.html#a67b0787ef1ed6f966b6426429ac9886a',1,'interface::GameInterface']]],
-  ['soft_5fdrop_5fev_5f_2',['soft_drop_ev_',['../classinterface_1_1GameInterface.html#a17e209d17708120f32389ce0d33a4e26',1,'interface::GameInterface']]],
-  ['soft_5fdrop_5ftime_5finterval_5fms_3',['SOFT_DROP_TIME_INTERVAL_ms',['../namespaceparameters.html#a7eb85712164774dad7e0d669e0c54923',1,'parameters']]],
-  ['state_4',['state',['../namespacestate.html',1,'state'],['../classinterface_1_1GameInterface.html#adc6e5733fc3c22f0a7b2914188c49c90',1,'interface.GameInterface.state']]],
-  ['state_2epy_5',['state.py',['../state_8py.html',1,'']]],
-  ['stats_5fpos_6',['STATS_POS',['../namespaceparameters.html#a6bd3ae0dd6260080729496421f908ad6',1,'parameters']]],
-  ['stats_5fvertical_5fspacing_7',['STATS_VERTICAL_SPACING',['../namespaceparameters.html#a5c9e4086a0326b8641d77a6e2f375a42',1,'parameters']]]
+  ['target_5ffps_0',['TARGET_FPS',['../namespaceparameters.html#aed8c5405b0364077d2cb103fde50c83e',1,'parameters']]],
+  ['text_5fto_5fbutton_5fborder_5fspacing_1',['TEXT_TO_BUTTON_BORDER_SPACING',['../namespaceparameters.html#a8d430d956cf649fae207e6e4a7f2713c',1,'parameters']]],
+  ['tile_2',['tile',['../classtile_1_1Tile.html',1,'Tile'],['../namespacetile.html',1,'tile']]],
+  ['tile_2epy_3',['tile.py',['../tile_8py.html',1,'']]],
+  ['tile_5fcolors_4',['TILE_COLORS',['../namespaceparameters.html#a9aebcceb909fcdb68de43ae0e3d7ed12',1,'parameters']]],
+  ['tile_5fconfig_5fidx_5fmax_5',['TILE_CONFIG_IDX_MAX',['../namespaceparameters.html#a9dc5a27d53e5d7f94bcb3c3225c330aa',1,'parameters']]],
+  ['tile_5fqueue_5fsize_6',['TILE_QUEUE_SIZE',['../namespaceparameters.html#a0e78a41ea649ca168318ae1d9acff632',1,'parameters']]],
+  ['tile_5fshapes_7',['TILE_SHAPES',['../namespaceparameters.html#a94653037464450cab40f17f4c2ab0dad',1,'parameters']]],
+  ['transparent_5fgrey_8',['TRANSPARENT_GREY',['../namespaceparameters.html#a3b630cb462863b1fad63f759fdfa45d7',1,'parameters']]]
 ];

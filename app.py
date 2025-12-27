@@ -4,7 +4,7 @@ import parameters as par
 from interface import *
 
 def main() -> None:
-    """ Main function to run the game loop.
+    """Main function to run the game loop.
     
     """
 

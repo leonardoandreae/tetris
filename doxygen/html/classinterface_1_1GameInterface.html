@@ -99,12 +99,14 @@ $(document).ready(function(){initNavTree('classinterface_1_1GameInterface.html',
   <div class="summary">
 <a href="#pub-methods">Public Member Functions</a> &#124;
 <a href="#pub-attribs">Public Attributes</a> &#124;
+<a href="#pro-methods">Protected Member Functions</a> &#124;
+<a href="#pro-attribs">Protected Attributes</a> &#124;
 <a href="classinterface_1_1GameInterface-members.html">List of all members</a>  </div>
   <div class="headertitle"><div class="title">GameInterface Class Reference</div></div>
 </div><!--header-->
 <div class="contents">
 
-<p>The main interface to the game.  
+<p>Main interface to the game.  
  <a href="classinterface_1_1GameInterface.html#details">More...</a></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-methods" name="pub-methods"></a>
@@ -112,45 +114,9 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:abc1b785959b47505de72feabab160402" id="r_abc1b785959b47505de72feabab160402"><td class="memItemLeft" align="right" valign="top">None&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classinterface_1_1GameInterface.html#abc1b785959b47505de72feabab160402">__init__</a> (self)</td></tr>
 <tr class="memdesc:abc1b785959b47505de72feabab160402"><td class="mdescLeft">&#160;</td><td class="mdescRight">Initializes the game interface.  <br /></td></tr>
 <tr class="separator:abc1b785959b47505de72feabab160402"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ae82445af089f7741e877e867cb05cc70" id="r_ae82445af089f7741e877e867cb05cc70"><td class="memItemLeft" align="right" valign="top">None&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classinterface_1_1GameInterface.html#ae82445af089f7741e877e867cb05cc70">draw_block_with_borders</a> (self, int TLC_x, int TLC_y, int size, tuple color, tuple border_color)</td></tr>
-<tr class="memdesc:ae82445af089f7741e877e867cb05cc70"><td class="mdescLeft">&#160;</td><td class="mdescRight">Draws a block with borders of the specified color at the specified position.  <br /></td></tr>
-<tr class="separator:ae82445af089f7741e877e867cb05cc70"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a9330af4c4745e53d9f02126343650320" id="r_a9330af4c4745e53d9f02126343650320"><td class="memItemLeft" align="right" valign="top">None&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classinterface_1_1GameInterface.html#a9330af4c4745e53d9f02126343650320">draw_board</a> (self)</td></tr>
-<tr class="memdesc:a9330af4c4745e53d9f02126343650320"><td class="mdescLeft">&#160;</td><td class="mdescRight">Draws the board of the game.  <br /></td></tr>
-<tr class="separator:a9330af4c4745e53d9f02126343650320"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ada186921fa42709a44e5120d3130397c" id="r_ada186921fa42709a44e5120d3130397c"><td class="memItemLeft" align="right" valign="top">None&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classinterface_1_1GameInterface.html#ada186921fa42709a44e5120d3130397c">draw_dropped_tile_preview</a> (self, tuple color=par.WHITE)</td></tr>
-<tr class="memdesc:ada186921fa42709a44e5120d3130397c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Draws the outline of where the current tile would land if dropped immediately.  <br /></td></tr>
-<tr class="separator:ada186921fa42709a44e5120d3130397c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aaa9067a1ad1471b396ecdbdb2126d0d5" id="r_aaa9067a1ad1471b396ecdbdb2126d0d5"><td class="memItemLeft" align="right" valign="top">None&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classinterface_1_1GameInterface.html#aaa9067a1ad1471b396ecdbdb2126d0d5">draw_frame</a> (self)</td></tr>
 <tr class="memdesc:aaa9067a1ad1471b396ecdbdb2126d0d5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Draws the current frame.  <br /></td></tr>
 <tr class="separator:aaa9067a1ad1471b396ecdbdb2126d0d5"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a02e71335272640a9d5d7611893717402" id="r_a02e71335272640a9d5d7611893717402"><td class="memItemLeft" align="right" valign="top">None&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classinterface_1_1GameInterface.html#a02e71335272640a9d5d7611893717402">draw_grid</a> (self, int nr_of_rows, int nr_of_cols, pyg.Vector2 TLC_coords, tuple color=par.DEFAULT_GRID_COLOR)</td></tr>
-<tr class="memdesc:a02e71335272640a9d5d7611893717402"><td class="mdescLeft">&#160;</td><td class="mdescRight">Draws a grid at the specified position with the specified dimensions.  <br /></td></tr>
-<tr class="separator:a02e71335272640a9d5d7611893717402"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:acce7d2715f08c2bb24b813464c227787" id="r_acce7d2715f08c2bb24b813464c227787"><td class="memItemLeft" align="right" valign="top">None&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classinterface_1_1GameInterface.html#acce7d2715f08c2bb24b813464c227787">draw_pause_menu</a> (self)</td></tr>
-<tr class="memdesc:acce7d2715f08c2bb24b813464c227787"><td class="mdescLeft">&#160;</td><td class="mdescRight">Draws the pause menu.  <br /></td></tr>
-<tr class="separator:acce7d2715f08c2bb24b813464c227787"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a0e8b3119969790d0d352b9d87b64c087" id="r_a0e8b3119969790d0d352b9d87b64c087"><td class="memItemLeft" align="right" valign="top">None&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classinterface_1_1GameInterface.html#a0e8b3119969790d0d352b9d87b64c087">draw_tile</a> (self, str tile_type, list cfg_mat, int pos_x, int pos_y, tuple border_color=par.WHITE)</td></tr>
-<tr class="memdesc:a0e8b3119969790d0d352b9d87b64c087"><td class="mdescLeft">&#160;</td><td class="mdescRight">Draws a tile at the specified position.  <br /></td></tr>
-<tr class="separator:a0e8b3119969790d0d352b9d87b64c087"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a40c46f9da25f95dbf73160571b35706f" id="r_a40c46f9da25f95dbf73160571b35706f"><td class="memItemLeft" align="right" valign="top">None&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classinterface_1_1GameInterface.html#a40c46f9da25f95dbf73160571b35706f">event_handler</a> (self)</td></tr>
-<tr class="memdesc:a40c46f9da25f95dbf73160571b35706f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Processes in-game events.  <br /></td></tr>
-<tr class="separator:a40c46f9da25f95dbf73160571b35706f"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a94a585c4452d521b912de4ecd2028328" id="r_a94a585c4452d521b912de4ecd2028328"><td class="memItemLeft" align="right" valign="top">None&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classinterface_1_1GameInterface.html#a94a585c4452d521b912de4ecd2028328">level_up_callback</a> (self, str event, any data=None)</td></tr>
-<tr class="memdesc:a94a585c4452d521b912de4ecd2028328"><td class="mdescLeft">&#160;</td><td class="mdescRight">Callback function triggered when leveling up.  <br /></td></tr>
-<tr class="separator:a94a585c4452d521b912de4ecd2028328"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aca0cbecefda25dbd66e3c515bb36c648" id="r_aca0cbecefda25dbd66e3c515bb36c648"><td class="memItemLeft" align="right" valign="top">None&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classinterface_1_1GameInterface.html#aca0cbecefda25dbd66e3c515bb36c648">paused_state_callback</a> (self, str event, any data=None)</td></tr>
-<tr class="memdesc:aca0cbecefda25dbd66e3c515bb36c648"><td class="mdescLeft">&#160;</td><td class="mdescRight">Callback function triggered when the game is paused or resumed.  <br /></td></tr>
-<tr class="separator:aca0cbecefda25dbd66e3c515bb36c648"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a075aa33626fb55469fbd0af04960c6a5" id="r_a075aa33626fb55469fbd0af04960c6a5"><td class="memItemLeft" align="right" valign="top">None&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classinterface_1_1GameInterface.html#a075aa33626fb55469fbd0af04960c6a5">play_main_theme</a> (self)</td></tr>
-<tr class="memdesc:a075aa33626fb55469fbd0af04960c6a5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Plays the main theme in loop.  <br /></td></tr>
-<tr class="separator:a075aa33626fb55469fbd0af04960c6a5"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a6f4b5aef4efc29a883eda327221e403e" id="r_a6f4b5aef4efc29a883eda327221e403e"><td class="memItemLeft" align="right" valign="top">None&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classinterface_1_1GameInterface.html#a6f4b5aef4efc29a883eda327221e403e">play_sfx</a> (self, str sfx_type)</td></tr>
-<tr class="memdesc:a6f4b5aef4efc29a883eda327221e403e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Plays the specified sound effect.  <br /></td></tr>
-<tr class="separator:a6f4b5aef4efc29a883eda327221e403e"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a6e20f7081cce5b60b6413d65feb71bf2" id="r_a6e20f7081cce5b60b6413d65feb71bf2"><td class="memItemLeft" align="right" valign="top">None&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classinterface_1_1GameInterface.html#a6e20f7081cce5b60b6413d65feb71bf2">play_sfx_callback</a> (self, str event, any data=None)</td></tr>
-<tr class="memdesc:a6e20f7081cce5b60b6413d65feb71bf2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Callback function triggered to play sound effects.  <br /></td></tr>
-<tr class="separator:a6e20f7081cce5b60b6413d65feb71bf2"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a09481534a4eb11d8aa0329c4b3824a1e" id="r_a09481534a4eb11d8aa0329c4b3824a1e"><td class="memItemLeft" align="right" valign="top">None&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classinterface_1_1GameInterface.html#a09481534a4eb11d8aa0329c4b3824a1e">process_events_and_inputs</a> (self)</td></tr>
 <tr class="memdesc:a09481534a4eb11d8aa0329c4b3824a1e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Calls the event handler and retrieves the user's inputs.  <br /></td></tr>
 <tr class="separator:a09481534a4eb11d8aa0329c4b3824a1e"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -160,61 +126,121 @@ Public Member Functions</h2></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-attribs" name="pub-attribs"></a>
 Public Attributes</h2></td></tr>
-<tr class="memitem:ab8bad9459e4e4201f04ab1234c8a4d09" id="r_ab8bad9459e4e4201f04ab1234c8a4d09"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classinterface_1_1GameInterface.html#ab8bad9459e4e4201f04ab1234c8a4d09">double_sfx_</a></td></tr>
-<tr class="separator:ab8bad9459e4e4201f04ab1234c8a4d09"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a453f23002342ead33709f6836e48f10f" id="r_a453f23002342ead33709f6836e48f10f"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classinterface_1_1GameInterface.html#a453f23002342ead33709f6836e48f10f">fall_time_interval_ms_</a></td></tr>
-<tr class="separator:a453f23002342ead33709f6836e48f10f"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a7c706eff32a9011a9ef2708e1871bcf5" id="r_a7c706eff32a9011a9ef2708e1871bcf5"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classinterface_1_1GameInterface.html#a7c706eff32a9011a9ef2708e1871bcf5">game_window_</a></td></tr>
-<tr class="separator:a7c706eff32a9011a9ef2708e1871bcf5"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:afd81d1971a5e73d7640d11502bb58bf0" id="r_afd81d1971a5e73d7640d11502bb58bf0"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classinterface_1_1GameInterface.html#afd81d1971a5e73d7640d11502bb58bf0">gravity_tick_ev_</a></td></tr>
-<tr class="separator:afd81d1971a5e73d7640d11502bb58bf0"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a38e94adaaba84e381799d34a7686e4da" id="r_a38e94adaaba84e381799d34a7686e4da"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classinterface_1_1GameInterface.html#a38e94adaaba84e381799d34a7686e4da">icon_</a></td></tr>
-<tr class="separator:a38e94adaaba84e381799d34a7686e4da"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aba80117e2092fd3eadeb693842b14d16" id="r_aba80117e2092fd3eadeb693842b14d16"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classinterface_1_1GameInterface.html#aba80117e2092fd3eadeb693842b14d16">level_text_pos_</a></td></tr>
-<tr class="separator:aba80117e2092fd3eadeb693842b14d16"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ac45a650cdd7d46a9ff5a0f22e2a93f6b" id="r_ac45a650cdd7d46a9ff5a0f22e2a93f6b"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classinterface_1_1GameInterface.html#ac45a650cdd7d46a9ff5a0f22e2a93f6b">level_up_callback</a></td></tr>
-<tr class="separator:ac45a650cdd7d46a9ff5a0f22e2a93f6b"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a666e8ce5f726b3c2ed8137fab5a1b34c" id="r_a666e8ce5f726b3c2ed8137fab5a1b34c"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classinterface_1_1GameInterface.html#a666e8ce5f726b3c2ed8137fab5a1b34c">lines_text_pos_</a></td></tr>
-<tr class="separator:a666e8ce5f726b3c2ed8137fab5a1b34c"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a2e6a6d12730e8432156397507465bf0b" id="r_a2e6a6d12730e8432156397507465bf0b"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classinterface_1_1GameInterface.html#a2e6a6d12730e8432156397507465bf0b">logo_</a></td></tr>
-<tr class="separator:a2e6a6d12730e8432156397507465bf0b"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ad080585ea504e912a19f7879a53f1436" id="r_ad080585ea504e912a19f7879a53f1436"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classinterface_1_1GameInterface.html#ad080585ea504e912a19f7879a53f1436">next_piece_text_surface_</a></td></tr>
-<tr class="separator:ad080585ea504e912a19f7879a53f1436"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aef1cd2b20b06deb3cf2505a401156904" id="r_aef1cd2b20b06deb3cf2505a401156904"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classinterface_1_1GameInterface.html#aef1cd2b20b06deb3cf2505a401156904">pause_info_text_surface_</a></td></tr>
-<tr class="separator:aef1cd2b20b06deb3cf2505a401156904"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a559bf409229494374f3a88fcda0ede6f" id="r_a559bf409229494374f3a88fcda0ede6f"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classinterface_1_1GameInterface.html#a559bf409229494374f3a88fcda0ede6f">paused_state_callback</a></td></tr>
-<tr class="separator:a559bf409229494374f3a88fcda0ede6f"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ac1cbbe8336d39e2bb492c1fffe16d9f3" id="r_ac1cbbe8336d39e2bb492c1fffe16d9f3"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classinterface_1_1GameInterface.html#ac1cbbe8336d39e2bb492c1fffe16d9f3">play_sfx_callback</a></td></tr>
-<tr class="separator:ac1cbbe8336d39e2bb492c1fffe16d9f3"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ae962bb5eed9cb9775df352a94398e3b0" id="r_ae962bb5eed9cb9775df352a94398e3b0"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classinterface_1_1GameInterface.html#ae962bb5eed9cb9775df352a94398e3b0">resume_button_</a></td></tr>
-<tr class="separator:ae962bb5eed9cb9775df352a94398e3b0"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a42d53802d7eaaea0dea964a5eee16856" id="r_a42d53802d7eaaea0dea964a5eee16856"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classinterface_1_1GameInterface.html#a42d53802d7eaaea0dea964a5eee16856">rotation_sfx_</a></td></tr>
-<tr class="separator:a42d53802d7eaaea0dea964a5eee16856"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a67b0787ef1ed6f966b6426429ac9886a" id="r_a67b0787ef1ed6f966b6426429ac9886a"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classinterface_1_1GameInterface.html#a67b0787ef1ed6f966b6426429ac9886a">single_sfx_</a></td></tr>
-<tr class="separator:a67b0787ef1ed6f966b6426429ac9886a"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a17e209d17708120f32389ce0d33a4e26" id="r_a17e209d17708120f32389ce0d33a4e26"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classinterface_1_1GameInterface.html#a17e209d17708120f32389ce0d33a4e26">soft_drop_ev_</a></td></tr>
-<tr class="separator:a17e209d17708120f32389ce0d33a4e26"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:adc6e5733fc3c22f0a7b2914188c49c90" id="r_adc6e5733fc3c22f0a7b2914188c49c90"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classinterface_1_1GameInterface.html#adc6e5733fc3c22f0a7b2914188c49c90">state</a></td></tr>
+<tr class="memdesc:adc6e5733fc3c22f0a7b2914188c49c90"><td class="mdescLeft">&#160;</td><td class="mdescRight">Current game state.  <br /></td></tr>
 <tr class="separator:adc6e5733fc3c22f0a7b2914188c49c90"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a34b5b410f77ccc2b0134e3560ec32e34" id="r_a34b5b410f77ccc2b0134e3560ec32e34"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classinterface_1_1GameInterface.html#a34b5b410f77ccc2b0134e3560ec32e34">tetris_sfx_</a></td></tr>
-<tr class="separator:a34b5b410f77ccc2b0134e3560ec32e34"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:af52930bac2f313b58a09145c2df0bc78" id="r_af52930bac2f313b58a09145c2df0bc78"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classinterface_1_1GameInterface.html#af52930bac2f313b58a09145c2df0bc78">text_font_1_</a></td></tr>
-<tr class="separator:af52930bac2f313b58a09145c2df0bc78"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a31802f0af516d7b257156dd0233cea52" id="r_a31802f0af516d7b257156dd0233cea52"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classinterface_1_1GameInterface.html#a31802f0af516d7b257156dd0233cea52">text_font_2_</a></td></tr>
-<tr class="separator:a31802f0af516d7b257156dd0233cea52"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a08b935bf99a56d851fdd2a37a4faee92" id="r_a08b935bf99a56d851fdd2a37a4faee92"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classinterface_1_1GameInterface.html#a08b935bf99a56d851fdd2a37a4faee92">tile_</a></td></tr>
-<tr class="separator:a08b935bf99a56d851fdd2a37a4faee92"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a47f08ecc994fe0badc7d5d30ced51877" id="r_a47f08ecc994fe0badc7d5d30ced51877"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classinterface_1_1GameInterface.html#a47f08ecc994fe0badc7d5d30ced51877">transparent_overlay_</a></td></tr>
-<tr class="separator:a47f08ecc994fe0badc7d5d30ced51877"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ae64e3865398ae9135a4584bd5d68d05c" id="r_ae64e3865398ae9135a4584bd5d68d05c"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classinterface_1_1GameInterface.html#ae64e3865398ae9135a4584bd5d68d05c">triple_sfx_</a></td></tr>
-<tr class="separator:ae64e3865398ae9135a4584bd5d68d05c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pro-methods" name="pro-methods"></a>
+Protected Member Functions</h2></td></tr>
+<tr class="memitem:ac2506a6703058e3d64f535f9b902cc99" id="r_ac2506a6703058e3d64f535f9b902cc99"><td class="memItemLeft" align="right" valign="top">None&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classinterface_1_1GameInterface.html#ac2506a6703058e3d64f535f9b902cc99">_draw_block_with_borders</a> (self, int TLC_x, int TLC_y, int size, tuple color, tuple border_color)</td></tr>
+<tr class="memdesc:ac2506a6703058e3d64f535f9b902cc99"><td class="mdescLeft">&#160;</td><td class="mdescRight">Draws a filled block with a border at the given TLC coordinates.  <br /></td></tr>
+<tr class="separator:ac2506a6703058e3d64f535f9b902cc99"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a320373c363ab489d6d974769b1e08637" id="r_a320373c363ab489d6d974769b1e08637"><td class="memItemLeft" align="right" valign="top">None&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classinterface_1_1GameInterface.html#a320373c363ab489d6d974769b1e08637">_draw_board</a> (self)</td></tr>
+<tr class="memdesc:a320373c363ab489d6d974769b1e08637"><td class="mdescLeft">&#160;</td><td class="mdescRight">Draw the current board from the occupancy matrix.  <br /></td></tr>
+<tr class="separator:a320373c363ab489d6d974769b1e08637"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a24ab1c89a582676057cf9f52bd1c9a48" id="r_a24ab1c89a582676057cf9f52bd1c9a48"><td class="memItemLeft" align="right" valign="top">None&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classinterface_1_1GameInterface.html#a24ab1c89a582676057cf9f52bd1c9a48">_draw_dropped_tile_preview</a> (self, tuple color=par.WHITE)</td></tr>
+<tr class="memdesc:a24ab1c89a582676057cf9f52bd1c9a48"><td class="mdescLeft">&#160;</td><td class="mdescRight">Draws the outline of where the current tile would land if dropped immediately.  <br /></td></tr>
+<tr class="separator:a24ab1c89a582676057cf9f52bd1c9a48"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac6956d57ce779ae61543017213ae5159" id="r_ac6956d57ce779ae61543017213ae5159"><td class="memItemLeft" align="right" valign="top">None&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classinterface_1_1GameInterface.html#ac6956d57ce779ae61543017213ae5159">_draw_grid</a> (self, int nr_of_rows, int nr_of_cols, pyg.Vector2 TLC_coords, tuple color=par.DEFAULT_GRID_COLOR)</td></tr>
+<tr class="memdesc:ac6956d57ce779ae61543017213ae5159"><td class="mdescLeft">&#160;</td><td class="mdescRight">Draws a grid at the specified position with the specified dimensions.  <br /></td></tr>
+<tr class="separator:ac6956d57ce779ae61543017213ae5159"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac14f77cf0bed019c8df29eb4c8ef3c55" id="r_ac14f77cf0bed019c8df29eb4c8ef3c55"><td class="memItemLeft" align="right" valign="top">None&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classinterface_1_1GameInterface.html#ac14f77cf0bed019c8df29eb4c8ef3c55">_draw_pause_menu</a> (self)</td></tr>
+<tr class="memdesc:ac14f77cf0bed019c8df29eb4c8ef3c55"><td class="mdescLeft">&#160;</td><td class="mdescRight">Draws the pause menu.  <br /></td></tr>
+<tr class="separator:ac14f77cf0bed019c8df29eb4c8ef3c55"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac1d081aea4dfc0cf2c6de370654b4943" id="r_ac1d081aea4dfc0cf2c6de370654b4943"><td class="memItemLeft" align="right" valign="top">None&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classinterface_1_1GameInterface.html#ac1d081aea4dfc0cf2c6de370654b4943">_draw_tile</a> (self, str tile_type, list cfg_mat, int pos_x, int pos_y, tuple border_color=par.WHITE)</td></tr>
+<tr class="memdesc:ac1d081aea4dfc0cf2c6de370654b4943"><td class="mdescLeft">&#160;</td><td class="mdescRight">Draws a tile of the given type and configuration at the specified position.  <br /></td></tr>
+<tr class="separator:ac1d081aea4dfc0cf2c6de370654b4943"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a14f387ab27d2cb55bad71e0e56d45a51" id="r_a14f387ab27d2cb55bad71e0e56d45a51"><td class="memItemLeft" align="right" valign="top">None&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classinterface_1_1GameInterface.html#a14f387ab27d2cb55bad71e0e56d45a51">_event_handler</a> (self)</td></tr>
+<tr class="memdesc:a14f387ab27d2cb55bad71e0e56d45a51"><td class="mdescLeft">&#160;</td><td class="mdescRight">Processes in-game events.  <br /></td></tr>
+<tr class="separator:a14f387ab27d2cb55bad71e0e56d45a51"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad5460dfe38647b19f18e926b03291479" id="r_ad5460dfe38647b19f18e926b03291479"><td class="memItemLeft" align="right" valign="top">None&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classinterface_1_1GameInterface.html#ad5460dfe38647b19f18e926b03291479">_level_up_callback</a> (self, str event, any data=None)</td></tr>
+<tr class="memdesc:ad5460dfe38647b19f18e926b03291479"><td class="mdescLeft">&#160;</td><td class="mdescRight">Callback invoked when level-up occurs.  <br /></td></tr>
+<tr class="separator:ad5460dfe38647b19f18e926b03291479"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac61333458e7d11ea4b6b586347ed2f3d" id="r_ac61333458e7d11ea4b6b586347ed2f3d"><td class="memItemLeft" align="right" valign="top">None&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classinterface_1_1GameInterface.html#ac61333458e7d11ea4b6b586347ed2f3d">_paused_state_callback</a> (self, str event, any data=None)</td></tr>
+<tr class="memdesc:ac61333458e7d11ea4b6b586347ed2f3d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Callback invoked when the game paused state changes.  <br /></td></tr>
+<tr class="separator:ac61333458e7d11ea4b6b586347ed2f3d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a29e3c2d961545fa6f8968de7b2ae738d" id="r_a29e3c2d961545fa6f8968de7b2ae738d"><td class="memItemLeft" align="right" valign="top">None&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classinterface_1_1GameInterface.html#a29e3c2d961545fa6f8968de7b2ae738d">_play_main_theme</a> (self)</td></tr>
+<tr class="memdesc:a29e3c2d961545fa6f8968de7b2ae738d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Plays the main theme in loop.  <br /></td></tr>
+<tr class="separator:a29e3c2d961545fa6f8968de7b2ae738d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:adb81f47687a6152218ed033b425e774d" id="r_adb81f47687a6152218ed033b425e774d"><td class="memItemLeft" align="right" valign="top">None&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classinterface_1_1GameInterface.html#adb81f47687a6152218ed033b425e774d">_play_sfx</a> (self, str sfx_type)</td></tr>
+<tr class="memdesc:adb81f47687a6152218ed033b425e774d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Plays the specified sound effect.  <br /></td></tr>
+<tr class="separator:adb81f47687a6152218ed033b425e774d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a260634979ee177664ddc83ae1c4d37d6" id="r_a260634979ee177664ddc83ae1c4d37d6"><td class="memItemLeft" align="right" valign="top">None&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classinterface_1_1GameInterface.html#a260634979ee177664ddc83ae1c4d37d6">_play_sfx_callback</a> (self, str event, any data=None)</td></tr>
+<tr class="memdesc:a260634979ee177664ddc83ae1c4d37d6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Callback triggered to play sound effects.  <br /></td></tr>
+<tr class="separator:a260634979ee177664ddc83ae1c4d37d6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pro-attribs" name="pro-attribs"></a>
+Protected Attributes</h2></td></tr>
+<tr class="memitem:af88e0f6ddc76c940a84b41f45d209413" id="r_af88e0f6ddc76c940a84b41f45d209413"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classinterface_1_1GameInterface.html#af88e0f6ddc76c940a84b41f45d209413">_double_sfx</a></td></tr>
+<tr class="memdesc:af88e0f6ddc76c940a84b41f45d209413"><td class="mdescLeft">&#160;</td><td class="mdescRight">Double line clear sound effect.  <br /></td></tr>
+<tr class="separator:af88e0f6ddc76c940a84b41f45d209413"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a729b6b8e653e68c7a5a6c2d325d1ad79" id="r_a729b6b8e653e68c7a5a6c2d325d1ad79"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classinterface_1_1GameInterface.html#a729b6b8e653e68c7a5a6c2d325d1ad79">_fall_time_interval_ms</a></td></tr>
+<tr class="memdesc:a729b6b8e653e68c7a5a6c2d325d1ad79"><td class="mdescLeft">&#160;</td><td class="mdescRight">Current gravity/fall interval in milliseconds.  <br /></td></tr>
+<tr class="separator:a729b6b8e653e68c7a5a6c2d325d1ad79"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a41743fee13d7d43bef004d6f9aabac6d" id="r_a41743fee13d7d43bef004d6f9aabac6d"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classinterface_1_1GameInterface.html#a41743fee13d7d43bef004d6f9aabac6d">_game_window</a></td></tr>
+<tr class="memdesc:a41743fee13d7d43bef004d6f9aabac6d"><td class="mdescLeft">&#160;</td><td class="mdescRight">pygame display Surface for the main game window.  <br /></td></tr>
+<tr class="separator:a41743fee13d7d43bef004d6f9aabac6d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a32ba968b392e73dcf50622dc515a996e" id="r_a32ba968b392e73dcf50622dc515a996e"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classinterface_1_1GameInterface.html#a32ba968b392e73dcf50622dc515a996e">_gravity_tick_ev</a></td></tr>
+<tr class="memdesc:a32ba968b392e73dcf50622dc515a996e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Event to detect if tile needs to fall by one square due to gravity, triggered at regular time intervals.  <br /></td></tr>
+<tr class="separator:a32ba968b392e73dcf50622dc515a996e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9aad0160c2263eb97e699ef0a8e8f6de" id="r_a9aad0160c2263eb97e699ef0a8e8f6de"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classinterface_1_1GameInterface.html#a9aad0160c2263eb97e699ef0a8e8f6de">_icon</a></td></tr>
+<tr class="memdesc:a9aad0160c2263eb97e699ef0a8e8f6de"><td class="mdescLeft">&#160;</td><td class="mdescRight">Game window icon Surface.  <br /></td></tr>
+<tr class="separator:a9aad0160c2263eb97e699ef0a8e8f6de"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:affd0280d6db6f94705158045f2fbe6ec" id="r_affd0280d6db6f94705158045f2fbe6ec"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classinterface_1_1GameInterface.html#affd0280d6db6f94705158045f2fbe6ec">_level_text_pos</a></td></tr>
+<tr class="memdesc:affd0280d6db6f94705158045f2fbe6ec"><td class="mdescLeft">&#160;</td><td class="mdescRight">Level text position.  <br /></td></tr>
+<tr class="separator:affd0280d6db6f94705158045f2fbe6ec"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3f3ea22d50e9b3bec12de333dd56b5b1" id="r_a3f3ea22d50e9b3bec12de333dd56b5b1"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classinterface_1_1GameInterface.html#a3f3ea22d50e9b3bec12de333dd56b5b1">_level_up_callback</a></td></tr>
+<tr class="separator:a3f3ea22d50e9b3bec12de333dd56b5b1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aff96f05c11eb4d58299ecaf0a25a9946" id="r_aff96f05c11eb4d58299ecaf0a25a9946"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classinterface_1_1GameInterface.html#aff96f05c11eb4d58299ecaf0a25a9946">_lines_text_pos</a></td></tr>
+<tr class="memdesc:aff96f05c11eb4d58299ecaf0a25a9946"><td class="mdescLeft">&#160;</td><td class="mdescRight">Lines text position.  <br /></td></tr>
+<tr class="separator:aff96f05c11eb4d58299ecaf0a25a9946"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1c5d1c32c5cc3ab67cad497317aace48" id="r_a1c5d1c32c5cc3ab67cad497317aace48"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classinterface_1_1GameInterface.html#a1c5d1c32c5cc3ab67cad497317aace48">_logo</a></td></tr>
+<tr class="memdesc:a1c5d1c32c5cc3ab67cad497317aace48"><td class="mdescLeft">&#160;</td><td class="mdescRight">Game logo Surface (scaled).  <br /></td></tr>
+<tr class="separator:a1c5d1c32c5cc3ab67cad497317aace48"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a28ffeee28c580ec1e2545514418a4a07" id="r_a28ffeee28c580ec1e2545514418a4a07"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classinterface_1_1GameInterface.html#a28ffeee28c580ec1e2545514418a4a07">_next_piece_text_surface</a></td></tr>
+<tr class="memdesc:a28ffeee28c580ec1e2545514418a4a07"><td class="mdescLeft">&#160;</td><td class="mdescRight">Surface for the next tile in queue text.  <br /></td></tr>
+<tr class="separator:a28ffeee28c580ec1e2545514418a4a07"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aab804f95485760119e7e78ea6d6b506e" id="r_aab804f95485760119e7e78ea6d6b506e"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classinterface_1_1GameInterface.html#aab804f95485760119e7e78ea6d6b506e">_pause_info_text_surface</a></td></tr>
+<tr class="memdesc:aab804f95485760119e7e78ea6d6b506e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Surface for pause information text.  <br /></td></tr>
+<tr class="separator:aab804f95485760119e7e78ea6d6b506e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6a44eb1ba2904e74505b11a874f1186a" id="r_a6a44eb1ba2904e74505b11a874f1186a"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classinterface_1_1GameInterface.html#a6a44eb1ba2904e74505b11a874f1186a">_paused_state_callback</a></td></tr>
+<tr class="separator:a6a44eb1ba2904e74505b11a874f1186a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a48ea8852bcfd92aab7f438d6c8559ef5" id="r_a48ea8852bcfd92aab7f438d6c8559ef5"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classinterface_1_1GameInterface.html#a48ea8852bcfd92aab7f438d6c8559ef5">_play_sfx_callback</a></td></tr>
+<tr class="separator:a48ea8852bcfd92aab7f438d6c8559ef5"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad11fe08b3a4e75a59f4d2d37d7253193" id="r_ad11fe08b3a4e75a59f4d2d37d7253193"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classinterface_1_1GameInterface.html#ad11fe08b3a4e75a59f4d2d37d7253193">_resume_button</a></td></tr>
+<tr class="memdesc:ad11fe08b3a4e75a59f4d2d37d7253193"><td class="mdescLeft">&#160;</td><td class="mdescRight">Resume button (shown in pause menu).  <br /></td></tr>
+<tr class="separator:ad11fe08b3a4e75a59f4d2d37d7253193"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9d95a8233a5b873fd66dcc2d277f1f81" id="r_a9d95a8233a5b873fd66dcc2d277f1f81"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classinterface_1_1GameInterface.html#a9d95a8233a5b873fd66dcc2d277f1f81">_rotation_sfx</a></td></tr>
+<tr class="memdesc:a9d95a8233a5b873fd66dcc2d277f1f81"><td class="mdescLeft">&#160;</td><td class="mdescRight">Rotation sound effect.  <br /></td></tr>
+<tr class="separator:a9d95a8233a5b873fd66dcc2d277f1f81"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a75cf898f5e1825ab1b7af38bfee5d245" id="r_a75cf898f5e1825ab1b7af38bfee5d245"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classinterface_1_1GameInterface.html#a75cf898f5e1825ab1b7af38bfee5d245">_single_sfx</a></td></tr>
+<tr class="memdesc:a75cf898f5e1825ab1b7af38bfee5d245"><td class="mdescLeft">&#160;</td><td class="mdescRight">Single line clear sound effect.  <br /></td></tr>
+<tr class="separator:a75cf898f5e1825ab1b7af38bfee5d245"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1534b7f857467e8168eb55430ce82960" id="r_a1534b7f857467e8168eb55430ce82960"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classinterface_1_1GameInterface.html#a1534b7f857467e8168eb55430ce82960">_soft_drop_ev</a></td></tr>
+<tr class="memdesc:a1534b7f857467e8168eb55430ce82960"><td class="mdescLeft">&#160;</td><td class="mdescRight">Event to detect if tile can soft drop, triggered at regular time intervals.  <br /></td></tr>
+<tr class="separator:a1534b7f857467e8168eb55430ce82960"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a897aacc64007ca0bdb26b8778386fdb2" id="r_a897aacc64007ca0bdb26b8778386fdb2"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classinterface_1_1GameInterface.html#a897aacc64007ca0bdb26b8778386fdb2">_tetris_sfx</a></td></tr>
+<tr class="memdesc:a897aacc64007ca0bdb26b8778386fdb2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Tetris (4 lines) clear sound effect.  <br /></td></tr>
+<tr class="separator:a897aacc64007ca0bdb26b8778386fdb2"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac45bd35d6ba857c41e5d5b58e9d48be0" id="r_ac45bd35d6ba857c41e5d5b58e9d48be0"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classinterface_1_1GameInterface.html#ac45bd35d6ba857c41e5d5b58e9d48be0">_text_font_1</a></td></tr>
+<tr class="memdesc:ac45bd35d6ba857c41e5d5b58e9d48be0"><td class="mdescLeft">&#160;</td><td class="mdescRight">First font object for rendering text.  <br /></td></tr>
+<tr class="separator:ac45bd35d6ba857c41e5d5b58e9d48be0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a149f7ff31af9c6f0de35743d62ad34a6" id="r_a149f7ff31af9c6f0de35743d62ad34a6"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classinterface_1_1GameInterface.html#a149f7ff31af9c6f0de35743d62ad34a6">_text_font_2</a></td></tr>
+<tr class="memdesc:a149f7ff31af9c6f0de35743d62ad34a6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Second font object for rendering text.  <br /></td></tr>
+<tr class="separator:a149f7ff31af9c6f0de35743d62ad34a6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac44e8749836b7c2cf875806297e1a1b1" id="r_ac44e8749836b7c2cf875806297e1a1b1"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classinterface_1_1GameInterface.html#ac44e8749836b7c2cf875806297e1a1b1">_tile</a></td></tr>
+<tr class="memdesc:ac44e8749836b7c2cf875806297e1a1b1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Current tetromino tile.  <br /></td></tr>
+<tr class="separator:ac44e8749836b7c2cf875806297e1a1b1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad2e815e2aa4a0320674b1116c56821c2" id="r_ad2e815e2aa4a0320674b1116c56821c2"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classinterface_1_1GameInterface.html#ad2e815e2aa4a0320674b1116c56821c2">_transparent_overlay</a></td></tr>
+<tr class="memdesc:ad2e815e2aa4a0320674b1116c56821c2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Transparent overlay surface for pause menu.  <br /></td></tr>
+<tr class="separator:ad2e815e2aa4a0320674b1116c56821c2"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a749c2d943d8e9fb3bfc936354dbca0c2" id="r_a749c2d943d8e9fb3bfc936354dbca0c2"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classinterface_1_1GameInterface.html#a749c2d943d8e9fb3bfc936354dbca0c2">_triple_sfx</a></td></tr>
+<tr class="memdesc:a749c2d943d8e9fb3bfc936354dbca0c2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Triple line clear sound effect.  <br /></td></tr>
+<tr class="separator:a749c2d943d8e9fb3bfc936354dbca0c2"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>The main interface to the game. </p>
-<p>The class provides access to the game-loop functions as well as the necessary drawing toolbox needed to render the game window. The class also loads all the necessary music, sfx and UI components.</p>
-<h2><a class="anchor" id="autotoc_md2"></a>
-Attributes</h2>
-<p>state: GameState The current state of the game. </p>
+<div class="textblock"><p>Main interface to the game. </p>
+<p>Provides the game loop integration, rendering helpers, input/event handling and audio/UI resources used to run the Tetris application. </p>
 </div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
 <a id="abc1b785959b47505de72feabab160402" name="abc1b785959b47505de72feabab160402"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#abc1b785959b47505de72feabab160402">&#9670;&#160;</a></span>__init__()</h2>
@@ -233,18 +259,22 @@ Attributes</h2>
 </div><div class="memdoc">
 
 <p>Initializes the game interface. </p>
+<dl class="section return"><dt>Returns</dt><dd>None. </dd></dl>
 
 </div>
 </div>
 <h2 class="groupheader">Member Function Documentation</h2>
-<a id="ae82445af089f7741e877e867cb05cc70" name="ae82445af089f7741e877e867cb05cc70"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ae82445af089f7741e877e867cb05cc70">&#9670;&#160;</a></span>draw_block_with_borders()</h2>
+<a id="ac2506a6703058e3d64f535f9b902cc99" name="ac2506a6703058e3d64f535f9b902cc99"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac2506a6703058e3d64f535f9b902cc99">&#9670;&#160;</a></span>_draw_block_with_borders()</h2>
 
 <div class="memitem">
 <div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname"> None draw_block_with_borders </td>
+          <td class="memname"> None _draw_block_with_borders </td>
           <td>(</td>
           <td class="paramtype">&#160;</td>
           <td class="paramname"><em>self</em>, </td>
@@ -285,43 +315,68 @@ Attributes</h2>
           <td></td><td></td>
         </tr>
       </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">protected</span></span>  </td>
+  </tr>
+</table>
 </div><div class="memdoc">
 
-<p>Draws a block with borders of the specified color at the specified position. </p>
-<h2><a class="anchor" id="autotoc_md8"></a>
-Parameters</h2>
-<p>TLC_x: int X coordinate of the top left corner of the block. TLC_y: int Y coordinate of the top left corner of the block. size: int Size of the block (width and height). color: tuple RGB color of the block. border_color: tuple RGB color of the block border. </p>
+<p>Draws a filled block with a border at the given TLC coordinates. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">TLC_x</td><td>X coordinate of the block top-left corner in pixels. </td></tr>
+    <tr><td class="paramname">TLC_y</td><td>Y coordinate of the block top-left corner in pixels. </td></tr>
+    <tr><td class="paramname">size</td><td>Size (width and height) of the block in pixels. </td></tr>
+    <tr><td class="paramname">color</td><td>Fill RGB color. </td></tr>
+    <tr><td class="paramname">border_color</td><td>Border RGB color. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>None. </dd></dl>
 
 </div>
 </div>
-<a id="a9330af4c4745e53d9f02126343650320" name="a9330af4c4745e53d9f02126343650320"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a9330af4c4745e53d9f02126343650320">&#9670;&#160;</a></span>draw_board()</h2>
+<a id="a320373c363ab489d6d974769b1e08637" name="a320373c363ab489d6d974769b1e08637"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a320373c363ab489d6d974769b1e08637">&#9670;&#160;</a></span>_draw_board()</h2>
 
 <div class="memitem">
 <div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname"> None draw_board </td>
+          <td class="memname"> None _draw_board </td>
           <td>(</td>
           <td class="paramtype">&#160;</td>
           <td class="paramname"><em>self</em></td><td>)</td>
           <td></td>
         </tr>
       </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">protected</span></span>  </td>
+  </tr>
+</table>
 </div><div class="memdoc">
 
-<p>Draws the board of the game. </p>
+<p>Draw the current board from the occupancy matrix. </p>
+<dl class="section return"><dt>Returns</dt><dd>None. </dd></dl>
 
 </div>
 </div>
-<a id="ada186921fa42709a44e5120d3130397c" name="ada186921fa42709a44e5120d3130397c"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ada186921fa42709a44e5120d3130397c">&#9670;&#160;</a></span>draw_dropped_tile_preview()</h2>
+<a id="a24ab1c89a582676057cf9f52bd1c9a48" name="a24ab1c89a582676057cf9f52bd1c9a48"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a24ab1c89a582676057cf9f52bd1c9a48">&#9670;&#160;</a></span>_draw_dropped_tile_preview()</h2>
 
 <div class="memitem">
 <div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname"> None draw_dropped_tile_preview </td>
+          <td class="memname"> None _draw_dropped_tile_preview </td>
           <td>(</td>
           <td class="paramtype">&#160;</td>
           <td class="paramname"><em>self</em>, </td>
@@ -338,43 +393,35 @@ Parameters</h2>
           <td></td><td></td>
         </tr>
       </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">protected</span></span>  </td>
+  </tr>
+</table>
 </div><div class="memdoc">
 
 <p>Draws the outline of where the current tile would land if dropped immediately. </p>
-<h2><a class="anchor" id="autotoc_md10"></a>
-Parameters</h2>
-<p>color: tuple RGB color of the outline. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">color</td><td>RGB color used for the outline. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>None. </dd></dl>
 
 </div>
 </div>
-<a id="aaa9067a1ad1471b396ecdbdb2126d0d5" name="aaa9067a1ad1471b396ecdbdb2126d0d5"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aaa9067a1ad1471b396ecdbdb2126d0d5">&#9670;&#160;</a></span>draw_frame()</h2>
+<a id="ac6956d57ce779ae61543017213ae5159" name="ac6956d57ce779ae61543017213ae5159"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac6956d57ce779ae61543017213ae5159">&#9670;&#160;</a></span>_draw_grid()</h2>
 
 <div class="memitem">
 <div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname"> None draw_frame </td>
-          <td>(</td>
-          <td class="paramtype">&#160;</td>
-          <td class="paramname"><em>self</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Draws the current frame. </p>
-
-</div>
-</div>
-<a id="a02e71335272640a9d5d7611893717402" name="a02e71335272640a9d5d7611893717402"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a02e71335272640a9d5d7611893717402">&#9670;&#160;</a></span>draw_grid()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname"> None draw_grid </td>
+          <td class="memname"> None _draw_grid </td>
           <td>(</td>
           <td class="paramtype">&#160;</td>
           <td class="paramname"><em>self</em>, </td>
@@ -409,43 +456,67 @@ Parameters</h2>
           <td></td><td></td>
         </tr>
       </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">protected</span></span>  </td>
+  </tr>
+</table>
 </div><div class="memdoc">
 
 <p>Draws a grid at the specified position with the specified dimensions. </p>
-<h2><a class="anchor" id="autotoc_md7"></a>
-Parameters</h2>
-<p>nr_of_rows: int Number of rows of the grid. nr_of_cols: int Numer of columns of the grid. TLC_coords: pygame.Vector2 Coordinates of the top left corner of the grid. color: tuple RGB color of the grid lines. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">nr_of_rows</td><td>Number of grid rows. </td></tr>
+    <tr><td class="paramname">nr_of_cols</td><td>Number of grid columns. </td></tr>
+    <tr><td class="paramname">TLC_coords</td><td>Top-left corner coordinates. </td></tr>
+    <tr><td class="paramname">color</td><td>RGB color of grid lines. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>None. </dd></dl>
 
 </div>
 </div>
-<a id="acce7d2715f08c2bb24b813464c227787" name="acce7d2715f08c2bb24b813464c227787"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#acce7d2715f08c2bb24b813464c227787">&#9670;&#160;</a></span>draw_pause_menu()</h2>
+<a id="ac14f77cf0bed019c8df29eb4c8ef3c55" name="ac14f77cf0bed019c8df29eb4c8ef3c55"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac14f77cf0bed019c8df29eb4c8ef3c55">&#9670;&#160;</a></span>_draw_pause_menu()</h2>
 
 <div class="memitem">
 <div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname"> None draw_pause_menu </td>
+          <td class="memname"> None _draw_pause_menu </td>
           <td>(</td>
           <td class="paramtype">&#160;</td>
           <td class="paramname"><em>self</em></td><td>)</td>
           <td></td>
         </tr>
       </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">protected</span></span>  </td>
+  </tr>
+</table>
 </div><div class="memdoc">
 
 <p>Draws the pause menu. </p>
+<dl class="section return"><dt>Returns</dt><dd>None. </dd></dl>
 
 </div>
 </div>
-<a id="a0e8b3119969790d0d352b9d87b64c087" name="a0e8b3119969790d0d352b9d87b64c087"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a0e8b3119969790d0d352b9d87b64c087">&#9670;&#160;</a></span>draw_tile()</h2>
+<a id="ac1d081aea4dfc0cf2c6de370654b4943" name="ac1d081aea4dfc0cf2c6de370654b4943"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac1d081aea4dfc0cf2c6de370654b4943">&#9670;&#160;</a></span>_draw_tile()</h2>
 
 <div class="memitem">
 <div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname"> None draw_tile </td>
+          <td class="memname"> None _draw_tile </td>
           <td>(</td>
           <td class="paramtype">&#160;</td>
           <td class="paramname"><em>self</em>, </td>
@@ -486,43 +557,68 @@ Parameters</h2>
           <td></td><td></td>
         </tr>
       </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">protected</span></span>  </td>
+  </tr>
+</table>
 </div><div class="memdoc">
 
-<p>Draws a tile at the specified position. </p>
-<h2><a class="anchor" id="autotoc_md9"></a>
-Parameters</h2>
-<p>tile_type: str Type of the tile to be drawn. cfg_mat: list Configuration matrix of the tile to be drawn. pos_x: int X coordinate of the top left corner of the tile to be drawn. pos_y: int Y coordinate of the top left corner of the tile to be drawn. border_color: tuple RGB color of the tile border. </p>
+<p>Draws a tile of the given type and configuration at the specified position. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">tile_type</td><td>Tile type. </td></tr>
+    <tr><td class="paramname">cfg_mat</td><td>Configuration matrix of the tile. </td></tr>
+    <tr><td class="paramname">pos_x</td><td>Top-left corner x-position in pixels. </td></tr>
+    <tr><td class="paramname">pos_y</td><td>Top-left corner y-position in pixels. </td></tr>
+    <tr><td class="paramname">border_color</td><td>RGB border color. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>None. </dd></dl>
 
 </div>
 </div>
-<a id="a40c46f9da25f95dbf73160571b35706f" name="a40c46f9da25f95dbf73160571b35706f"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a40c46f9da25f95dbf73160571b35706f">&#9670;&#160;</a></span>event_handler()</h2>
+<a id="a14f387ab27d2cb55bad71e0e56d45a51" name="a14f387ab27d2cb55bad71e0e56d45a51"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a14f387ab27d2cb55bad71e0e56d45a51">&#9670;&#160;</a></span>_event_handler()</h2>
 
 <div class="memitem">
 <div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname"> None event_handler </td>
+          <td class="memname"> None _event_handler </td>
           <td>(</td>
           <td class="paramtype">&#160;</td>
           <td class="paramname"><em>self</em></td><td>)</td>
           <td></td>
         </tr>
       </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">protected</span></span>  </td>
+  </tr>
+</table>
 </div><div class="memdoc">
 
 <p>Processes in-game events. </p>
+<dl class="section return"><dt>Returns</dt><dd>None. </dd></dl>
 
 </div>
 </div>
-<a id="a94a585c4452d521b912de4ecd2028328" name="a94a585c4452d521b912de4ecd2028328"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a94a585c4452d521b912de4ecd2028328">&#9670;&#160;</a></span>level_up_callback()</h2>
+<a id="ad5460dfe38647b19f18e926b03291479" name="ad5460dfe38647b19f18e926b03291479"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad5460dfe38647b19f18e926b03291479">&#9670;&#160;</a></span>_level_up_callback()</h2>
 
 <div class="memitem">
 <div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname"> None level_up_callback </td>
+          <td class="memname"> None _level_up_callback </td>
           <td>(</td>
           <td class="paramtype">&#160;</td>
           <td class="paramname"><em>self</em>, </td>
@@ -545,23 +641,36 @@ Parameters</h2>
           <td></td><td></td>
         </tr>
       </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">protected</span></span>  </td>
+  </tr>
+</table>
 </div><div class="memdoc">
 
-<p>Callback function triggered when leveling up. </p>
-<h2><a class="anchor" id="autotoc_md5"></a>
-Parameters</h2>
-<p>event: str Event that triggered the callback. data: any Additional data associated with the event. </p>
+<p>Callback invoked when level-up occurs. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">event</td><td>Event name. </td></tr>
+    <tr><td class="paramname">data</td><td>Optional data. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>None. </dd></dl>
 
 </div>
 </div>
-<a id="aca0cbecefda25dbd66e3c515bb36c648" name="aca0cbecefda25dbd66e3c515bb36c648"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aca0cbecefda25dbd66e3c515bb36c648">&#9670;&#160;</a></span>paused_state_callback()</h2>
+<a id="ac61333458e7d11ea4b6b586347ed2f3d" name="ac61333458e7d11ea4b6b586347ed2f3d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac61333458e7d11ea4b6b586347ed2f3d">&#9670;&#160;</a></span>_paused_state_callback()</h2>
 
 <div class="memitem">
 <div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname"> None paused_state_callback </td>
+          <td class="memname"> None _paused_state_callback </td>
           <td>(</td>
           <td class="paramtype">&#160;</td>
           <td class="paramname"><em>self</em>, </td>
@@ -584,43 +693,64 @@ Parameters</h2>
           <td></td><td></td>
         </tr>
       </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">protected</span></span>  </td>
+  </tr>
+</table>
 </div><div class="memdoc">
 
-<p>Callback function triggered when the game is paused or resumed. </p>
-<h2><a class="anchor" id="autotoc_md4"></a>
-Parameters</h2>
-<p>event: str Event that triggered the callback. data: any Additional data associated with the event. </p>
+<p>Callback invoked when the game paused state changes. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">event</td><td>Event name. </td></tr>
+    <tr><td class="paramname">data</td><td>Optional data. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>None. </dd></dl>
 
 </div>
 </div>
-<a id="a075aa33626fb55469fbd0af04960c6a5" name="a075aa33626fb55469fbd0af04960c6a5"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a075aa33626fb55469fbd0af04960c6a5">&#9670;&#160;</a></span>play_main_theme()</h2>
+<a id="a29e3c2d961545fa6f8968de7b2ae738d" name="a29e3c2d961545fa6f8968de7b2ae738d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a29e3c2d961545fa6f8968de7b2ae738d">&#9670;&#160;</a></span>_play_main_theme()</h2>
 
 <div class="memitem">
 <div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname"> None play_main_theme </td>
+          <td class="memname"> None _play_main_theme </td>
           <td>(</td>
           <td class="paramtype">&#160;</td>
           <td class="paramname"><em>self</em></td><td>)</td>
           <td></td>
         </tr>
       </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">protected</span></span>  </td>
+  </tr>
+</table>
 </div><div class="memdoc">
 
 <p>Plays the main theme in loop. </p>
 
 </div>
 </div>
-<a id="a6f4b5aef4efc29a883eda327221e403e" name="a6f4b5aef4efc29a883eda327221e403e"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a6f4b5aef4efc29a883eda327221e403e">&#9670;&#160;</a></span>play_sfx()</h2>
+<a id="adb81f47687a6152218ed033b425e774d" name="adb81f47687a6152218ed033b425e774d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#adb81f47687a6152218ed033b425e774d">&#9670;&#160;</a></span>_play_sfx()</h2>
 
 <div class="memitem">
 <div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname"> None play_sfx </td>
+          <td class="memname"> None _play_sfx </td>
           <td>(</td>
           <td class="paramtype">&#160;</td>
           <td class="paramname"><em>self</em>, </td>
@@ -637,23 +767,35 @@ Parameters</h2>
           <td></td><td></td>
         </tr>
       </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">protected</span></span>  </td>
+  </tr>
+</table>
 </div><div class="memdoc">
 
 <p>Plays the specified sound effect. </p>
-<h2><a class="anchor" id="autotoc_md6"></a>
-Parameters</h2>
-<p>sfx_type: str Type of sound effect to be played. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">sfx_type</td><td>Type/name of the sound effect to play. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>None. </dd></dl>
 
 </div>
 </div>
-<a id="a6e20f7081cce5b60b6413d65feb71bf2" name="a6e20f7081cce5b60b6413d65feb71bf2"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a6e20f7081cce5b60b6413d65feb71bf2">&#9670;&#160;</a></span>play_sfx_callback()</h2>
+<a id="a260634979ee177664ddc83ae1c4d37d6" name="a260634979ee177664ddc83ae1c4d37d6"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a260634979ee177664ddc83ae1c4d37d6">&#9670;&#160;</a></span>_play_sfx_callback()</h2>
 
 <div class="memitem">
 <div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname"> None play_sfx_callback </td>
+          <td class="memname"> None _play_sfx_callback </td>
           <td>(</td>
           <td class="paramtype">&#160;</td>
           <td class="paramname"><em>self</em>, </td>
@@ -676,12 +818,43 @@ Parameters</h2>
           <td></td><td></td>
         </tr>
       </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">protected</span></span>  </td>
+  </tr>
+</table>
 </div><div class="memdoc">
 
-<p>Callback function triggered to play sound effects. </p>
-<h2><a class="anchor" id="autotoc_md3"></a>
-Parameters</h2>
-<p>event: str Event that triggered the callback. data: any Additional data associated with the event. </p>
+<p>Callback triggered to play sound effects. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">event</td><td>Name of the event that triggered this callback. </td></tr>
+    <tr><td class="paramname">data</td><td>Optional additional data associated with the event. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>None. </dd></dl>
+
+</div>
+</div>
+<a id="aaa9067a1ad1471b396ecdbdb2126d0d5" name="aaa9067a1ad1471b396ecdbdb2126d0d5"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aaa9067a1ad1471b396ecdbdb2126d0d5">&#9670;&#160;</a></span>draw_frame()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"> None draw_frame </td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>self</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Draws the current frame. </p>
+<dl class="section return"><dt>Returns</dt><dd>None. </dd></dl>
 
 </div>
 </div>
@@ -702,6 +875,7 @@ Parameters</h2>
 </div><div class="memdoc">
 
 <p>Calls the event handler and retrieves the user's inputs. </p>
+<dl class="section return"><dt>Returns</dt><dd>None. </dd></dl>
 
 </div>
 </div>
@@ -722,245 +896,554 @@ Parameters</h2>
 </div><div class="memdoc">
 
 <p>Updates the game and tile states based on the current inputs and events. </p>
+<dl class="section return"><dt>Returns</dt><dd>None. </dd></dl>
 
 </div>
 </div>
 <h2 class="groupheader">Member Data Documentation</h2>
-<a id="ab8bad9459e4e4201f04ab1234c8a4d09" name="ab8bad9459e4e4201f04ab1234c8a4d09"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ab8bad9459e4e4201f04ab1234c8a4d09">&#9670;&#160;</a></span>double_sfx_</h2>
+<a id="af88e0f6ddc76c940a84b41f45d209413" name="af88e0f6ddc76c940a84b41f45d209413"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af88e0f6ddc76c940a84b41f45d209413">&#9670;&#160;</a></span>_double_sfx</h2>
 
 <div class="memitem">
 <div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">double_sfx_</td>
+          <td class="memname">_double_sfx</td>
         </tr>
       </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">protected</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Double line clear sound effect. </p>
+
+</div>
+</div>
+<a id="a729b6b8e653e68c7a5a6c2d325d1ad79" name="a729b6b8e653e68c7a5a6c2d325d1ad79"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a729b6b8e653e68c7a5a6c2d325d1ad79">&#9670;&#160;</a></span>_fall_time_interval_ms</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">_fall_time_interval_ms</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">protected</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Current gravity/fall interval in milliseconds. </p>
+
+</div>
+</div>
+<a id="a41743fee13d7d43bef004d6f9aabac6d" name="a41743fee13d7d43bef004d6f9aabac6d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a41743fee13d7d43bef004d6f9aabac6d">&#9670;&#160;</a></span>_game_window</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">_game_window</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">protected</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>pygame display Surface for the main game window. </p>
+
+</div>
+</div>
+<a id="a32ba968b392e73dcf50622dc515a996e" name="a32ba968b392e73dcf50622dc515a996e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a32ba968b392e73dcf50622dc515a996e">&#9670;&#160;</a></span>_gravity_tick_ev</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">_gravity_tick_ev</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">protected</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Event to detect if tile needs to fall by one square due to gravity, triggered at regular time intervals. </p>
+
+</div>
+</div>
+<a id="a9aad0160c2263eb97e699ef0a8e8f6de" name="a9aad0160c2263eb97e699ef0a8e8f6de"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a9aad0160c2263eb97e699ef0a8e8f6de">&#9670;&#160;</a></span>_icon</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">_icon</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">protected</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Game window icon Surface. </p>
+
+</div>
+</div>
+<a id="affd0280d6db6f94705158045f2fbe6ec" name="affd0280d6db6f94705158045f2fbe6ec"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#affd0280d6db6f94705158045f2fbe6ec">&#9670;&#160;</a></span>_level_text_pos</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">_level_text_pos</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">protected</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Level text position. </p>
+
+</div>
+</div>
+<a id="a3f3ea22d50e9b3bec12de333dd56b5b1" name="a3f3ea22d50e9b3bec12de333dd56b5b1"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3f3ea22d50e9b3bec12de333dd56b5b1">&#9670;&#160;</a></span>_level_up_callback</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">_level_up_callback</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">protected</span></span>  </td>
+  </tr>
+</table>
 </div><div class="memdoc">
 
 </div>
 </div>
-<a id="a453f23002342ead33709f6836e48f10f" name="a453f23002342ead33709f6836e48f10f"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a453f23002342ead33709f6836e48f10f">&#9670;&#160;</a></span>fall_time_interval_ms_</h2>
+<a id="aff96f05c11eb4d58299ecaf0a25a9946" name="aff96f05c11eb4d58299ecaf0a25a9946"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aff96f05c11eb4d58299ecaf0a25a9946">&#9670;&#160;</a></span>_lines_text_pos</h2>
 
 <div class="memitem">
 <div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">fall_time_interval_ms_</td>
+          <td class="memname">_lines_text_pos</td>
         </tr>
       </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">protected</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Lines text position. </p>
+
+</div>
+</div>
+<a id="a1c5d1c32c5cc3ab67cad497317aace48" name="a1c5d1c32c5cc3ab67cad497317aace48"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1c5d1c32c5cc3ab67cad497317aace48">&#9670;&#160;</a></span>_logo</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">_logo</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">protected</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Game logo Surface (scaled). </p>
+
+</div>
+</div>
+<a id="a28ffeee28c580ec1e2545514418a4a07" name="a28ffeee28c580ec1e2545514418a4a07"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a28ffeee28c580ec1e2545514418a4a07">&#9670;&#160;</a></span>_next_piece_text_surface</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">_next_piece_text_surface</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">protected</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Surface for the next tile in queue text. </p>
+
+</div>
+</div>
+<a id="aab804f95485760119e7e78ea6d6b506e" name="aab804f95485760119e7e78ea6d6b506e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aab804f95485760119e7e78ea6d6b506e">&#9670;&#160;</a></span>_pause_info_text_surface</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">_pause_info_text_surface</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">protected</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Surface for pause information text. </p>
+
+</div>
+</div>
+<a id="a6a44eb1ba2904e74505b11a874f1186a" name="a6a44eb1ba2904e74505b11a874f1186a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6a44eb1ba2904e74505b11a874f1186a">&#9670;&#160;</a></span>_paused_state_callback</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">_paused_state_callback</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">protected</span></span>  </td>
+  </tr>
+</table>
 </div><div class="memdoc">
 
 </div>
 </div>
-<a id="a7c706eff32a9011a9ef2708e1871bcf5" name="a7c706eff32a9011a9ef2708e1871bcf5"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a7c706eff32a9011a9ef2708e1871bcf5">&#9670;&#160;</a></span>game_window_</h2>
+<a id="a48ea8852bcfd92aab7f438d6c8559ef5" name="a48ea8852bcfd92aab7f438d6c8559ef5"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a48ea8852bcfd92aab7f438d6c8559ef5">&#9670;&#160;</a></span>_play_sfx_callback</h2>
 
 <div class="memitem">
 <div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">game_window_</td>
+          <td class="memname">_play_sfx_callback</td>
         </tr>
       </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">protected</span></span>  </td>
+  </tr>
+</table>
 </div><div class="memdoc">
 
 </div>
 </div>
-<a id="afd81d1971a5e73d7640d11502bb58bf0" name="afd81d1971a5e73d7640d11502bb58bf0"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#afd81d1971a5e73d7640d11502bb58bf0">&#9670;&#160;</a></span>gravity_tick_ev_</h2>
+<a id="ad11fe08b3a4e75a59f4d2d37d7253193" name="ad11fe08b3a4e75a59f4d2d37d7253193"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad11fe08b3a4e75a59f4d2d37d7253193">&#9670;&#160;</a></span>_resume_button</h2>
 
 <div class="memitem">
 <div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">gravity_tick_ev_</td>
+          <td class="memname">_resume_button</td>
         </tr>
       </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">protected</span></span>  </td>
+  </tr>
+</table>
 </div><div class="memdoc">
+
+<p>Resume button (shown in pause menu). </p>
 
 </div>
 </div>
-<a id="a38e94adaaba84e381799d34a7686e4da" name="a38e94adaaba84e381799d34a7686e4da"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a38e94adaaba84e381799d34a7686e4da">&#9670;&#160;</a></span>icon_</h2>
+<a id="a9d95a8233a5b873fd66dcc2d277f1f81" name="a9d95a8233a5b873fd66dcc2d277f1f81"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a9d95a8233a5b873fd66dcc2d277f1f81">&#9670;&#160;</a></span>_rotation_sfx</h2>
 
 <div class="memitem">
 <div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">icon_</td>
+          <td class="memname">_rotation_sfx</td>
         </tr>
       </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">protected</span></span>  </td>
+  </tr>
+</table>
 </div><div class="memdoc">
+
+<p>Rotation sound effect. </p>
 
 </div>
 </div>
-<a id="aba80117e2092fd3eadeb693842b14d16" name="aba80117e2092fd3eadeb693842b14d16"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aba80117e2092fd3eadeb693842b14d16">&#9670;&#160;</a></span>level_text_pos_</h2>
+<a id="a75cf898f5e1825ab1b7af38bfee5d245" name="a75cf898f5e1825ab1b7af38bfee5d245"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a75cf898f5e1825ab1b7af38bfee5d245">&#9670;&#160;</a></span>_single_sfx</h2>
 
 <div class="memitem">
 <div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">level_text_pos_</td>
+          <td class="memname">_single_sfx</td>
         </tr>
       </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">protected</span></span>  </td>
+  </tr>
+</table>
 </div><div class="memdoc">
+
+<p>Single line clear sound effect. </p>
 
 </div>
 </div>
-<a id="ac45a650cdd7d46a9ff5a0f22e2a93f6b" name="ac45a650cdd7d46a9ff5a0f22e2a93f6b"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ac45a650cdd7d46a9ff5a0f22e2a93f6b">&#9670;&#160;</a></span>level_up_callback</h2>
+<a id="a1534b7f857467e8168eb55430ce82960" name="a1534b7f857467e8168eb55430ce82960"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1534b7f857467e8168eb55430ce82960">&#9670;&#160;</a></span>_soft_drop_ev</h2>
 
 <div class="memitem">
 <div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">level_up_callback</td>
+          <td class="memname">_soft_drop_ev</td>
         </tr>
       </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">protected</span></span>  </td>
+  </tr>
+</table>
 </div><div class="memdoc">
+
+<p>Event to detect if tile can soft drop, triggered at regular time intervals. </p>
 
 </div>
 </div>
-<a id="a666e8ce5f726b3c2ed8137fab5a1b34c" name="a666e8ce5f726b3c2ed8137fab5a1b34c"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a666e8ce5f726b3c2ed8137fab5a1b34c">&#9670;&#160;</a></span>lines_text_pos_</h2>
+<a id="a897aacc64007ca0bdb26b8778386fdb2" name="a897aacc64007ca0bdb26b8778386fdb2"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a897aacc64007ca0bdb26b8778386fdb2">&#9670;&#160;</a></span>_tetris_sfx</h2>
 
 <div class="memitem">
 <div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">lines_text_pos_</td>
+          <td class="memname">_tetris_sfx</td>
         </tr>
       </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">protected</span></span>  </td>
+  </tr>
+</table>
 </div><div class="memdoc">
+
+<p>Tetris (4 lines) clear sound effect. </p>
 
 </div>
 </div>
-<a id="a2e6a6d12730e8432156397507465bf0b" name="a2e6a6d12730e8432156397507465bf0b"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a2e6a6d12730e8432156397507465bf0b">&#9670;&#160;</a></span>logo_</h2>
+<a id="ac45bd35d6ba857c41e5d5b58e9d48be0" name="ac45bd35d6ba857c41e5d5b58e9d48be0"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac45bd35d6ba857c41e5d5b58e9d48be0">&#9670;&#160;</a></span>_text_font_1</h2>
 
 <div class="memitem">
 <div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">logo_</td>
+          <td class="memname">_text_font_1</td>
         </tr>
       </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">protected</span></span>  </td>
+  </tr>
+</table>
 </div><div class="memdoc">
+
+<p>First font object for rendering text. </p>
 
 </div>
 </div>
-<a id="ad080585ea504e912a19f7879a53f1436" name="ad080585ea504e912a19f7879a53f1436"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ad080585ea504e912a19f7879a53f1436">&#9670;&#160;</a></span>next_piece_text_surface_</h2>
+<a id="a149f7ff31af9c6f0de35743d62ad34a6" name="a149f7ff31af9c6f0de35743d62ad34a6"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a149f7ff31af9c6f0de35743d62ad34a6">&#9670;&#160;</a></span>_text_font_2</h2>
 
 <div class="memitem">
 <div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">next_piece_text_surface_</td>
+          <td class="memname">_text_font_2</td>
         </tr>
       </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">protected</span></span>  </td>
+  </tr>
+</table>
 </div><div class="memdoc">
+
+<p>Second font object for rendering text. </p>
 
 </div>
 </div>
-<a id="aef1cd2b20b06deb3cf2505a401156904" name="aef1cd2b20b06deb3cf2505a401156904"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aef1cd2b20b06deb3cf2505a401156904">&#9670;&#160;</a></span>pause_info_text_surface_</h2>
+<a id="ac44e8749836b7c2cf875806297e1a1b1" name="ac44e8749836b7c2cf875806297e1a1b1"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac44e8749836b7c2cf875806297e1a1b1">&#9670;&#160;</a></span>_tile</h2>
 
 <div class="memitem">
 <div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">pause_info_text_surface_</td>
+          <td class="memname">_tile</td>
         </tr>
       </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">protected</span></span>  </td>
+  </tr>
+</table>
 </div><div class="memdoc">
+
+<p>Current tetromino tile. </p>
 
 </div>
 </div>
-<a id="a559bf409229494374f3a88fcda0ede6f" name="a559bf409229494374f3a88fcda0ede6f"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a559bf409229494374f3a88fcda0ede6f">&#9670;&#160;</a></span>paused_state_callback</h2>
+<a id="ad2e815e2aa4a0320674b1116c56821c2" name="ad2e815e2aa4a0320674b1116c56821c2"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad2e815e2aa4a0320674b1116c56821c2">&#9670;&#160;</a></span>_transparent_overlay</h2>
 
 <div class="memitem">
 <div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">paused_state_callback</td>
+          <td class="memname">_transparent_overlay</td>
         </tr>
       </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">protected</span></span>  </td>
+  </tr>
+</table>
 </div><div class="memdoc">
+
+<p>Transparent overlay surface for pause menu. </p>
 
 </div>
 </div>
-<a id="ac1cbbe8336d39e2bb492c1fffe16d9f3" name="ac1cbbe8336d39e2bb492c1fffe16d9f3"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ac1cbbe8336d39e2bb492c1fffe16d9f3">&#9670;&#160;</a></span>play_sfx_callback</h2>
+<a id="a749c2d943d8e9fb3bfc936354dbca0c2" name="a749c2d943d8e9fb3bfc936354dbca0c2"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a749c2d943d8e9fb3bfc936354dbca0c2">&#9670;&#160;</a></span>_triple_sfx</h2>
 
 <div class="memitem">
 <div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">play_sfx_callback</td>
+          <td class="memname">_triple_sfx</td>
         </tr>
       </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">protected</span></span>  </td>
+  </tr>
+</table>
 </div><div class="memdoc">
 
-</div>
-</div>
-<a id="ae962bb5eed9cb9775df352a94398e3b0" name="ae962bb5eed9cb9775df352a94398e3b0"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ae962bb5eed9cb9775df352a94398e3b0">&#9670;&#160;</a></span>resume_button_</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">resume_button_</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-</div>
-</div>
-<a id="a42d53802d7eaaea0dea964a5eee16856" name="a42d53802d7eaaea0dea964a5eee16856"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a42d53802d7eaaea0dea964a5eee16856">&#9670;&#160;</a></span>rotation_sfx_</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">rotation_sfx_</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-</div>
-</div>
-<a id="a67b0787ef1ed6f966b6426429ac9886a" name="a67b0787ef1ed6f966b6426429ac9886a"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a67b0787ef1ed6f966b6426429ac9886a">&#9670;&#160;</a></span>single_sfx_</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">single_sfx_</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-</div>
-</div>
-<a id="a17e209d17708120f32389ce0d33a4e26" name="a17e209d17708120f32389ce0d33a4e26"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a17e209d17708120f32389ce0d33a4e26">&#9670;&#160;</a></span>soft_drop_ev_</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">soft_drop_ev_</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
+<p>Triple line clear sound effect. </p>
 
 </div>
 </div>
@@ -976,89 +1459,7 @@ Parameters</h2>
       </table>
 </div><div class="memdoc">
 
-</div>
-</div>
-<a id="a34b5b410f77ccc2b0134e3560ec32e34" name="a34b5b410f77ccc2b0134e3560ec32e34"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a34b5b410f77ccc2b0134e3560ec32e34">&#9670;&#160;</a></span>tetris_sfx_</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">tetris_sfx_</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-</div>
-</div>
-<a id="af52930bac2f313b58a09145c2df0bc78" name="af52930bac2f313b58a09145c2df0bc78"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#af52930bac2f313b58a09145c2df0bc78">&#9670;&#160;</a></span>text_font_1_</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">text_font_1_</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-</div>
-</div>
-<a id="a31802f0af516d7b257156dd0233cea52" name="a31802f0af516d7b257156dd0233cea52"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a31802f0af516d7b257156dd0233cea52">&#9670;&#160;</a></span>text_font_2_</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">text_font_2_</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-</div>
-</div>
-<a id="a08b935bf99a56d851fdd2a37a4faee92" name="a08b935bf99a56d851fdd2a37a4faee92"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a08b935bf99a56d851fdd2a37a4faee92">&#9670;&#160;</a></span>tile_</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">tile_</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-</div>
-</div>
-<a id="a47f08ecc994fe0badc7d5d30ced51877" name="a47f08ecc994fe0badc7d5d30ced51877"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a47f08ecc994fe0badc7d5d30ced51877">&#9670;&#160;</a></span>transparent_overlay_</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">transparent_overlay_</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-</div>
-</div>
-<a id="ae64e3865398ae9135a4584bd5d68d05c" name="ae64e3865398ae9135a4584bd5d68d05c"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ae64e3865398ae9135a4584bd5d68d05c">&#9670;&#160;</a></span>triple_sfx_</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">triple_sfx_</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
+<p>Current game state. </p>
 
 </div>
 </div>

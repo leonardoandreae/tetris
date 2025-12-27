@@ -15,10 +15,11 @@ class Tile:
     """
 
 
-    def __init__(self, game_state: GameState) -> None:
+    def __init__(self, game_state: 'GameState') -> None:
         """Initializes the Tile object.
         
         @param game_state The current game state.
+        @returns None.
 
         """
 
@@ -30,15 +31,17 @@ class Tile:
         self._tile_queue = Queue(maxsize=par.TILE_QUEUE_SIZE)
         for _ in range(par.TILE_QUEUE_SIZE):
             self._tile_queue.put(Tile.get_random_tile_type())
-        self.reset(game_state)
+        self._reset(game_state)
 
 
-    def reset(self, game_state: GameState):
+    def _reset(self, game_state: GameState):
         """Resets the tile to the next type in the queue and initializes its position and state.
 
         @param game_state The current game state.
+        @returns None.
 
         """
+        
         ## Current tile type.
         self._type = self._tile_queue.queue[0]
         ## Next tile type.
@@ -54,7 +57,7 @@ class Tile:
         ## Flag indicating if the tile can perform a soft drop this frame.
         self.can_soft_drop = False
         ## Current position of the tile (top-left corner) in pixels.
-        self.position = self.get_initial_position()
+        self.position = self._get_initial_position()
         
         # Check for contact and if occurred end the game
         game_state.contact_detection(self)
@@ -67,6 +70,7 @@ class Tile:
 
         @param event The name of the event to subscribe to.
         @param callback The callback function to be called when the event is emitted.
+        @returns None.
 
         """
 
@@ -75,11 +79,12 @@ class Tile:
         self._listeners[event].append(callback)
 
 
-    def emit(self, event: str, data: any = None) -> None:
+    def _emit(self, event: str, data: any = None) -> None:
         """Emit an event and notify listeners.
 
         @param event The name of the event to emit.
         @param data Data to pass to the listeners.
+        @returns None.
 
         """
 
@@ -91,7 +96,7 @@ class Tile:
     @staticmethod
     def get_random_tile_type() -> str:
         """
-        @return A random tile type from the available tile shapes.
+        @returns A random tile type from the available tile shapes.
         
         """
 
@@ -102,7 +107,7 @@ class Tile:
 
     def get_current_type(self) -> str:
         """
-        @return The current tile type.
+        @returns The current tile type.
         
         """
 
@@ -111,7 +116,7 @@ class Tile:
 
     def get_next_type(self) -> str:
         """
-        @return The next tile type in the queue.
+        @returns The next tile type in the queue.
         
         """
 
@@ -120,17 +125,18 @@ class Tile:
 
     def get_cfg_matrix(self) -> list:
         """
-        @return The current configuration matrix of the tile.
+        @returns The current configuration matrix of the tile.
         
         """
 
         return self._configuration_matrix
     
     
-    def rotate(self, direction: str) -> None:
+    def _rotate(self, direction: str) -> None:
         """Rotates the tile in the specified direction.
 
         @param direction The rotation direction ('CW' for clockwise, 'CCW' for counter-clockwise).
+        @returns None.
 
         """
 
@@ -143,9 +149,9 @@ class Tile:
         self._configuration_matrix = par.TILE_SHAPES[self._type][self._configuration_idx]
 
 
-    def get_initial_position(self) -> pyg.Vector2:
+    def _get_initial_position(self) -> pyg.Vector2:
         """
-        @return The initial position of the tile based on its type.
+        @returns The initial position of the tile based on its type.
 
         """
 
@@ -158,12 +164,12 @@ class Tile:
         return pos
 
 
-    def is_out_of_bounds(self, x: int, y: int) -> bool:
+    def _is_out_of_bounds(self, x: int, y: int) -> bool:
         """Checks if the given (x, y) position is out of the game board bounds.
 
         @param x The x coordinate to check.
         @param y The y coordinate to check.
-        @return True if the position is out of bounds, False otherwise.
+        @returns True if the position is out of bounds, False otherwise.
 
         """
 
@@ -181,7 +187,7 @@ class Tile:
         or the bottom of the board.
 
         @param game_state The current game state.
-        @return The smallest drop distance in number of cells.
+        @returns The smallest drop distance in number of cells.
 
         """
          
@@ -202,11 +208,11 @@ class Tile:
         return min(drop_distances)
 
 
-    def is_position_permitted(self, game_state: GameState) -> bool:
+    def _is_position_permitted(self, game_state: GameState) -> bool:
         """Checks if the current tile position is permitted (i.e., within bounds and not overlapping with the board).
-        
+
         @param game_state The current game state.
-        @return True if the position is permitted, False otherwise.
+        @returns True if the position is permitted, False otherwise.
 
         """
 
@@ -215,9 +221,9 @@ class Tile:
                 # Check if the tile block is out of bounds
                 block_pos_x = self.position.x + par.GRID_ELEM_SIZE * col
                 block_pos_y = self.position.x + par.GRID_ELEM_SIZE * row
-                if self._configuration_matrix[row][col] == 1 and self.is_out_of_bounds(block_pos_x, block_pos_y):
+                if self._configuration_matrix[row][col] == 1 and self._is_out_of_bounds(block_pos_x, block_pos_y):
                     return False
-                elif self._configuration_matrix[row][col] == 1 and (not self.is_out_of_bounds(block_pos_x, block_pos_y)):
+                elif self._configuration_matrix[row][col] == 1 and (not self._is_out_of_bounds(block_pos_x, block_pos_y)):
                     # Check if the tile block is overlapping the board
                     row_ = int((self.position.y - par.GRID_TLC_y) / par.GRID_ELEM_SIZE) + row
                     col_ = int((self.position.x - par.GRID_TLC_x) / par.GRID_ELEM_SIZE) + col
@@ -228,18 +234,18 @@ class Tile:
         return True
     
 
-    def rotation_allowed_check(self, game_state: GameState, step: int) -> bool:
+    def _rotation_allowed_check(self, game_state: GameState, step: int) -> bool:
         """Checks if rotation is allowed following the wall kick rules.
 
         @param game_state The current game state.
         @param step The current step in the wall kick check process.
-        @return True if rotation is allowed, False otherwise.
+        @returns True if rotation is allowed, False otherwise.
 
         """
 
         if step == 1:
             # Attempt rotating and check if new position is ok
-            self.rotate('CCW')
+            self._rotate('CCW')
         elif step == 2:
             # Translate to the right and try again
             self.position.x += par.GRID_ELEM_SIZE
@@ -248,12 +254,12 @@ class Tile:
             self.position.x -= 2 * par.GRID_ELEM_SIZE
         else: 
             pass
-        if self.is_position_permitted(game_state):
-            self.rotate('CW')
+        if self._is_position_permitted(game_state):
+            self._rotate('CW')
             return True
         else:
             if self._type == "I":
-                self.rotate('CW')
+                self._rotate('CW')
                 return False
             else:
                 if step == 3:
@@ -261,13 +267,14 @@ class Tile:
                     self.position.x += 2 * par.GRID_ELEM_SIZE
                     return False
                 else:
-                    self.rotation_allowed_check(game_state, step + 1)
+                    self._rotation_allowed_check(game_state, step + 1)
                     
 
     def update_position(self, game_state: GameState) -> None:
         """Updates the tile position based on the current game state and user input.
 
         @param game_state The current game state.
+        @returns None.
         
         """
 
@@ -294,9 +301,9 @@ class Tile:
             game_state.lateral_movement_disabled = True
             
         # Update rotation state
-        if (game_state.keys_pressed[par.ROTATE] and self.rotation_allowed_check(game_state, step=1) and (not game_state.rotation_disabled)):
-            self.rotate('CCW')
-            self.emit("rotation")
+        if (game_state.keys_pressed[par.ROTATE] and self._rotation_allowed_check(game_state, step=1) and (not game_state.rotation_disabled)):
+            self._rotate('CCW')
+            self._emit("rotation")
             game_state.rotation_disabled = True
         
         # Update vertical position
@@ -322,5 +329,5 @@ class Tile:
                 self._tile_queue.get()
                 # ...and add a new one
                 self._tile_queue.put(Tile.get_random_tile_type())
-                self.reset(game_state) 
+                self._reset(game_state) 
             self._down_contact_timer_ms += game_state.get_clock().get_time()           
