@@ -7,7 +7,6 @@ if TYPE_CHECKING:
     from tile import Tile # type-only import for annotations / linters
 
 
-
 class GameState:
     """Class representing the current game state.
 
