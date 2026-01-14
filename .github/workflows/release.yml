@@ -93,6 +93,7 @@ jobs:
             --onefile \
             --clean \
             --name tetris \
+            --paths src \
             --add-data "assets${{ matrix.data_sep }}assets" \
             app.py
 
