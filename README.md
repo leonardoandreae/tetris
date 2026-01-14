@@ -1,24 +1,28 @@
-# Tetris (minimal Python implementation)
+# Tetris
 
-A small Tetris implementation written in Python (3.12) using [pygame](https://www.pygame.org). This repository contains the game logic, rendering, and configuration used to run a playable Tetris game.
+This repository contains an implementation of the game Tetris written in Python (3.12) using [pygame](https://www.pygame.org).
 
-## Layout / key files
+## File Structure
 
 - `app.py` — launcher and main app entry point. Initializes the game interface and runs the game loop.
 - `src/` — Python source files:
-	- `interface.py` — Rendering, input handling, UI (pause menu, stats display) and audio.
-	- `state.py` — Game state: board occupancy, scoring, level progression, contact detection and event dispatching.
+	- `interface.py` — Rendering, input and event handling, UI and audio.
+	- `state.py` — Board occupancy, scoring, level progression, contact detection.
 	- `tile.py` — Tetromino logic: shapes, rotation, movement, collision checks, and queueing.
 	- `button.py` — Simple UI button helper used in pause/resume menu.
 	- `parameters.py` — Centralized configuration constants (colors, sizes, key bindings, timing constants etc.).
 
-## How it works (high level)
+## How the Code Works (High Level)
 
-- The `GameInterface` in `src/interface.py` creates a `GameState` and a `Tile` manager. It handles pygame events, draws the playfield and UI, and controls timing (tick/soft-drop events).
-- `GameState` stores the board occupancy matrix, handles collision/contact detection, cleared-row deletion, scoring rules, and emits events (e.g., `hard_drop`, `game_paused`).
-- `Tile` represents the active tetromino, reads shape matrices from `parameters.py`, performs rotation/wall-kick checks, computes drop distances, and notifies `GameState` when it locks.
+The `GameInterface` (`src/interface.py`) class acts as the central components manager and provides functions to run the game loop, which renders the game scene every frame while also playing music and sound effects. 
 
-## Run (development)
+When an object of `GameInterface` is created, instances of `Tile` (`src/tile.py`) and `GameState` (`src/state.py`)  and `Button` (`src/button.py`) are also automatically generated. 
+
+`GameState` tracks the current game status, e.g. how the board is occupied, what is the current level, score and number of completed lines etc., while `Tile` represents the currently falling tetromino and handles its position, movement, rotation, collisions and queueing. The observer design pattern is used to handle the communication from these classes to `GameInterface` (e.g. for sound effects timing). The game can also be paused and `Button` is a generic helper class needed to define its logic and status.
+
+## Running the Game
+
+### Using a Python Virtual Environment
 
 1. Create a Python 3 virtual environment and install dependencies (pygame):
 
@@ -28,11 +32,19 @@ source .venv/bin/activate
 pip install -U pip pygame
 ```
 
-2. Run the game:
+2. Run the app:
 
 ```bash
 python3 app.py
 ```
+
+### Directly From Source Files
+
+TODO
+
+### Download and Run the Latest Release
+
+TODO
 
 Controls are mapped in `src/parameters.py` (default: arrow keys for movement/rotation, SPACE for hard drop, ESC to pause).
 
@@ -51,21 +63,23 @@ Controls are mapped in `src/parameters.py` (default: arrow keys for movement/rot
 python3 -m py_compile app.py src/*.py
 ```
 
-## Doxygen
+## Code Documentation (Doxygen)
 
-This repository includes a `doxygen/Doxyfile`. To regenerate the HTML documentation install Doxygen and locally run:
+This repository includes a `Doxyfile`. To regenerate the HTML documentation install Doxygen and locally run:
 
 ```bash
 doxygen doxygen/Doxyfile
 ```
 
-Generated HTML is written to `doxygen/html/`. To view the documentation open the `index.html` file using a browser.
+Generated HTML is written to `doxygen/html/`. To view the documentation open the `index.html` file using a browser of your choice.
 
 ## References
 
 - Pygame documentation: https://www.pygame.org/docs/
+- Official Tetris Website: https://tetris.com/
+- Tetris Wiki: https://tetris.wiki/Tetris.wiki
 
-## Quick roadmap
+## Quick Roadmap
 
 - Add a GitHub action that makes exectutables for Windows and Linux
 - Make the first official release
