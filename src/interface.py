@@ -23,7 +23,7 @@ class GameInterface:
         
         ## pygame display Surface for the main game window.
         self._game_window = pyg.display.set_mode((par.GAME_WINDOW_WIDTH, par.GAME_WINDOW_HEIGHT))
-        pyg.display.set_caption("Tetris")
+        pyg.display.set_caption(f"Tetris v{par.APP_VERSION}")
         
         
         ## Game window icon Surface.

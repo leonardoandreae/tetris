@@ -1,0 +1,160 @@
+name: Build & Release Tetris
+
+on:
+  release:
+    types: [created]
+
+permissions:
+  contents: write
+
+jobs:
+  build:
+    name: Build executables
+    runs-on: ${{ matrix.os }}
+
+    strategy:
+      matrix:
+        include:
+          - os: ubuntu-latest
+            os_name: linux
+            exe_suffix: ""
+            data_sep: ":"
+          - os: windows-latest
+            os_name: windows
+            exe_suffix: ".exe"
+            data_sep: ";"
+          - os: macos-latest
+            os_name: macos
+            exe_suffix: ""
+            data_sep: ":"
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python 3.12
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Extract version from release tag
+        id: tag_version
+        shell: bash
+        run: |
+          TAG="${GITHUB_REF##*/}"
+          VERSION="${TAG#v}"
+          echo "version=$VERSION" >> $GITHUB_OUTPUT
+
+      - name: Extract version from src/parameters.py
+        id: file_version
+        shell: bash
+        run: |
+          FILE_VERSION=$(python - << 'EOF'
+          import re
+          with open("src/parameters.py") as f:
+              m = re.search(r'APP_VERSION\s*=\s*"([^"]+)"', f.read())
+              if not m:
+                  raise SystemExit("APP_VERSION not found in src/parameters.py")
+              print(m.group(1))
+          EOF
+          )
+          echo "version=$FILE_VERSION" >> $GITHUB_OUTPUT
+
+      - name: Verify semantic versioning
+        run: |
+          if ! [[ "${{ steps.file_version.outputs.version }}" =~ ^[0-9]+\.[0-9]+\.[0-9]+$ ]]; then
+            echo "APP_VERSION is not valid semantic version (X.Y.Z)"
+            exit 1
+          fi
+
+      - name: Verify tag and code version match
+        run: |
+          if [ "${{ steps.tag_version.outputs.version }}" != "${{ steps.file_version.outputs.version }}" ]; then
+            echo "Version mismatch!"
+            echo "Release tag: v${{ steps.tag_version.outputs.version }}"
+            echo "APP_VERSION:  ${{ steps.file_version.outputs.version }}"
+            exit 1
+          fi
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install pygame pyinstaller
+
+      - name: Build executable
+        run: |
+          pyinstaller \
+            --onefile \
+            --clean \
+            --name tetris \
+            --add-data "assets${{ matrix.data_sep }}assets" \
+            app.py
+
+      - name: Package artifact
+        run: |
+          mkdir release
+          mv dist/tetris${{ matrix.exe_suffix }} \
+             release/tetris-v${{ steps.file_version.outputs.version }}-${{ matrix.os_name }}${{ matrix.exe_suffix }}
+
+      - name: Upload release asset
+        uses: softprops/action-gh-release@v1
+        with:
+          files: release/*
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+  release-notes:
+    name: Generate release notes
+    runs-on: ubuntu-latest
+    needs: build
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Fetch tags
+        run: git fetch --tags
+
+      - name: Collect commits since previous release
+        run: |
+          PREV_TAG=$(git tag --sort=-creatordate | sed -n '2p')
+          if [ -z "$PREV_TAG" ]; then
+            git log --oneline > commits.txt
+          else
+            git log ${PREV_TAG}..HEAD --oneline > commits.txt
+          fi
+
+      - name: Generate release summary (AI optional)
+        env:
+          OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
+        run: |
+          if [ -z "$OPENAI_API_KEY" ]; then
+            echo "## Changes" > summary.md
+            sed 's/^/- /' commits.txt >> summary.md
+          else
+            COMMITS=$(sed 's/"/\\"/g' commits.txt)
+            curl https://api.openai.com/v1/chat/completions \
+              -H "Authorization: Bearer $OPENAI_API_KEY" \
+              -H "Content-Type: application/json" \
+              -d "{
+                \"model\": \"gpt-4.1-mini\",
+                \"messages\": [
+                  {\"role\": \"system\", \"content\": \"Write concise release notes for a pygame Tetris game.\"},
+                  {\"role\": \"user\", \"content\": \"Summarize these commits:\\n$COMMITS\"}
+                ]
+              }" | jq -r '.choices[0].message.content' > summary.md
+          fi
+
+      - name: Update GitHub release notes
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const fs = require('fs');
+            const body = fs.readFileSync('summary.md', 'utf8');
+
+            await github.rest.repos.updateRelease({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              release_id: context.payload.release.id,
+              body
+            });

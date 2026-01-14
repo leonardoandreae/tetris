@@ -1,5 +1,8 @@
 import pygame as pyg
 
+## Application version.
+APP_VERSION = "1.0.0"
+
 # Miscellaneous
 
 ## Target frames per second used by the main loop / clock tick.
