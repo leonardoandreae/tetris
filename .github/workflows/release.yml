@@ -31,6 +31,8 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
 
       - name: Set up Python 3.12
         uses: actions/setup-python@v5
@@ -116,6 +118,8 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
 
       - name: Fetch tags
         shell: bash
@@ -124,10 +128,13 @@ jobs:
       - name: Collect commits since previous release
         shell: bash
         run: |
-          PREV_TAG=$(git tag --sort=-creatordate | sed -n '2p')
-          if [ -z "$PREV_TAG" ]; then
+          TAG_COUNT=$(git tag | wc -l)
+
+          if [ "$TAG_COUNT" -le 1 ]; then
+            echo "First release detected – including all commits"
             git log --oneline > commits.txt
           else
+            PREV_TAG=$(git tag --sort=-creatordate | sed -n '2p')
             git log "${PREV_TAG}..HEAD" --oneline > commits.txt
           fi
 
