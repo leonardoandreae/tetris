@@ -43,7 +43,7 @@ jobs:
         run: |
           TAG="${GITHUB_REF##*/}"
           VERSION="${TAG#v}"
-          echo "version=$VERSION" >> $GITHUB_OUTPUT
+          echo "version=$VERSION" >> "$GITHUB_OUTPUT"
 
       - name: Extract version from src/parameters.py
         id: file_version
@@ -58,18 +58,20 @@ jobs:
               print(m.group(1))
           EOF
           )
-          echo "version=$FILE_VERSION" >> $GITHUB_OUTPUT
+          echo "version=$FILE_VERSION" >> "$GITHUB_OUTPUT"
 
       - name: Verify semantic versioning
+        shell: bash
         run: |
-          if ! [[ "${{ steps.file_version.outputs.version }}" =~ ^[0-9]+\.[0-9]+\.[0-9]+$ ]]; then
+          if [[ ! "${{ steps.file_version.outputs.version }}" =~ ^[0-9]+\.[0-9]+\.[0-9]+$ ]]; then
             echo "APP_VERSION is not valid semantic version (X.Y.Z)"
             exit 1
           fi
 
       - name: Verify tag and code version match
+        shell: bash
         run: |
-          if [ "${{ steps.tag_version.outputs.version }}" != "${{ steps.file_version.outputs.version }}" ]; then
+          if [[ "${{ steps.tag_version.outputs.version }}" != "${{ steps.file_version.outputs.version }}" ]]; then
             echo "Version mismatch!"
             echo "Release tag: v${{ steps.tag_version.outputs.version }}"
             echo "APP_VERSION:  ${{ steps.file_version.outputs.version }}"
@@ -77,11 +79,13 @@ jobs:
           fi
 
       - name: Install dependencies
+        shell: bash
         run: |
           python -m pip install --upgrade pip
           pip install pygame pyinstaller
 
       - name: Build executable
+        shell: bash
         run: |
           pyinstaller \
             --onefile \
@@ -91,8 +95,9 @@ jobs:
             app.py
 
       - name: Package artifact
+        shell: bash
         run: |
-          mkdir release
+          mkdir -p release
           mv dist/tetris${{ matrix.exe_suffix }} \
              release/tetris-v${{ steps.file_version.outputs.version }}-${{ matrix.os_name }}${{ matrix.exe_suffix }}
 
@@ -113,18 +118,21 @@ jobs:
         uses: actions/checkout@v4
 
       - name: Fetch tags
+        shell: bash
         run: git fetch --tags
 
       - name: Collect commits since previous release
+        shell: bash
         run: |
           PREV_TAG=$(git tag --sort=-creatordate | sed -n '2p')
           if [ -z "$PREV_TAG" ]; then
             git log --oneline > commits.txt
           else
-            git log ${PREV_TAG}..HEAD --oneline > commits.txt
+            git log "${PREV_TAG}..HEAD" --oneline > commits.txt
           fi
 
       - name: Generate release summary (AI optional)
+        shell: bash
         env:
           OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
         run: |
