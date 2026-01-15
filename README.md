@@ -76,7 +76,7 @@ The generated HTML is written to `doxygen/html/`. To view the documentation open
 
 ## License & Copyright
 
-© <CURRENT_YEAR> Leonardo Andreae. All rights reserved.
+© 2026 Leonardo Andreae. All rights reserved.
 
 This project is licensed under the [MIT LICENSE](https://opensource.org/licenses/MIT), which means you are free to use, modify, and distribute the software, provided that the original copyright notice and license are included in all copies or substantial portions of the software.
 
