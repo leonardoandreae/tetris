@@ -73,3 +73,12 @@ The generated HTML is written to `doxygen/html/`. To view the documentation open
 - Add some new features to the game like controller support, leaderboard, controls menu, etc.
 - Add controls viewing/changing menu
 - Add leaderboard
+
+## License & Copyright
+
+© <CURRENT_YEAR> Leonardo Andreae. All rights reserved.
+
+This project is licensed under the [MIT LICENSE](https://opensource.org/licenses/MIT)), which means you are free to use, modify, and distribute the software, provided that the original copyright notice and license are included in all copies or substantial portions of the software.
+
+You may NOT claim this work as your own or redistribute it without proper attribution.
+
