@@ -95,6 +95,9 @@ jobs:
             --name tetris \
             --paths src \
             --add-data "assets${{ matrix.data_sep }}assets" \
+            --hidden-import pygame.freetype \
+            --hidden-import pygame.font \
+            --collect-submodules pygame \
             app.py
 
       - name: Package artifact
