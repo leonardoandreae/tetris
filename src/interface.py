@@ -3,6 +3,7 @@ import parameters as par
 from tile import *
 from state import *
 from button import *
+from utils import get_resource_path
 
 class GameInterface:
     """Main interface to the game.
@@ -27,12 +28,12 @@ class GameInterface:
         
         
         ## Game window icon Surface.
-        self._icon = pyg.image.load('assets/tetris_icon.png') # https://www.freepik.com/icons/tetris Icon by Freepik
+        self._icon = pyg.image.load(get_resource_path('assets/tetris_icon.png')) # https://www.freepik.com/icons/tetris Icon by Freepik
         pyg.display.set_icon(self._icon)
         
         
         ## Game logo Surface (scaled).
-        self._logo = pyg.image.load('assets/tetris_logo.png')
+        self._logo = pyg.image.load(get_resource_path('assets/tetris_logo.png'))
         self._logo = pyg.transform.smoothscale_by(self._logo, par.LOGO_SCALE_FACTOR)
         
         
@@ -44,18 +45,18 @@ class GameInterface:
         
         # Set up music and sfx
 
-        pyg.mixer.music.load('assets/tetris-theme.mp3')
+        pyg.mixer.music.load(get_resource_path('assets/tetris-theme.mp3'))
         ## Rotation sound effect
-        self._rotation_sfx = pyg.mixer.Sound('assets/rotation.mp3')
+        self._rotation_sfx = pyg.mixer.Sound(get_resource_path('assets/rotation.mp3'))
         ## Single line clear sound effect
-        self._single_sfx = pyg.mixer.Sound('assets/single.mp3')
+        self._single_sfx = pyg.mixer.Sound(get_resource_path('assets/single.mp3'))
         ## Double line clear sound effect
-        self._double_sfx = pyg.mixer.Sound('assets/double.mp3')
+        self._double_sfx = pyg.mixer.Sound(get_resource_path('assets/double.mp3'))
         ## Triple line clear sound effect
-        self._triple_sfx = pyg.mixer.Sound('assets/triple.mp3')
+        self._triple_sfx = pyg.mixer.Sound(get_resource_path('assets/triple.mp3'))
         ## Tetris (4 lines) clear sound effect
-        self._tetris_sfx = pyg.mixer.Sound('assets/tetris.mp3')
-        
+        self._tetris_sfx = pyg.mixer.Sound(get_resource_path('assets/tetris.mp3'))
+
         ## Current gravity/fall interval in milliseconds.
         self._fall_time_interval_ms = par.INITIAL_FALL_TIME_INTERVAL_ms
         
@@ -243,7 +244,7 @@ class GameInterface:
     def _play_main_theme(self) -> None:
         """ Plays the main theme in loop.
         
-        
+        @returns None.
         
         """
         pyg.mixer.music.play(loops=-1, start=0.0, fade_ms=0)
