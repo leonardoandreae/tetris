@@ -3,7 +3,7 @@
 
 This repository contains an implementation of the game Tetris written in Python (3.12) using [pygame](https://www.pygame.org).
 
-## File Structure
+## Key Files
 
 - `app.py` — launcher and main app entry point. Initializes the game interface and runs the game loop.
 - `src/` — Python source files:
@@ -19,7 +19,7 @@ The `GameInterface` (`src/interface.py`) class acts as the central components ma
 
 When an object of `GameInterface` is created, instances of `Tile` (`src/tile.py`) and `GameState` (`src/state.py`)  and `Button` (`src/button.py`) are also automatically generated. 
 
-`GameState` tracks the current game status, e.g. how the board is occupied, what is the current level, score and number of completed lines etc., while `Tile` represents the currently falling tetromino and handles its position, movement, rotation, collisions and queueing. The observer design pattern is used to handle the communication from these classes to `GameInterface` (e.g. for sound effects timing). The game can also be paused and `Button` is a generic helper class needed to define its logic and status.
+`GameState` tracks the current game status, e.g. how the board is occupied, what is the current level, score and number of completed lines etc., while `Tile` represents the currently falling tetromino and handles its position, movement, rotation, collisions and queueing. The observer design pattern is used to handle the communication from these classes to `GameInterface` (e.g. for playing sound effects). The game can also be paused and `Button` is a generic helper class needed to define its logic and status.
 
 ## Running the Game
 
@@ -39,30 +39,19 @@ pip install -U pip pygame
 python3 app.py
 ```
 
-### Directly From Source Files
+### From Latest Release (Windows, MacOS and Linux)
 
-TODO
+[Latest Release Link](https://github.com/leonardoandreae/tetris/releases/latest)
 
-### Download and Run the Latest Release
+##  Controls
 
-TODO
+Controls are mapped in `src/parameters.py` and can be reconfigured if needed. By default they are as follows:
 
-Controls are mapped in `src/parameters.py` (default: arrow keys for movement/rotation, SPACE for hard drop, ESC to pause).
-
-## Notes for contributors
-
-- Docstrings follow a lightweight `@param` / `@returns` tag format used across `src/`.
-- Configuration constants live in `src/parameters.py` for easy tuning (colors, sizes, timings).
-- If you change public APIs, update docstrings and add a small test or manual verification step.
-
-## Troubleshooting
-
-- If pygame fails to import, ensure your virtualenv has pygame installed and your Python version is compatible.
-- For simple syntax checks, run:
-
-```bash
-python3 -m py_compile app.py src/*.py
-```
+- **Move Left:** ⬅️
+- **Move Right:** ➡️
+- **Rotate:** ⬆️
+- **Soft Drop:** ⬇️
+- **Hard Drop:** ⌨️ (Space)
 
 ## Code Documentation (Doxygen)
 
@@ -72,7 +61,7 @@ This repository includes a `Doxyfile`. To regenerate the HTML documentation inst
 doxygen doxygen/Doxyfile
 ```
 
-Generated HTML is written to `doxygen/html/`. To view the documentation open the `index.html` file using a browser of your choice.
+The generated HTML is written to `doxygen/html/`. To view the documentation open the `index.html` file using a browser of your choice.
 
 ## References
 
