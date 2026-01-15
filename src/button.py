@@ -1,5 +1,6 @@
 import pygame as pyg
 import parameters as par
+from utils import get_resource_path
 
 
 class Button():
@@ -22,7 +23,7 @@ class Button():
 
 		"""
 
-		text_font = pyg.freetype.SysFont(pyg.freetype.get_default_font(), font_size)
+		text_font = pyg.freetype.Font(get_resource_path("assets/fonts/DejaVuSans.ttf"), font_size)
 		## Rendered pygame Surface for the button text. Used when blitting the label.
 		self._text_surface, _ = text_font.render(text, text_color)
 		## Bounding rect of the button.
