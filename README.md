@@ -1,4 +1,5 @@
-# Tetris
+# Tetris ![Build](https://github.com/leonardoandreae/tetris/actions/workflows/release.yml/badge.svg)
+
 
 This repository contains an implementation of the game Tetris written in Python (3.12) using [pygame](https://www.pygame.org).
 
@@ -79,8 +80,7 @@ Generated HTML is written to `doxygen/html/`. To view the documentation open the
 - Official Tetris Website: https://tetris.com/
 - Tetris Wiki: https://tetris.wiki/Tetris.wiki
 
-## Quick Roadmap
-
-- Add a GitHub action that makes exectutables for Windows and Linux
-- Make the first official release
+## Project Roadmap
 - Add some new features to the game like controller support, leaderboard, controls menu, etc.
+- Add controls viewing/changing menu
+- Add leaderboard
